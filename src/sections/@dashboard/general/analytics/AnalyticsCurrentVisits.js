@@ -31,9 +31,7 @@ const ChartWrapperStyle = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-const CHART_DATA = [60, 23, 5, 13];
-
-export default function AnalyticsCurrentVisits() {
+export default function AnalyticsCurrentVisits({ props }) {
   const theme = useTheme();
 
   const chartOptions = merge(BaseOptionChart(), {
@@ -43,7 +41,7 @@ export default function AnalyticsCurrentVisits() {
       theme.palette.chart.violet[0],
       theme.palette.chart.yellow[0],
     ],
-    labels: ['Clean', 'Unrated', 'Phishing', 'Malicious'],
+    labels: props.label,
     stroke: { colors: [theme.palette.background.paper] },
     legend: { floating: true, horizontalAlign: 'center' },
     dataLabels: { enabled: true, dropShadow: { enabled: false } },
@@ -63,9 +61,9 @@ export default function AnalyticsCurrentVisits() {
 
   return (
     <Card>
-      <CardHeader title="Report Engine Percent" />
+      <CardHeader title="Result" />
       <ChartWrapperStyle dir="ltr">
-        <ReactApexChart type="pie" series={CHART_DATA} options={chartOptions} height={280} />
+        <ReactApexChart type="pie" series={props.chartData} options={chartOptions} height={280} />
       </ChartWrapperStyle>
     </Card>
   );

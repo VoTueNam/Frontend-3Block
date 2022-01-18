@@ -19,7 +19,8 @@ const ContentStyle = styled(Card)(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-export default function BankingInviteFriends() {
+export default function BankingInviteFriends({ url = 'google.com', title = 'google' }) {
+  url = url.slice(7, -1);
   return (
     <div>
       <Image
@@ -27,26 +28,25 @@ export default function BankingInviteFriends() {
         disabledEffect
         src="https://minimal-assets-api.vercel.app/assets/illustrations/illustration_invite.png"
         sx={{
-          left: 40,
+          left: 45,
           zIndex: 9,
-          width: 140,
+          width: 160,
           position: 'relative',
           filter: 'drop-shadow(0 12px 24px rgba(0,0,0,0.24))',
         }}
       />
       <ContentStyle>
         <Stack direction="row" alignItems="center" justifyContent="space-between">
-          <Typography variant="h4">
-            Invite friends <br /> and earn
+          <Typography variant="h4" noWrap>
+            {url}
           </Typography>
-          <Typography variant="h2">$50</Typography>
         </Stack>
 
         <Typography variant="body2" sx={{ mt: 2, mb: 3 }}>
-          Praesent egestas tristique nibh. Duis lobortis massa imperdiet quam.
+          {title}
         </Typography>
 
-        <Stack direction="row" spacing={1} alignItems="center" justifyContent="space-between">
+        {/* <Stack direction="row" spacing={1} alignItems="center" justifyContent="space-between">
           <OutlinedInput
             size="small"
             placeholder="Email"
@@ -64,7 +64,7 @@ export default function BankingInviteFriends() {
           <Button color="warning" variant="contained">
             Invite
           </Button>
-        </Stack>
+        </Stack> */}
       </ContentStyle>
     </div>
   );

@@ -1,11 +1,13 @@
 import PropTypes from 'prop-types';
 // @mui
 import { useTheme } from '@mui/material/styles';
-import { Box, Card, Rating, CardHeader, Typography, Stack } from '@mui/material';
+import { Box, Card, linkEngine, CardHeader, Typography, Stack } from '@mui/material';
+import ReadMoreIcon from '@mui/icons-material/ReadMore';
 // utils
 import { fCurrency, fShortenNumber } from '../../../../utils/formatNumber';
 // _mock_
-import { _appRelated } from '../../../../_mock';
+// import { _appRelated } from '../../../../_mock';
+import _mock from '../../../../_mock';
 // components
 import Label from '../../../../components/Label';
 import Image from '../../../../components/Image';
@@ -14,10 +16,46 @@ import Scrollbar from '../../../../components/Scrollbar';
 
 // ----------------------------------------------------------------------
 
-export default function AppTopRelated() {
+const engineDetail = [
+  {
+    Engine: 'CRDF',
+    logo: 'https://www.crdfglobal.org/sites/default/files/crdf-mark.png',
+    link: 'https://www.crdfglobal.org/',
+  },
+  {
+    Engine: 'chongluadao',
+    logo: 'https://chongluadao.vn/wp-content/uploads/2020/09/logo-rm.png',
+    link: 'https://chongluadao.vn/',
+  },
+  {
+    Engine: 'virus',
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/1200px-Google_%22G%22_Logo.svg.png',
+    link: 'https://www.google.com',
+  },
+];
+
+function getLogo(Engine) {
+  return engineDetail.find((detail) => detail.Engine === Engine).logo;
+}
+function getLink(Engine) {
+  return engineDetail.find((detail) => detail.Engine === Engine).link;
+}
+
+let _appRelated = [];
+export default function AppTopRelated({ props = [] }) {
+  _appRelated = props.map((appName, index) => ({
+    id: _mock.id(index),
+    name: Object.keys(appName)[0],
+    system: Object.values(appName)[0],
+    price: index === 0 || index === 2 || index === 4 ? 0 : _mock.number.price(index),
+    linkEngine: getLink(Object.keys(appName)[0]),
+    review: 9,
+    logo: getLogo(Object.keys(appName)[0]),
+  }));
+
   return (
     <Card>
-      <CardHeader title="Top Related Applications" />
+      <CardHeader title="Detail Result" />
       <Scrollbar>
         <Stack spacing={3} sx={{ p: 3, pr: 0 }}>
           {_appRelated.map((app) => (
@@ -35,16 +73,16 @@ ApplicationItem.propTypes = {
   app: PropTypes.shape({
     name: PropTypes.string,
     price: PropTypes.number,
-    rating: PropTypes.number,
+    linkEngine: PropTypes.string,
     review: PropTypes.number,
-    shortcut: PropTypes.string,
+    logo: PropTypes.string,
     system: PropTypes.string,
   }),
 };
 
 function ApplicationItem({ app }) {
   const theme = useTheme();
-  const { shortcut, system, price, rating, review, name } = app;
+  const { logo, system, price, linkEngine, review, name } = app;
 
   return (
     <Stack direction="row" alignItems="center" spacing={2}>
@@ -60,7 +98,7 @@ function ApplicationItem({ app }) {
           bgcolor: 'background.neutral',
         }}
       >
-        <Image src={shortcut} alt={name} sx={{ width: 24, height: 24 }} />
+        <Image src={logo} alt={name} sx={{ width: 24, height: 24 }} />
       </Box>
 
       <Box sx={{ flexGrow: 1, minWidth: 160 }}>
@@ -69,25 +107,29 @@ function ApplicationItem({ app }) {
           <Iconify
             width={16}
             height={16}
-            icon={system === 'Mac' ? 'ant-design:apple-filled' : 'ant-design:windows-filled'}
+            icon={system === 'Malicious' ? 'ant-design:code-sandbox-outlined' : 'ant-design:code-twotone'}
           />
           <Typography variant="caption" sx={{ ml: 0.5, mr: 1 }}>
-            {system}
+            Type:
           </Typography>
           <Label
             variant={theme.palette.mode === 'light' ? 'ghost' : 'filled'}
             color={price === 0 ? 'success' : 'error'}
           >
-            {price === 0 ? 'Free' : fCurrency(price)}
+            {system}
           </Label>
         </Stack>
       </Box>
 
       <Stack alignItems="flex-end" sx={{ pr: 3 }}>
-        <Rating readOnly size="small" precision={0.5} name="reviews" value={rating} />
-        <Typography variant="caption" sx={{ mt: 0.5, color: 'text.secondary' }}>
-          {fShortenNumber(review)}&nbsp;reviews
-        </Typography>
+        <a href={linkEngine} target="_blank" rel="noreferrer">
+          <ReadMoreIcon />
+        </a>
+        <a href={linkEngine} target="_blank" rel="noreferrer">
+          <Typography variant="caption" sx={{ mt: 0.5, color: 'text.secondary' }}>
+            {'see more'}
+          </Typography>
+        </a>
       </Stack>
     </Stack>
   );

@@ -32,7 +32,7 @@ AnalyticsWidgetSummary.propTypes = {
   color: PropTypes.oneOf(['primary', 'secondary', 'info', 'success', 'warning', 'error']),
   icon: PropTypes.string,
   title: PropTypes.string,
-  total: PropTypes.number,
+  total: PropTypes.string,
 };
 
 export default function AnalyticsWidgetSummary({ title, total, icon, color = 'primary' }) {
@@ -55,7 +55,7 @@ export default function AnalyticsWidgetSummary({ title, total, icon, color = 'pr
       >
         <Iconify icon={icon} width={24} height={24} />
       </IconWrapperStyle>
-      <Typography variant="h3">{fShortenNumber(total)}</Typography>
+      <Typography variant="h3">{total}</Typography>
       <Typography variant="subtitle2" sx={{ opacity: 0.72 }}>
         {title}
       </Typography>

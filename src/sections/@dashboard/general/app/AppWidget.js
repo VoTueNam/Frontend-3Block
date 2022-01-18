@@ -32,16 +32,15 @@ const IconStyle = styled(Iconify)(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 AppWidget.propTypes = {
-  chartData: PropTypes.number.isRequired,
+  chartData: PropTypes.string.isRequired,
   color: PropTypes.oneOf(['primary', 'secondary', 'info', 'success', 'warning', 'error']),
   icon: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  total: PropTypes.number.isRequired,
+  total: PropTypes.string.isRequired,
 };
 
 export default function AppWidget({ title, total, icon, color = 'primary', chartData }) {
   const theme = useTheme();
-
   const chartOptions = merge(BaseOptionChart(), {
     colors: [theme.palette[color].main],
     chart: { sparkline: { enabled: true } },
@@ -70,7 +69,7 @@ export default function AppWidget({ title, total, icon, color = 'primary', chart
     >
       <ReactApexChart type="radialBar" series={[chartData]} options={chartOptions} width={86} height={86} />
       <Box sx={{ ml: 3, color: 'common.white' }}>
-        <Typography variant="h4"> {fNumber(total)}</Typography>
+        <Typography variant="h4">{total}</Typography>
         <Typography variant="body2" sx={{ opacity: 0.72 }}>
           {title}
         </Typography>

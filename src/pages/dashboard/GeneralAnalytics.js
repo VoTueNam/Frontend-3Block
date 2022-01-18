@@ -1,65 +1,140 @@
 // @mui
-import { Grid, Container, Typography } from '@mui/material';
-// hooks
-import useSettings from '../../hooks/useSettings';
+import { Container, Grid, Typography } from '@mui/material';
 // components
 import Page from '../../components/Page';
+// hooks
+import useSettings from '../../hooks/useSettings';
 // sections
-import {
-  AnalyticsTasks,
-  AnalyticsNewsUpdate,
-  AnalyticsOrderTimeline,
-  AnalyticsCurrentVisits,
-  AnalyticsWebsiteVisits,
-  AnalyticsTrafficBySite,
-  AnalyticsWidgetSummary,
-  AnalyticsCurrentSubject,
-  AnalyticsConversionRates,
-} from '../../sections/@dashboard/general/analytics';
+import { AnalyticsCurrentVisits, AnalyticsTrafficBySite } from '../../sections/@dashboard/general/analytics';
+import { AppTopRelated, AppWidget } from '../../sections/@dashboard/general/app';
+import { BankingInviteFriends } from '../../sections/@dashboard/general/banking';
+import Iconify from '../../components/Iconify';
 
 // ----------------------------------------------------------------------
+// https://www.crdfglobal.org/
+const result = {
+  url: 'http://pornhub.com/',
+  level: 'medium',
+  result: {
+    clean: '91.40',
+    unrated: '8.60',
+  },
+  detail: { CRDF: 'malicious', virus: 'spam', chongluadao: 'malware' },
+  title: 'Free Porn Videos & Sex Movies - Porno, XXX, Porn Tube | Pornhub',
+  categories: ['adult content', 'sexually explicit', 'porn', 'mobile communications', 'sex', 'Pornography'],
+};
+
+// Level
+let colorLevel = 'primary';
+const props = {
+  chartData: [],
+  label: [],
+};
+
+switch (result.level) {
+  case 'none':
+    colorLevel = 'primary';
+    break;
+  case 'low':
+    colorLevel = 'info';
+    break;
+  case 'medium':
+    colorLevel = 'warning';
+    break;
+  case 'high':
+    colorLevel = 'error';
+    break;
+  default:
+    break;
+}
+
+// categories
+const typeCategory = [];
+result.categories.forEach((i) =>
+  typeCategory.push({
+    name: i,
+    value: i,
+    icon: <Iconify icon={'eva:facebook-fill'} color="#1877F2" width={32} height={32} />,
+  })
+);
+
+// Percent result
+const propsDetails = [];
+Object.keys(result.result).forEach((i) => props.label.push(i));
+Object.values(result.result).forEach((i) => props.chartData.push(Number(i)));
+Object.keys(result.detail).forEach((i) => {
+  propsDetails.push({ [i]: result.detail[i] });
+});
 
 export default function GeneralAnalytics() {
   const { themeStretch } = useSettings();
+  // useEffect(() => {
+
+  //   return () => {};
+  // }, []);
 
   return (
     <Page title="General: Analytics">
       <Container maxWidth={themeStretch ? false : 'xl'}>
         <Typography variant="h4" sx={{ mb: 5 }}>
-          Hi, Welcome back
+          Welcome, Analytics URL
         </Typography>
 
         <Grid container spacing={3}>
-          <Grid item xs={12} sm={6} md={3}>
-            <AnalyticsWidgetSummary title="Weekly Sales" total={714000} icon={'ant-design:android-filled'} />
+          <Grid item xs={12} md={6} lg={4}>
+            <BankingInviteFriends url={result.url} title={result.title} />
+
+            {/* <AnalyticsWidgetSummary
+              title="Level"
+              total={result.level.charAt(0).toUpperCase() + result.level.slice(1)}
+              color={colorLevel}
+              icon={'ant-design:bug-filled'}
+            /> */}
+          </Grid>
+
+          {/* Biểu đồ tròn */}
+          <Grid item xs={12} md={6} lg={4}>
+            <AnalyticsCurrentVisits props={props} />
+          </Grid>
+
+          {/* Detail */}
+          {/* <Grid item xs={12} md={6} lg={4}>
+            <AnalyticsOrderTimeline props={result.detail} />
+          </Grid> */}
+          <Grid item xs={12} md={6} lg={4}>
+            <AppWidget
+              title="Level"
+              total={result.level.charAt(0).toUpperCase() + result.level.slice(1)}
+              color={colorLevel}
+              icon={'ant-design:bug-filled'}
+              chartData={(100 - Number(result.result.clean)).toFixed(2)}
+            />
+            <br />
+            <AppTopRelated props={propsDetails} />
+          </Grid>
+
+          <Grid item xs={12} md={6} lg={12}>
+            <AnalyticsTrafficBySite props={typeCategory} />
+          </Grid>
+
+          {/* <Grid item xs={12} sm={6} md={3}>
+            <AnalyticsWidgetSummary title="LEVEL" total={result.level} icon={'ant-design:android-filled'} />
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
             <AnalyticsWidgetSummary title="New Users" total={1352831} color="info" icon={'ant-design:apple-filled'} />
-          </Grid>
+          </Grid> */}
 
-          <Grid item xs={12} sm={6} md={3}>
-            <AnalyticsWidgetSummary
-              title="Item Orders"
-              total={1723315}
-              color="warning"
-              icon={'ant-design:windows-filled'}
-            />
-          </Grid>
-
-          <Grid item xs={12} sm={6} md={3}>
+          {/* <Grid item xs={12} sm={6} md={3}>
             <AnalyticsWidgetSummary title="Bug Reports" total={234} color="error" icon={'ant-design:bug-filled'} />
-          </Grid>
+          </Grid> */}
 
-          <Grid item xs={12} md={6} lg={8}>
+          {/* Bỏ cái biểu đồ cột */}
+          {/* <Grid item xs={12} md={6} lg={8}>
             <AnalyticsWebsiteVisits />
-          </Grid>
+          </Grid> */}
 
-          <Grid item xs={12} md={6} lg={4}>
-            <AnalyticsCurrentVisits />
-          </Grid>
-
-          <Grid item xs={12} md={6} lg={8}>
+          {/* <Grid item xs={12} md={6} lg={8}>
             <AnalyticsConversionRates />
           </Grid>
 
@@ -72,16 +147,12 @@ export default function GeneralAnalytics() {
           </Grid>
 
           <Grid item xs={12} md={6} lg={4}>
-            <AnalyticsOrderTimeline />
-          </Grid>
-
-          <Grid item xs={12} md={6} lg={4}>
             <AnalyticsTrafficBySite />
           </Grid>
 
           <Grid item xs={12} md={6} lg={8}>
             <AnalyticsTasks />
-          </Grid>
+          </Grid> */}
         </Grid>
       </Container>
     </Page>

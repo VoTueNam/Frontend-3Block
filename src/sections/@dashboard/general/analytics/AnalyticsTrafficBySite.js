@@ -8,14 +8,17 @@ import { _analyticTraffic } from '../../../../_mock';
 
 // ----------------------------------------------------------------------
 
-export default function AnalyticsTrafficBySite() {
+export default function AnalyticsTrafficBySite({ props }) {
+  console.log(props);
   return (
     <Card>
-      <CardHeader title="Traffic by Site" />
+      <CardHeader title="Categories by Site" />
       <CardContent>
-        <Grid container spacing={2}>
-          {_analyticTraffic.map((site) => (
-            <SiteItem key={site.name} site={site} />
+        <Grid container spacing={2} columns={{ xs: 4, sm: 8, md: 12 }}>
+          {props.map((site) => (
+            <Grid item xs={4} key={site.name}>
+              <SiteItem key={site.name} site={site} />
+            </Grid>
           ))}
         </Grid>
       </CardContent>
@@ -29,7 +32,7 @@ SiteItem.propTypes = {
   site: PropTypes.shape({
     icon: PropTypes.any,
     name: PropTypes.string,
-    value: PropTypes.number,
+    value: PropTypes.string,
   }),
 };
 
@@ -37,10 +40,10 @@ function SiteItem({ site }) {
   const { icon, value, name } = site;
 
   return (
-    <Grid item xs={6}>
+    <Grid item xs={4} sm={8} md={12}>
       <Paper variant="outlined" sx={{ py: 2.5, textAlign: 'center' }}>
         <Box sx={{ mb: 0.5 }}>{icon}</Box>
-        <Typography variant="h6">{fShortenNumber(value)}</Typography>
+        <Typography variant="h6">{value}</Typography>
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
           {name}
         </Typography>

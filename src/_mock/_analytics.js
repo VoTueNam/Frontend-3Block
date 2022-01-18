@@ -47,4 +47,9 @@ export const _analyticTraffic = [
     value: 443232,
     icon: <Iconify icon={'eva:twitter-fill'} color="#1C9CEA" width={32} height={32} />,
   },
+  {
+    name: 'Twitter',
+    value: 443232,
+    icon: <Iconify icon={'eva:twitter-fill'} color="#1C9CEA" width={32} height={32} />,
+  },
 ];
