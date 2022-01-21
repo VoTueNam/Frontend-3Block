@@ -19,7 +19,12 @@ const result = {
     clean: '91.40',
     unrated: '8.60',
   },
-  detail: { CRDF: 'malicious', virus: 'spam', chongluadao: 'malware' },
+  detail: {
+    EonScope: 'malicious',
+    Emsisoft: 'phishing',
+    BlockList: 'malware',
+    'CMC Threat Intelligence': 'suspicious',
+  },
   title: 'Free Porn Videos & Sex Movies - Porno, XXX, Porn Tube | Pornhub',
   categories: ['adult content', 'sexually explicit', 'porn', 'mobile communications', 'sex', 'Pornography'],
 };
@@ -102,6 +107,7 @@ export default function GeneralAnalytics() {
             <AnalyticsOrderTimeline props={result.detail} />
           </Grid> */}
           <Grid item xs={12} md={6} lg={4}>
+            {/* Logo */}
             <AppWidget
               title="Level"
               total={result.level.charAt(0).toUpperCase() + result.level.slice(1)}
@@ -110,6 +116,7 @@ export default function GeneralAnalytics() {
               chartData={(100 - Number(result.result.clean)).toFixed(2)}
             />
             <br />
+            {/* Detail */}
             <AppTopRelated props={propsDetails} />
           </Grid>
 
