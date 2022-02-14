@@ -9,25 +9,49 @@ import { AnalyticsCurrentVisits, AnalyticsTrafficBySite } from '../../sections/@
 import { AppTopRelated, AppWidget } from '../../sections/@dashboard/general/app';
 import { BankingInviteFriends } from '../../sections/@dashboard/general/banking';
 import Iconify from '../../components/Iconify';
+import { typeOfCategories } from './getTypeOfCategories/types';
+import { func } from 'prop-types';
 
 // ----------------------------------------------------------------------
-// https://www.crdfglobal.org/
-const result = {
-  url: 'http://pornhub.com/',
-  level: 'medium',
-  result: {
-    clean: '91.40',
-    unrated: '8.60',
-  },
-  detail: {
-    EonScope: 'malicious',
-    Emsisoft: 'phishing',
-    BlockList: 'malware',
-    'CMC Threat Intelligence': 'suspicious',
-  },
-  title: 'Free Porn Videos & Sex Movies - Porno, XXX, Porn Tube | Pornhub',
-  categories: ['adult content', 'sexually explicit', 'porn', 'mobile communications', 'sex', 'Pornography'],
-};
+
+function resetURL() {
+  result = {
+    url: 'http://pornhub.com/',
+    level: 'medium',
+    result: {
+      clean: '91.40',
+      unrated: '8.60',
+    },
+    detail: {
+      Lumu: 'malicious',
+      Netcraft: 'phishing',
+      NotMining: 'malware',
+      SafeToOpen: 'suspicious',
+    },
+    title: 'Free Porn Videos & Sex Movies - Porno, XXX, Porn Tube | Pornhub',
+    categories: [
+      'adult content',
+      'blogs and personal sites',
+      'onlineshop',
+      'games',
+      'Ads/Analytics, Marketing/Merchandising',
+      'computersandsoftware',
+      'Malware Sites',
+      'online brokerage and trading',
+      'kids sites',
+      'hahahahaha',
+    ],
+  };
+}
+try {
+  var result = JSON.parse(localStorage.getItem('virusTotal'));
+  console.log(result);
+  if (result?.error || result == null) {
+    resetURL();
+  }
+} catch {
+  resetURL();
+}
 
 // Level
 let colorLevel = 'primary';
@@ -57,9 +81,9 @@ switch (result.level) {
 const typeCategory = [];
 result.categories.forEach((i) =>
   typeCategory.push({
-    name: i,
+    name: typeOfCategories(i).name,
     value: i,
-    icon: <Iconify icon={'eva:facebook-fill'} color="#1877F2" width={32} height={32} />,
+    icon: <Iconify icon={typeOfCategories(i).icon} color="#1877F2" width={32} height={32} />,
   })
 );
 
@@ -73,10 +97,6 @@ Object.keys(result.detail).forEach((i) => {
 
 export default function GeneralAnalytics() {
   const { themeStretch } = useSettings();
-  // useEffect(() => {
-
-  //   return () => {};
-  // }, []);
 
   return (
     <Page title="General: Analytics">

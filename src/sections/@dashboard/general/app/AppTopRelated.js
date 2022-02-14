@@ -354,6 +354,279 @@ const engineDetail = [
     },
     link: 'https://www.lionic.com/',
   },
+  {
+    Engine: 'MalBeacon',
+    logo: function () {
+      return githubLinkLogo + this.Engine + '.svg';
+    },
+    link: 'https://www.malbeacon.com/',
+  },
+  {
+    Engine: 'MalSilo',
+    logo: function () {
+      return githubLinkLogo + this.Engine + '.svg';
+    },
+    link: 'https://raw-data.gitlab.io/post/feeds/',
+  },
+  {
+    Engine: 'Malwared',
+    logo: function () {
+      return githubLinkLogo + this.Engine + '.svg';
+    },
+    link: 'http://malwared.malwaremustdie.org/',
+  },
+  {
+    Engine: 'MalwareDomainList',
+    logo: function () {
+      return githubLinkLogo + this.Engine + '.svg';
+    },
+    link: 'https://www.malwaredomainlist.com/mdl.php',
+  },
+  {
+    Engine: 'MalwarePatrol',
+    logo: function () {
+      return githubLinkLogo + this.Engine + '.svg';
+    },
+    link: 'https://www.malwarepatrol.net/',
+  },
+  {
+    Engine: 'malwares.com URL checker',
+    logo: function () {
+      return githubLinkLogo + this.Engine + '.svg';
+    },
+    link: 'https://www.malwares.com/',
+  },
+  {
+    Engine: 'OpenPhish',
+    logo: function () {
+      return githubLinkLogo + this.Engine + '.svg';
+    },
+    link: 'https://openphish.com/',
+  },
+  {
+    Engine: 'PhishLabs',
+    logo: function () {
+      return githubLinkLogo + this.Engine + '.svg';
+    },
+    link: 'https://www.phishlabs.com/',
+  },
+  {
+    Engine: 'Phishtank',
+    logo: function () {
+      return githubLinkLogo + this.Engine + '.svg';
+    },
+    link: 'https://phishtank.org/',
+  },
+  {
+    Engine: 'PREBYTES',
+    logo: function () {
+      return githubLinkLogo + this.Engine + '.svg';
+    },
+    link: 'https://www.prebytes.com/',
+  },
+  {
+    Engine: 'Quick Heal',
+    logo: function () {
+      return githubLinkLogo + this.Engine + '.svg';
+    },
+    link: 'https://www.quickheal.com/',
+  },
+  {
+    Engine: 'Quttera',
+    logo: function () {
+      return githubLinkLogo + this.Engine + '.svg';
+    },
+    link: 'http://www.quttera.com/',
+  },
+  {
+    Engine: 'Rising',
+    logo: function () {
+      return githubLinkLogo + this.Engine + '.svg';
+    },
+    link: 'http://www.rising.com.cn/',
+  },
+  {
+    Engine: 'Sangfor',
+    logo: function () {
+      return githubLinkLogo + this.Engine + '.svg';
+    },
+    link: 'https://www.sangfor.com.cn/',
+  },
+  {
+    Engine: 'Scantitan',
+    logo: function () {
+      return githubLinkLogo + this.Engine + '.svg';
+    },
+    link: 'http://www.scantitan.com/',
+  },
+  {
+    Engine: 'SCUMWARE.org',
+    logo: function () {
+      return githubLinkLogo + this.Engine + '.svg';
+    },
+    link: 'https://www.scumware.org/',
+  },
+  {
+    Engine: 'SecureBrain',
+    logo: function () {
+      return githubLinkLogo + this.Engine + '.svg';
+    },
+    link: 'https://www.securebrain.co.jp/eng/web/',
+  },
+  {
+    Engine: 'securolytics',
+    logo: function () {
+      return githubLinkLogo + this.Engine + '.svg';
+    },
+    link: 'https://www.crunchbase.com/organization/securolytics',
+  },
+  {
+    Engine: 'Snort IP sample list',
+    logo: function () {
+      return githubLinkLogo + this.Engine + '.svg';
+    },
+    link: 'https://www.snort.org/',
+  },
+  {
+    Engine: 'Spamhaus',
+    logo: function () {
+      return githubLinkLogo + this.Engine + '.svg';
+    },
+    link: 'https://www.spamhaus.org/',
+  },
+  {
+    Engine: 'StopForumSpam',
+    logo: function () {
+      return githubLinkLogo + this.Engine + '.svg';
+    },
+    link: 'https://www.stopforumspam.com/',
+  },
+  {
+    Engine: 'Sucuri SiteCheck',
+    logo: function () {
+      return githubLinkLogo + this.Engine + '.svg';
+    },
+    link: 'http://sitecheck.sucuri.net/scanner/',
+  },
+  {
+    Engine: 'StopForumSpam',
+    logo: function () {
+      return githubLinkLogo + this.Engine + '.svg';
+    },
+    link: 'https://www.stopforumspam.com/',
+  },
+  {
+    Engine: 'Tencent',
+    logo: function () {
+      return githubLinkLogo + this.Engine + '.svg';
+    },
+    link: 'https://www.tencent.com/en-us/',
+  },
+  {
+    Engine: 'ThreatHive',
+    logo: function () {
+      return githubLinkLogo + this.Engine + '.svg';
+    },
+    link: 'http://blog.threathive.com/',
+  },
+  {
+    Engine: 'Trustwave',
+    logo: function () {
+      return githubLinkLogo + this.Engine + '.svg';
+    },
+    link: 'https://www.trustwave.com/',
+  },
+  {
+    Engine: 'URLhaus',
+    logo: function () {
+      return githubLinkLogo + this.Engine + '.svg';
+    },
+    link: 'https://urlhaus.abuse.ch/',
+  },
+  {
+    Engine: 'Virusdie External Site Scan',
+    logo: function () {
+      return githubLinkLogo + this.Engine + '.svg';
+    },
+    link: 'https://virusdie.com/',
+  },
+  {
+    Engine: 'VX Vault',
+    logo: function () {
+      return githubLinkLogo + this.Engine + '.svg';
+    },
+    link: 'http://vxvault.net/ViriList.php',
+  },
+  {
+    Engine: 'Web Security Guard',
+    logo: function () {
+      return githubLinkLogo + this.Engine + '.svg';
+    },
+    link: 'http://www.websecurityguard.com/',
+  },
+  {
+    Engine: 'Webroot',
+    logo: function () {
+      return githubLinkLogo + this.Engine + '.svg';
+    },
+    link: 'https://www.webroot.com/us/en',
+  },
+  {
+    Engine: 'Yandex Safebrowsing',
+    logo: function () {
+      return githubLinkLogo + this.Engine + '.svg';
+    },
+    link: 'http://www.yandex.ru/',
+  },
+  {
+    Engine: 'ZeroCERT',
+    logo: function () {
+      return githubLinkLogo + this.Engine + '.svg';
+    },
+    link: 'https://www.zerocert.org/',
+  },
+  {
+    Engine: 'zvelo',
+    logo: function () {
+      return githubLinkLogo + this.Engine + '.svg';
+    },
+    link: 'https://zvelo.com/technology/zvelodb-url-database',
+  },
+  {
+    Engine: 'Cyan',
+    logo: function () {
+      return githubLinkLogo + this.Engine + '.svg';
+    },
+    link: 'https://www.cyansecurity.com/',
+  },
+  {
+    Engine: 'Lumu',
+    logo: function () {
+      return githubLinkLogo + this.Engine + '.svg';
+    },
+    link: 'https://lumu.io/',
+  },
+  {
+    Engine: 'Netcraft',
+    logo: function () {
+      return githubLinkLogo + this.Engine + '.svg';
+    },
+    link: 'https://news.netcraft.com/',
+  },
+  {
+    Engine: 'NotMining',
+    logo: function () {
+      return githubLinkLogo + this.Engine + '.svg';
+    },
+    link: 'http://www.notmining.org/',
+  },
+  {
+    Engine: 'SafeToOpen',
+    logo: function () {
+      return githubLinkLogo + this.Engine + '.svg';
+    },
+    link: 'https://safetoopen.com/',
+  },
 ];
 
 function getLogo(Engine) {

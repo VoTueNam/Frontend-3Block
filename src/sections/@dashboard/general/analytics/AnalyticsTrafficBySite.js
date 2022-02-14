@@ -9,15 +9,14 @@ import { _analyticTraffic } from '../../../../_mock';
 // ----------------------------------------------------------------------
 
 export default function AnalyticsTrafficBySite({ props }) {
-  console.log(props);
   return (
     <Card>
       <CardHeader title="Categories by Site" />
       <CardContent>
         <Grid container spacing={2} columns={{ xs: 4, sm: 8, md: 12 }}>
           {props.map((site) => (
-            <Grid item xs={4} key={site.name}>
-              <SiteItem key={site.name} site={site} />
+            <Grid item xs={4} key={site.value + 'Categories'}>
+              <SiteItem key={site.value} site={site} />
             </Grid>
           ))}
         </Grid>
@@ -38,7 +37,6 @@ SiteItem.propTypes = {
 
 function SiteItem({ site }) {
   const { icon, value, name } = site;
-
   return (
     <Grid item xs={4} sm={8} md={12}>
       <Paper variant="outlined" sx={{ py: 2.5, textAlign: 'center' }}>
