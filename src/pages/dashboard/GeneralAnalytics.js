@@ -16,7 +16,7 @@ import { func } from 'prop-types';
 
 function resetURL() {
   result = {
-    url: 'http://pornhub.com/',
+    url: 'http://example.com/',
     level: 'medium',
     result: {
       clean: '91.40',
@@ -28,7 +28,7 @@ function resetURL() {
       NotMining: 'malware',
       SafeToOpen: 'suspicious',
     },
-    title: 'Free Porn Videos & Sex Movies - Porno, XXX, Porn Tube | Pornhub',
+    title: 'This domain is for use in illustrative examples in documents.',
     categories: [
       'adult content',
       'blogs and personal sites',
@@ -45,7 +45,6 @@ function resetURL() {
 }
 try {
   var result = JSON.parse(localStorage.getItem('virusTotal'));
-  console.log(result);
   if (result?.error || result == null) {
     resetURL();
   }
@@ -97,7 +96,6 @@ Object.keys(result.detail).forEach((i) => {
 
 export default function GeneralAnalytics() {
   const { themeStretch } = useSettings();
-
   return (
     <Page title="General: Analytics">
       <Container maxWidth={themeStretch ? false : 'xl'}>
@@ -105,16 +103,10 @@ export default function GeneralAnalytics() {
           Welcome, Analytics URL
         </Typography>
 
+        {/* URL and Title */}
         <Grid container spacing={3}>
           <Grid item xs={12} md={6} lg={4}>
             <BankingInviteFriends url={result.url} title={result.title} />
-
-            {/* <AnalyticsWidgetSummary
-              title="Level"
-              total={result.level.charAt(0).toUpperCase() + result.level.slice(1)}
-              color={colorLevel}
-              icon={'ant-design:bug-filled'}
-            /> */}
           </Grid>
 
           {/* Biểu đồ tròn */}
@@ -122,10 +114,6 @@ export default function GeneralAnalytics() {
             <AnalyticsCurrentVisits props={props} />
           </Grid>
 
-          {/* Detail */}
-          {/* <Grid item xs={12} md={6} lg={4}>
-            <AnalyticsOrderTimeline props={result.detail} />
-          </Grid> */}
           <Grid item xs={12} md={6} lg={4}>
             {/* Logo */}
             <AppWidget
@@ -140,46 +128,10 @@ export default function GeneralAnalytics() {
             <AppTopRelated props={propsDetails} />
           </Grid>
 
+          {/* categories */}
           <Grid item xs={12} md={6} lg={12}>
             <AnalyticsTrafficBySite props={typeCategory} />
           </Grid>
-
-          {/* <Grid item xs={12} sm={6} md={3}>
-            <AnalyticsWidgetSummary title="LEVEL" total={result.level} icon={'ant-design:android-filled'} />
-          </Grid>
-
-          <Grid item xs={12} sm={6} md={3}>
-            <AnalyticsWidgetSummary title="New Users" total={1352831} color="info" icon={'ant-design:apple-filled'} />
-          </Grid> */}
-
-          {/* <Grid item xs={12} sm={6} md={3}>
-            <AnalyticsWidgetSummary title="Bug Reports" total={234} color="error" icon={'ant-design:bug-filled'} />
-          </Grid> */}
-
-          {/* Bỏ cái biểu đồ cột */}
-          {/* <Grid item xs={12} md={6} lg={8}>
-            <AnalyticsWebsiteVisits />
-          </Grid> */}
-
-          {/* <Grid item xs={12} md={6} lg={8}>
-            <AnalyticsConversionRates />
-          </Grid>
-
-          <Grid item xs={12} md={6} lg={4}>
-            <AnalyticsCurrentSubject />
-          </Grid>
-
-          <Grid item xs={12} md={6} lg={8}>
-            <AnalyticsNewsUpdate />
-          </Grid>
-
-          <Grid item xs={12} md={6} lg={4}>
-            <AnalyticsTrafficBySite />
-          </Grid>
-
-          <Grid item xs={12} md={6} lg={8}>
-            <AnalyticsTasks />
-          </Grid> */}
         </Grid>
       </Container>
     </Page>

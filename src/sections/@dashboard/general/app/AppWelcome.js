@@ -23,10 +23,11 @@ const RootStyle = styled(Card)(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 AppWelcome.propTypes = {
-  displayName: PropTypes.string,
+  domain: PropTypes.string,
+  url: PropTypes.string,
 };
 
-export default function AppWelcome({ displayName }) {
+export default function AppWelcome({ domain, url }) {
   return (
     <RootStyle>
       <CardContent
@@ -37,17 +38,17 @@ export default function AppWelcome({ displayName }) {
         }}
       >
         <Typography gutterBottom variant="h4">
-          Welcome back,
-          <br /> {!displayName ? '...' : displayName}!
+          Domain:
+          <br /> {!domain ? '...' : domain}
         </Typography>
 
         <Typography variant="body2" sx={{ pb: { xs: 3, xl: 5 }, maxWidth: 480, mx: 'auto' }}>
-          If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything
+          {`URL: ${url}`}
         </Typography>
 
-        <Button variant="contained" to="#" component={RouterLink}>
-          Go Now
-        </Button>
+        <a href={url} target="_blank">
+          <Button variant="contained">Go This URL Now</Button>
+        </a>
       </CardContent>
 
       <SeoIllustration

@@ -27,7 +27,20 @@ const OverlayStyle = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-export default function AppFeatured() {
+export default function AppFeatured({ country, city, server, ip, asn, asnname }) {
+  const image = [
+    `https://minimal-assets-api.vercel.app/assets/images/covers/cover_1.jpg`,
+    `https://minimal-assets-api.vercel.app/assets/images/feeds/feed_2.jpg`,
+    `https://minimal-assets-api.vercel.app/assets/images/products/product_3.jpg`,
+  ];
+  const _appFeatured = [...Array(3)].map((_, index) => ({
+    id: image[index],
+    title: [city, ip, asnname][index],
+    description: ['Country: ' + country, 'Server: ' + server, 'Asn: ' + asn][index],
+    image: image[index],
+    header: ['City', 'IP', 'Asnname'][index],
+  }));
+
   const theme = useTheme();
   const carouselRef = useRef(null);
   const [currentIndex, setCurrentIndex] = useState(theme.direction === 'rtl' ? _appFeatured.length - 1 : 0);
@@ -95,11 +108,12 @@ CarouselItem.propTypes = {
     description: PropTypes.string,
     image: PropTypes.string,
     title: PropTypes.string,
+    header: PropTypes.string,
   }),
 };
 
 function CarouselItem({ item, isActive }) {
-  const { image, title, description } = item;
+  const { image, title, description, header } = item;
 
   return (
     <Box sx={{ position: 'relative' }}>
@@ -118,15 +132,13 @@ function CarouselItem({ item, isActive }) {
       >
         <m.div variants={varFade().inRight}>
           <Typography variant="overline" component="div" sx={{ mb: 1, opacity: 0.48 }}>
-            Featured App
+            {header}
           </Typography>
         </m.div>
         <m.div variants={varFade().inRight}>
-          <Link component={RouterLink} to="#" color="inherit" underline="none">
-            <Typography variant="h5" gutterBottom noWrap>
-              {title}
-            </Typography>
-          </Link>
+          <Typography variant="h5" gutterBottom noWrap>
+            {title}
+          </Typography>
         </m.div>
         <m.div variants={varFade().inRight}>
           <Typography variant="body2" noWrap>

@@ -26,14 +26,16 @@ const IconWrapperStyle = styled('div')(({ theme }) => ({
 AppWidgetSummary.propTypes = {
   chartColor: PropTypes.string.isRequired,
   chartData: PropTypes.arrayOf(PropTypes.number).isRequired,
-  percent: PropTypes.number.isRequired,
+  percent: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  total: PropTypes.number.isRequired,
+  total: PropTypes.string.isRequired,
 };
 
-export default function AppWidgetSummary({ title, percent, total, chartColor, chartData }) {
+export default function AppWidgetSummary({ title, percent, total, chartColor, chartData, number = -1 }) {
+  total.toString().replace('undefined', 'Unknown');
+  percent.replace('undefined', 'Unknown');
+  console.log(total);
   const theme = useTheme();
-
   const chartOptions = {
     colors: [chartColor],
     chart: { sparkline: { enabled: true } },
@@ -58,21 +60,21 @@ export default function AppWidgetSummary({ title, percent, total, chartColor, ch
         <Stack direction="row" alignItems="center" spacing={1} sx={{ mt: 2, mb: 1 }}>
           <IconWrapperStyle
             sx={{
-              ...(percent < 0 && {
+              ...(number < 0 && {
                 color: 'error.main',
                 bgcolor: alpha(theme.palette.error.main, 0.16),
               }),
             }}
           >
-            <Iconify width={16} height={16} icon={percent >= 0 ? 'eva:trending-up-fill' : 'eva:trending-down-fill'} />
+            <Iconify width={16} height={16} icon={number >= 0 ? 'eva:trending-up-fill' : 'eva:trending-down-fill'} />
           </IconWrapperStyle>
           <Typography component="span" variant="subtitle2">
-            {percent > 0 && '+'}
-            {fPercent(percent)}
+            {number > 0 && ''}
+            {percent}
           </Typography>
         </Stack>
 
-        <Typography variant="h3">{fNumber(total)}</Typography>
+        <Typography variant="h3">{total}</Typography>
       </Box>
 
       <ReactApexChart type="bar" series={[{ data: chartData }]} options={chartOptions} width={60} height={36} />

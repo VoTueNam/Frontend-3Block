@@ -19,7 +19,7 @@ const ContentStyle = styled(Card)(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-export default function BankingInviteFriends({ url = 'google.com', title = 'google' }) {
+export default function BankingInviteFriends({ url = 'example.com', title = 'None' }) {
   url = url.slice(7, -1);
   return (
     <div>

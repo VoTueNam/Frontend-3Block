@@ -1,3 +1,4 @@
+import './index.css';
 // i18n
 import './locales/i18n';
 
@@ -53,7 +54,6 @@ import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 
 // ----------------------------------------------------------------------
-
 ReactDOM.render(
   <AuthProvider>
     <HelmetProvider>
