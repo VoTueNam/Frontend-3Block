@@ -27,7 +27,7 @@ AppWelcome.propTypes = {
   url: PropTypes.string,
 };
 
-export default function AppWelcome({ domain, url }) {
+export default function AppWelcome({ domain, url, screenshot, report }) {
   return (
     <RootStyle>
       <CardContent
@@ -41,23 +41,33 @@ export default function AppWelcome({ domain, url }) {
           Domain:
           <br /> {!domain ? '...' : domain}
         </Typography>
-
-        <Typography variant="body2" sx={{ pb: { xs: 3, xl: 5 }, maxWidth: 480, mx: 'auto' }}>
-          {`URL: ${url}`}
-        </Typography>
-
         <a href={url} target="_blank">
-          <Button variant="contained">Go This URL Now</Button>
+          <Typography variant="body2" sx={{ pb: { xs: 3, xl: 5 }, maxWidth: 480, mx: 'auto' }}>
+            {`URL: ${url}`}
+          </Typography>
+        </a>
+        <a href={report} target="_blank">
+          <Button variant="contained" color="error" sx={{ mr: 1, fontWeight: 'fontWeightBold' }}>
+            More Report
+          </Button>
+        </a>
+        <a href={screenshot} target="_blank">
+          <Button variant="contained" sx={{ mr: 1, fontWeight: 'fontWeightBold' }}>
+            See Full Screenshot
+          </Button>
         </a>
       </CardContent>
 
-      <SeoIllustration
+      {/* <SeoIllustration
         sx={{
           p: 3,
           width: 360,
           margin: { xs: 'auto', md: 'inherit' },
         }}
-      />
+      /> */}
+      <a href={screenshot} target="_blank">
+        <img src={screenshot} p={3} width={330} />
+      </a>
     </RootStyle>
   );
 }

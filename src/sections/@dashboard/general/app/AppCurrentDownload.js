@@ -33,7 +33,7 @@ const ChartWrapperStyle = styled('div')(({ theme }) => ({
 
 const CHART_DATA = [12244, 53345, 44313, 78343];
 
-export default function AppCurrentDownload() {
+export default function AppCurrentDownload({}) {
   const theme = useTheme();
 
   const chartOptions = merge(BaseOptionChart(), {

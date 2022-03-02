@@ -2,7 +2,7 @@ import _mock from './_mock';
 
 // ----------------------------------------------------------------------
 
-export const _bankingContacts = [...Array(5)].map((_, index) => ({
+export const _bankingContacts = [...Array(3)].map((_, index) => ({
   id: _mock.id(index),
   name: _mock.name.fullName(index),
   email: _mock.email(index),

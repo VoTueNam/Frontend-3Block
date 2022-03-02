@@ -218,7 +218,7 @@ export default function Searchbar() {
           text: 'Nutzungsbedingungen',
         },
       ],
-      countries: ['DE'],
+      countries: ['DE', 'US', 'BE', 'VN', 'CN'],
       linkDomains: [
         'about.google',
         'store.google.com',

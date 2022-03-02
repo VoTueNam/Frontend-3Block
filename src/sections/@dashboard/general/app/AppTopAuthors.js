@@ -25,12 +25,34 @@ const IconWrapperStyle = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-export default function AppTopAuthors() {
-  const displayAuthor = orderBy(_appAuthors, ['favourite'], ['desc']);
-
+export default function AppTopAuthors({ asn, country, description, name }) {
+  var indexAuthor = 0;
+  var displayAuthor = [
+    {
+      id: asn + '' + indexAuthor++,
+      avatar: 'https://votuenam.github.io/image-hosting/ans/name.png',
+      favourite: 'Name',
+      name: name,
+      icon: 'logos:namecheap',
+    },
+    {
+      id: asn + '' + indexAuthor++,
+      avatar: 'https://votuenam.github.io/image-hosting/ans/description.png',
+      favourite: 'Description',
+      name: description,
+      icon: 'flat-color-icons:info',
+    },
+    {
+      id: asn + '' + indexAuthor++,
+      avatar: 'https://votuenam.github.io/image-hosting/ans/image.png',
+      favourite: 'Country',
+      name: country,
+      icon: 'emojione:cityscape-at-dusk',
+    },
+  ];
   return (
     <Card>
-      <CardHeader title="Top Authors" />
+      <CardHeader title={'ASN: ' + asn} />
       <Stack spacing={3} sx={{ p: 3 }}>
         {displayAuthor.map((author, index) => (
           <AuthorItem key={author.id} author={author} index={index} />
@@ -45,8 +67,9 @@ export default function AppTopAuthors() {
 AuthorItem.propTypes = {
   author: PropTypes.shape({
     avatar: PropTypes.string,
-    favourite: PropTypes.number,
+    favourite: PropTypes.string,
     name: PropTypes.string,
+    icon: PropTypes.string,
   }),
   index: PropTypes.number,
 };
@@ -66,8 +89,8 @@ function AuthorItem({ author, index }) {
             color: 'text.secondary',
           }}
         >
-          <Iconify icon={'eva:heart-fill'} sx={{ width: 16, height: 16, mr: 0.5 }} />
-          {fShortenNumber(author.favourite)}
+          <Iconify icon={'emojione:fountain-pen'} sx={{ width: 16, height: 16, mr: 0.5 }} />
+          {author.favourite}
         </Typography>
       </Box>
 
@@ -83,7 +106,7 @@ function AuthorItem({ author, index }) {
           }),
         }}
       >
-        <Iconify icon={'ant-design:trophy-filled'} width={20} height={20} />
+        <Iconify icon={author.icon} width={20} height={20} />
       </IconWrapperStyle>
     </Stack>
   );

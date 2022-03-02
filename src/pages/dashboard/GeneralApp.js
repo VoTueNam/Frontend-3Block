@@ -19,6 +19,8 @@ import {
   AppCurrentDownload,
   AppTopInstalledCountries,
 } from '../../sections/@dashboard/general/app';
+import { EcommerceNewProducts } from '../../sections/@dashboard/general/e-commerce';
+import { BankingContacts, BankingInviteFriends, BankingQuickTransfer } from '../../sections/@dashboard/general/banking';
 
 // ----------------------------------------------------------------------
 var URLVar = JSON.parse(localStorage.getItem('URLScan'));
@@ -33,13 +35,19 @@ export default function GeneralApp() {
   const theme = useTheme();
   const { themeStretch } = useSettings();
   console.log(URLVar);
+
   return (
     <Page title="General: App">
       <Container maxWidth={themeStretch ? false : 'xl'}>
         {/* URL + domain */}
         <Grid container spacing={3}>
           <Grid item xs={12} md={8}>
-            <AppWelcome domain={convertUndefined(URLVar?.page?.domain)} url={convertUndefined(URLVar?.page?.url)} />
+            <AppWelcome
+              domain={convertUndefined(URLVar?.page?.domain)}
+              url={convertUndefined(URLVar?.page?.url)}
+              screenshot={URLVar?.screenshot}
+              report={URLVar?.report}
+            />
           </Grid>
           {/* page remaining */}
           <Grid item xs={12} md={4}>
@@ -85,27 +93,38 @@ export default function GeneralApp() {
               number={1}
             />
           </Grid>
-          <Grid item xs={12} md={6} lg={4}>
-            <AppTopAuthors />
+          {/* country */}
+          <Grid item xs={12} md={4}>
+            <EcommerceNewProducts countriesName={convertUndefined(URLVar?.countries)} />
           </Grid>
+          {/* asn */}
           <Grid item xs={12} md={6} lg={4}>
+            <AppTopAuthors
+              asn={convertUndefined(URLVar?.asn?.asn)}
+              country={convertUndefined(URLVar?.asn?.country)}
+              description={convertUndefined(URLVar?.asn?.description)}
+              name={convertUndefined(URLVar?.asn?.name)}
+            />
+          </Grid>
+          {/* Links */}
+          <Grid item xs={12} md={6} lg={4}>
+            <BankingContacts links={convertUndefined(URLVar?.links)} />
+          </Grid>
+          {/* <Grid item xs={12} md={6} lg={4}>
+            <AppTopInstalledCountries />
+          </Grid> */}
+          {/* <Grid item xs={12} md={6} lg={4}>
             <AppCurrentDownload />
           </Grid>
           <Grid item xs={12} md={6} lg={8}>
             <AppAreaInstalled />
-          </Grid>
-          <Grid item xs={12} lg={8}>
+          </Grid> */}
+          {/* <Grid item xs={12} lg={8}>
             <AppNewInvoice />
-          </Grid>
-          <Grid item xs={12} md={6} lg={4}>
+          </Grid> */}
+          {/* <Grid item xs={12} md={6} lg={4}>
             <AppTopRelated />
-          </Grid>
-          <Grid item xs={12} md={6} lg={4}>
-            <AppTopInstalledCountries />
-          </Grid>
-          <Grid item xs={12} md={6} lg={4}>
-            <AppTopAuthors />
-          </Grid>
+          </Grid> */}
           {/* <Grid item xs={12} md={6} lg={4}>
             <Stack spacing={3}>
               <AppWidget title="Conversion" total={38566} icon={'eva:person-fill'} chartData={48} />
@@ -175,7 +194,7 @@ var google = {
       text: 'Anmelden',
     },
     {
-      href: 'https://support.google.com/websearch/answer/106230?hl=de',
+      href: 'https://support.google.com/websearch/asnwer/106230?hl=de',
       text: 'Weitere Informationen',
     },
     {

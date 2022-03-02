@@ -84,19 +84,19 @@ export default function EcommerceProductDetails() {
     <Page title="Ecommerce: Product Details">
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
-          heading="Product Details"
-          links={[
-            { name: 'Dashboard', href: PATH_DASHBOARD.root },
-            {
-              name: 'E-Commerce',
-              href: PATH_DASHBOARD.eCommerce.root,
-            },
-            {
-              name: 'Shop',
-              href: PATH_DASHBOARD.eCommerce.shop,
-            },
-            { name: sentenceCase(name) },
-          ]}
+          heading="Product Details nè"
+          // links={[
+          //   { name: 'Dashboard', href: PATH_DASHBOARD.root },
+          //   {
+          //     name: 'E-Commerce',
+          //     href: PATH_DASHBOARD.eCommerce.root,
+          //   },
+          //   {
+          //     name: 'Shop',
+          //     href: PATH_DASHBOARD.eCommerce.shop,
+          //   },
+          //   { name: sentenceCase(name) },
+          // ]}
         />
 
         <CartWidget />
@@ -119,7 +119,7 @@ export default function EcommerceProductDetails() {
               </Grid>
             </Card>
 
-            <Grid container sx={{ my: 8 }}>
+            {/* <Grid container sx={{ my: 8 }}>
               {PRODUCT_DESCRIPTION.map((item) => (
                 <Grid item xs={12} md={4} key={item.title}>
                   <Box sx={{ my: 2, mx: 'auto', maxWidth: 280, textAlign: 'center' }}>
@@ -133,9 +133,9 @@ export default function EcommerceProductDetails() {
                   </Box>
                 </Grid>
               ))}
-            </Grid>
+            </Grid> */}
 
-            <Card>
+            {/* <Card>
               <TabContext value={value}>
                 <Box sx={{ px: 3, bgcolor: 'background.neutral' }}>
                   <TabList onChange={(e, value) => setValue(value)}>
@@ -160,11 +160,11 @@ export default function EcommerceProductDetails() {
                   <ProductDetailsReview product={product} />
                 </TabPanel>
               </TabContext>
-            </Card>
+            </Card> */}
           </>
         )}
 
-        {!product && <SkeletonProduct />}
+        {/* {!product && <SkeletonProduct />} */}
 
         {error && <Typography variant="h6">404 Product not found</Typography>}
       </Container>

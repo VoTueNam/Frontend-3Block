@@ -26,13 +26,9 @@ const OverlayStyle = styled('div')(({ theme }) => ({
 }));
 
 // ----------------------------------------------------------------------
-
+const URL = 'https://votuenam.github.io/image-hosting/';
 export default function AppFeatured({ country, city, server, ip, asn, asnname }) {
-  const image = [
-    `https://minimal-assets-api.vercel.app/assets/images/covers/cover_1.jpg`,
-    `https://minimal-assets-api.vercel.app/assets/images/feeds/feed_2.jpg`,
-    `https://minimal-assets-api.vercel.app/assets/images/products/product_3.jpg`,
-  ];
+  const image = [`${URL}AppFeatured/City.jpg`, `${URL}AppFeatured/server.jpg`, `${URL}AppFeatured/asn.jpg`];
   const _appFeatured = [...Array(3)].map((_, index) => ({
     id: image[index],
     title: [city, ip, asnname][index],

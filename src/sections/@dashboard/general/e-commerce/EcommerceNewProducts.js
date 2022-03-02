@@ -24,9 +24,17 @@ const OverlayStyle = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-export default function EcommerceNewProducts() {
+export default function EcommerceNewProducts({ countriesName }) {
   const theme = useTheme();
-
+  const countries = [];
+  for (var i of countriesName) {
+    var obj = {
+      name: i,
+      image: 'https://countryflagsapi.com/png/' + i,
+    };
+    countries.push(obj);
+  }
+  console.log(countries);
   const settings = {
     speed: 1000,
     dots: true,
@@ -41,7 +49,7 @@ export default function EcommerceNewProducts() {
   return (
     <Card>
       <Slider {...settings}>
-        {_ecommerceNewProducts.map((item) => (
+        {countries.map((item) => (
           <CarouselItem key={item.name} item={item} />
         ))}
       </Slider>
@@ -74,14 +82,14 @@ function CarouselItem({ item }) {
         }}
       >
         <Typography variant="overline" sx={{ opacity: 0.48 }}>
-          New
+          Countries
         </Typography>
         <Typography noWrap variant="h5" sx={{ mt: 1, mb: 3 }}>
           {name}
         </Typography>
-        <Button to="#" variant="contained" component={RouterLink}>
-          Buy Now
-        </Button>
+        <a href={'https://en.wikipedia.org/wiki/.' + name.toLowerCase()} target="_blank">
+          <Button variant="contained">More Info</Button>
+        </a>
       </CardContent>
       <OverlayStyle />
       <Image alt={name} src={image} sx={{ height: { xs: 280, xl: 320 } }} />

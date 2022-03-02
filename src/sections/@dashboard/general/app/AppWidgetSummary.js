@@ -32,9 +32,6 @@ AppWidgetSummary.propTypes = {
 };
 
 export default function AppWidgetSummary({ title, percent, total, chartColor, chartData, number = -1 }) {
-  total.toString().replace('undefined', 'Unknown');
-  percent.replace('undefined', 'Unknown');
-  console.log(total);
   const theme = useTheme();
   const chartOptions = {
     colors: [chartColor],
