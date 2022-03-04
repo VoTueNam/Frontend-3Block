@@ -181,7 +181,7 @@ function PlanCard({ plan }) {
             underline="always"
             target="_blank"
             rel="noopener"
-            href="https://material-ui.com/store/license/#i-standard-license"
+            href="#"
             sx={{ typography: 'body2', display: 'flex', alignItems: 'center' }}
           >
             Learn more <Iconify icon={'eva:chevron-right-fill'} width={20} height={20} />
@@ -194,7 +194,7 @@ function PlanCard({ plan }) {
           variant={plus ? 'contained' : 'outlined'}
           target="_blank"
           rel="noopener"
-          href="https://material-ui.com/store/items/minimal-dashboard/"
+          href="#"
         >
           Choose Plan
         </Button>

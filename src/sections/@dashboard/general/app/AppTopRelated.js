@@ -45,7 +45,7 @@ export default function AppTopRelated({ props = [] }) {
   _appRelated = props.map((appName, index) => ({
     id: _mock.id(index),
     name: Object.keys(appName)[0],
-    system: Object.values(appName)[0],
+    system: JSON.stringify(Object.values(appName)[0]),
     price: index === 0 || index === 2 || index === 4 ? 0 : _mock.number.price(index),
     linkEngine: getLink(Object.keys(appName)[0]),
     review: 9,

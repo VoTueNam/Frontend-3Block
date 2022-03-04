@@ -109,9 +109,11 @@ export default function BookingDetails({ grayList }) {
                     <TableCell>{format(new Date(row.createdAt), 'dd MMM yyyy')}</TableCell>
                     <TableCell>
                       {(() => {
-                        const a = format(new Date(row.createdAt), 'dd MMM yyyy'),
-                          b = format(new Date(row.updatedAt), 'dd MMM yyyy');
-                        if (a != b) return format(new Date(row.updatedAt), 'dd MMM yyyy');
+                        if (row.isCheck != 'none')
+                          // const a = format(new Date(row.createdAt), 'dd MMM yyyy'),
+                          //   b = format(new Date(row.updatedAt), 'dd MMM yyyy');
+                          // if (a != b)
+                          return format(new Date(row.updatedAt), 'dd MMM yyyy');
                       })()}
                     </TableCell>
 

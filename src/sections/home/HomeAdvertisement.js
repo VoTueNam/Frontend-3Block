@@ -66,7 +66,7 @@ export default function HomeAdvertisement() {
               variant="contained"
               target="_blank"
               rel="noopener"
-              href="https://material-ui.com/store/items/minimal-dashboard/"
+              href="#"
               sx={{
                 whiteSpace: 'nowrap',
                 boxShadow: (theme) => theme.customShadows.z8,

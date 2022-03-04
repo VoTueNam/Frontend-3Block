@@ -42,7 +42,7 @@ export default function HomeLookingFor() {
                 variant="outlined"
                 target="_blank"
                 rel="noopener"
-                href="https://material-ui.com/store/items/zone-landing-page/"
+                href="#"
                 endIcon={<Iconify icon={'ic:round-arrow-right-alt'} />}
               >
                 Download Now

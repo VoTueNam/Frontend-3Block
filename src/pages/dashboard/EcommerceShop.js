@@ -3,7 +3,7 @@ import orderBy from 'lodash/orderBy';
 // form
 import { useForm } from 'react-hook-form';
 // @mui
-import { Container, Typography, Stack } from '@mui/material';
+import { Container, Typography, Stack, TablePagination } from '@mui/material';
 // redux
 import { useDispatch, useSelector } from '../../redux/store';
 import { getProducts, filterProducts } from '../../redux/slices/product';
@@ -26,25 +26,27 @@ import {
 import CartWidget from '../../sections/@dashboard/e-commerce/CartWidget';
 
 // ----------------------------------------------------------------------
-var black;
+var blacks;
 if (!localStorage.getItem('blackList')) {
   getBlackList();
 } else {
-  black = JSON.parse(localStorage.getItem('blackList'));
+  blacks = JSON.parse(localStorage.getItem('blackList'));
   // console.log(black);
 }
+
 export default function EcommerceShop() {
+  var { products, sortBy, filters } = useSelector((state) => state.product);
+
+  const filteredProducts = applyFilter(products, sortBy, filters);
   const { themeStretch } = useSettings();
+
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(12);
+  const [black, setBlack] = useState(blacks);
 
   const dispatch = useDispatch();
 
   const [openFilter, setOpenFilter] = useState(false);
-
-  var { products, sortBy, filters } = useSelector((state) => state.product);
-
-  console.log(black);
-
-  const filteredProducts = applyFilter(products, sortBy, filters);
 
   const defaultValues = {
     gender: filters.gender,
@@ -112,20 +114,14 @@ export default function EcommerceShop() {
     setValue('rating', '');
   };
 
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 12));
+    setPage(0);
+  };
   return (
-    <Page title="White Lists Public">
+    <Page title="Black Lists Public">
       <Container maxWidth={themeStretch ? false : 'lg'}>
-        <HeaderBreadcrumbs
-          heading="White Lists URL"
-          links={[
-            { name: 'Dashboard', href: PATH_DASHBOARD.root },
-            {
-              name: 'E-Commerce',
-              href: PATH_DASHBOARD.eCommerce.root,
-            },
-            { name: 'Shop' },
-          ]}
-        />
+        <HeaderBreadcrumbs heading="Black Lists URL" />
 
         <Stack
           spacing={2}
@@ -134,7 +130,7 @@ export default function EcommerceShop() {
           justifyContent="space-between"
           sx={{ mb: 2 }}
         >
-          <ShopProductSearch />
+          <ShopProductSearch black={black} setBlack={setBlack} />
 
           <Stack direction="row" spacing={1} flexShrink={0} sx={{ my: 1 }}>
             <FormProvider methods={methods}>
@@ -174,8 +170,17 @@ export default function EcommerceShop() {
 
         <ShopProductList
           products={filteredProducts}
-          white={black.slice(0, 12)}
+          black={black.slice(page * rowsPerPage, (page + 1) * rowsPerPage)}
           loading={!products.length && isDefault}
+        />
+        <TablePagination
+          rowsPerPageOptions={[4, 8, 12]}
+          component="div"
+          count={black.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={(e, page) => setPage(page)}
+          onRowsPerPageChange={handleChangeRowsPerPage}
         />
         {/* <CartWidget /> */}
       </Container>
@@ -237,9 +242,6 @@ function getBlackList() {
   fetch('https://api3blockserver.herokuapp.com/db/api/system/3block/getAllBlackPublic', {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' },
-    // body: JSON.stringify({
-    //   url: 'https://google.com/',
-    // }),
   })
     .then((response) => {
       return response.json();

@@ -13,7 +13,7 @@ ShopProductList.propTypes = {
   loading: PropTypes.bool,
 };
 
-export default function ShopProductList({ products, loading, white }) {
+export default function ShopProductList({ loading, black }) {
   return (
     <Box
       sx={{
@@ -27,7 +27,7 @@ export default function ShopProductList({ products, loading, white }) {
         },
       }}
     >
-      {(loading ? [...Array(12)] : white).map((product, index) =>
+      {(loading ? [...Array(12)] : black).map((product, index) =>
         product ? <ShopProductCard key={product._id} product={product} /> : <SkeletonProductItem key={index} />
       )}
     </Box>

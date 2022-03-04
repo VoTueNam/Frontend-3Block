@@ -31,8 +31,8 @@ export default function ShopProductCard({ product }) {
     colors.push('#' + randomColor);
   }
 
-  const linkTo = `${PATH_DASHBOARD.eCommerce.root}/product/${paramCase(url)}`;
-  const status = 'isChecked';
+  const linkTo = `/dashboard/analytics`;
+  const status = product.level;
 
   return (
     <Card>
@@ -40,10 +40,15 @@ export default function ShopProductCard({ product }) {
         {status && (
           <Label
             variant="filled"
-            color={(status === 'sale' && 'error') || 'info' || 'warning'}
+            color={
+              (status === 'high' && 'error') ||
+              (status === 'medium' && 'warning') ||
+              (status === 'low' && 'info') ||
+              'success'
+            }
             sx={{
-              top: 16,
-              right: 16,
+              top: 6,
+              right: 6,
               zIndex: 9,
               position: 'absolute',
               textTransform: 'uppercase',
@@ -53,13 +58,20 @@ export default function ShopProductCard({ product }) {
           </Label>
         )}
         {/* <EcommerceSaleByGender /> */}
-        <BookingRoomAvailable />
+        <BookingRoomAvailable product={product.result} />
       </Box>
 
       <Stack spacing={2} sx={{ p: 3 }}>
-        <Link to={linkTo} color="inherit" component={RouterLink}>
-          <Typography variant="subtitle2" noWrap>
-            {'Update at: ' + format(new Date(updatedAt), 'dd MMM yyyy')}
+        <Link
+          to={linkTo}
+          color="inherit"
+          component={RouterLink}
+          onClick={() => {
+            localStorage.setItem('virusTotal', JSON.stringify(product));
+          }}
+        >
+          <Typography variant="subtitle1" noWrap>
+            {validURL(url)}
           </Typography>
         </Link>
 
@@ -73,7 +85,7 @@ export default function ShopProductCard({ product }) {
               </Typography>
             )} */}
 
-            <Typography variant="subtitle1">{validURL(url)}</Typography>
+            <Typography variant="subtitle2">{'Updated: ' + format(new Date(updatedAt), 'dd MMM yyyy')}</Typography>
           </Stack>
         </Stack>
       </Stack>

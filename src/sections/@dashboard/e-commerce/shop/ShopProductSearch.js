@@ -26,7 +26,7 @@ const PopperStyle = styled((props) => <Popper placement="bottom-start" {...props
 
 // ----------------------------------------------------------------------
 
-export default function ShopProductSearch() {
+export default function ShopProductSearch({ black, setBlack }) {
   const navigate = useNavigate();
 
   const isMountedRef = useIsMountedRef();
@@ -36,24 +36,32 @@ export default function ShopProductSearch() {
   const [searchResults, setSearchResults] = useState([]);
 
   const handleChangeSearch = async (value) => {
-    try {
-      setSearchQuery(value);
-      if (value) {
-        const response = await axios.get('/api/products/search', {
-          params: { query: value },
-        });
+    const datea = JSON.parse(localStorage.getItem('blackList'));
+    console.log(datea);
+    const c = datea.filter((da) => {
+      return da.url.includes(value);
+    });
+    setSearchQuery(value);
+    setBlack(c);
+    // setSearchResults(c);
+    // try {
+    //   setSearchQuery(value);
+    //   if (value) {
+    //     const response = await axios.get('/api/products/search', {
+    //       params: { query: value },
+    //     });
 
-        if (isMountedRef.current) {
-          setSearchResults(response.data.results);
-        }
-      }
-    } catch (error) {
-      console.error(error);
-    }
+    //     if (isMountedRef.current) {
+    //       setSearchResults(response.data.results);
+    //     }
+    //   }
+    // } catch (error) {
+    //   console.error(error);
+    // }
   };
 
   const handleClick = (name) => {
-    navigate(`${PATH_DASHBOARD.eCommerce.root}/product/${paramCase(name)}`);
+    // navigate(`${PATH_DASHBOARD.eCommerce.root}/product/${paramCase(name)}`);
   };
 
   const handleKeyUp = (event) => {
@@ -96,7 +104,7 @@ export default function ShopProductSearch() {
 
         return (
           <li {...props}>
-            <Image alt={cover} src={cover} sx={{ width: 48, height: 48, borderRadius: 1, flexShrink: 0, mr: 1.5 }} />
+            {/* <Image alt={cover} src={cover} sx={{ width: 48, height: 48, borderRadius: 1, flexShrink: 0, mr: 1.5 }} /> */}
             <Link underline="none" onClick={() => handleClick(name)}>
               {parts.map((part, index) => (
                 <Typography
