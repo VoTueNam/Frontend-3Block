@@ -37,7 +37,7 @@ export default function GeneralApp() {
   console.log(URLVar);
 
   return (
-    <Page title="General: App">
+    <Page title="URL Detail">
       <Container maxWidth={themeStretch ? false : 'xl'}>
         {/* URL + domain */}
         <Grid container spacing={3}>

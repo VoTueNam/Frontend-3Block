@@ -14,12 +14,16 @@ import { BaseOptionChart } from '../../../../components/chart';
 
 const CHART_SIZE = { width: 106, height: 106 };
 
-const TOTAL_CHECK_IN = 38566;
-const TOTAL_CHECK_OUT = 18472;
-const CHART_DATA_CHECK_IN = [72];
-const CHART_DATA_CHECK_OUT = [64];
+var TOTAL_CHECK_IN = 38566;
+var TOTAL_CHECK_OUT = 18472;
+var CHART_DATA_CHECK_IN = [0];
+var CHART_DATA_CHECK_OUT = [64];
 
-export default function BookingCheckInWidgets() {
+export default function BookingCheckInWidgets({ isChecked, notChecked, size }) {
+  TOTAL_CHECK_IN = isChecked;
+  TOTAL_CHECK_OUT = notChecked;
+  CHART_DATA_CHECK_IN = [(isChecked * 100) / size];
+  CHART_DATA_CHECK_OUT = [(notChecked * 100) / size];
   const theme = useTheme();
 
   const isDesktop = useResponsive('up', 'sm');
@@ -68,7 +72,7 @@ export default function BookingCheckInWidgets() {
               {fNumber(TOTAL_CHECK_IN)}
             </Typography>
             <Typography variant="body2" sx={{ opacity: 0.72 }}>
-              Check In
+              Verification
             </Typography>
           </div>
         </Stack>
@@ -85,7 +89,7 @@ export default function BookingCheckInWidgets() {
               {fNumber(TOTAL_CHECK_OUT)}
             </Typography>
             <Typography variant="body2" sx={{ opacity: 0.72 }}>
-              Check Out
+              Reject
             </Typography>
           </div>
         </Stack>

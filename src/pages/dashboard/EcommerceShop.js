@@ -26,7 +26,13 @@ import {
 import CartWidget from '../../sections/@dashboard/e-commerce/CartWidget';
 
 // ----------------------------------------------------------------------
-
+var black;
+if (!localStorage.getItem('blackList')) {
+  getBlackList();
+} else {
+  black = JSON.parse(localStorage.getItem('blackList'));
+  // console.log(black);
+}
 export default function EcommerceShop() {
   const { themeStretch } = useSettings();
 
@@ -34,7 +40,9 @@ export default function EcommerceShop() {
 
   const [openFilter, setOpenFilter] = useState(false);
 
-  const { products, sortBy, filters } = useSelector((state) => state.product);
+  var { products, sortBy, filters } = useSelector((state) => state.product);
+
+  console.log(black);
 
   const filteredProducts = applyFilter(products, sortBy, filters);
 
@@ -105,10 +113,10 @@ export default function EcommerceShop() {
   };
 
   return (
-    <Page title="Ecommerce: Shop">
+    <Page title="White Lists Public">
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
-          heading="Shop"
+          heading="White Lists URL"
           links={[
             { name: 'Dashboard', href: PATH_DASHBOARD.root },
             {
@@ -164,8 +172,12 @@ export default function EcommerceShop() {
           )}
         </Stack>
 
-        <ShopProductList products={filteredProducts} loading={!products.length && isDefault} />
-        <CartWidget />
+        <ShopProductList
+          products={filteredProducts}
+          white={black.slice(0, 12)}
+          loading={!products.length && isDefault}
+        />
+        {/* <CartWidget /> */}
       </Container>
     </Page>
   );
@@ -220,4 +232,20 @@ function applyFilter(products, sortBy, filters) {
     });
   }
   return products;
+}
+function getBlackList() {
+  fetch('https://api3blockserver.herokuapp.com/db/api/system/3block/getAllBlackPublic', {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' },
+    // body: JSON.stringify({
+    //   url: 'https://google.com/',
+    // }),
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .then((json) => {
+      localStorage.setItem('blackList', JSON.stringify(json));
+      window.location.reload();
+    });
 }

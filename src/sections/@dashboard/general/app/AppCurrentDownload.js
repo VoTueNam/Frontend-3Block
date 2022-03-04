@@ -10,7 +10,7 @@ import { BaseOptionChart } from '../../../../components/chart';
 
 // ----------------------------------------------------------------------
 
-const CHART_HEIGHT = 392;
+const CHART_HEIGHT = 350;
 const LEGEND_HEIGHT = 72;
 
 const ChartWrapperStyle = styled('div')(({ theme }) => ({
@@ -31,19 +31,19 @@ const ChartWrapperStyle = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-const CHART_DATA = [12244, 53345, 44313, 78343];
+var CHART_DATA = [12244, 53345, 44313];
 
-export default function AppCurrentDownload({}) {
+export default function AppCurrentDownload({ data }) {
   const theme = useTheme();
-
+  CHART_DATA = data;
   const chartOptions = merge(BaseOptionChart(), {
     colors: [
-      theme.palette.primary.lighter,
-      theme.palette.primary.light,
       theme.palette.primary.main,
+      theme.palette.warning.light,
+      theme.palette.info.lighter,
       theme.palette.primary.dark,
     ],
-    labels: ['Mac', 'Window', 'iOS', 'Android'],
+    labels: ['Verification', 'Reject', 'None'],
     stroke: { colors: [theme.palette.background.paper] },
     legend: { floating: true, horizontalAlign: 'center' },
     tooltip: {
@@ -77,7 +77,7 @@ export default function AppCurrentDownload({}) {
 
   return (
     <Card>
-      <CardHeader title="Current Download" />
+      {/* <CardHeader title="Current Download" /> */}
       <ChartWrapperStyle dir="ltr">
         <ReactApexChart type="donut" series={CHART_DATA} options={chartOptions} height={280} />
       </ChartWrapperStyle>

@@ -31,14 +31,14 @@ const ChartWrapperStyle = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-const CHART_DATA = [44, 75];
+const CHART_DATA = [44, 75, 99, 13, 32, 12];
 
 export default function EcommerceSaleByGender() {
   const theme = useTheme();
 
   const chartOptions = merge(BaseOptionChart(), {
-    labels: ['Mens', 'Womens'],
-    legend: { floating: true, horizontalAlign: 'center' },
+    labels: ['Mens', 'Womens', 'Nonr', 'malware', 'phishing', 'ccc'],
+    legend: { show: false },
     fill: {
       type: 'gradient',
       gradient: {
@@ -63,12 +63,22 @@ export default function EcommerceSaleByGender() {
               color: theme.palette.warning.main,
             },
           ],
+          [
+            {
+              offset: 0,
+              color: theme.palette.warning.light,
+            },
+            {
+              offset: 100,
+              color: theme.palette.warning.main,
+            },
+          ],
         ],
       },
     },
     plotOptions: {
       radialBar: {
-        hollow: { size: '68%' },
+        hollow: { size: '50%' },
         dataLabels: {
           value: { offsetY: 16 },
           total: {
@@ -81,9 +91,9 @@ export default function EcommerceSaleByGender() {
 
   return (
     <Card>
-      <CardHeader title="Sale By Gender" />
+      {/* <CardHeader title="Sale By Gender" /> */}
       <ChartWrapperStyle dir="ltr">
-        <ReactApexChart type="radialBar" series={CHART_DATA} options={chartOptions} height={310} />
+        <ReactApexChart type="donut" series={CHART_DATA} options={chartOptions} height={310} />
       </ChartWrapperStyle>
     </Card>
   );

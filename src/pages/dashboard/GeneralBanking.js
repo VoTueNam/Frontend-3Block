@@ -60,7 +60,7 @@ export default function GeneralBanking() {
           <Grid item xs={12} md={4}>
             <Stack spacing={3}>
               <BankingQuickTransfer />
-              <BankingContacts />
+              {/* <BankingContacts /> */}
               <BankingInviteFriends />
             </Stack>
           </Grid>

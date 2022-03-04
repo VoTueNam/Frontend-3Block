@@ -11,6 +11,9 @@ import { fCurrency } from '../../../../utils/formatNumber';
 import Label from '../../../../components/Label';
 import Image from '../../../../components/Image';
 import { ColorPreview } from '../../../../components/color-utils';
+import { format } from 'date-fns';
+import { BookingRoomAvailable } from '../../general/booking';
+import { EcommerceSaleByGender } from '../../general/e-commerce';
 
 // ----------------------------------------------------------------------
 
@@ -19,9 +22,17 @@ ShopProductCard.propTypes = {
 };
 
 export default function ShopProductCard({ product }) {
-  const { name, cover, price, colors, status, priceSale } = product;
+  var { url, updatedAt } = product;
 
-  const linkTo = `${PATH_DASHBOARD.eCommerce.root}/product/${paramCase(name)}`;
+  const colors = [];
+  var randomNumber = Math.floor(Math.random() * (5 - 1 + 1)) + 1;
+  for (let i = 0; i <= randomNumber; i += 1) {
+    var randomColor = Math.floor(Math.random() * 16777215).toString(16);
+    colors.push('#' + randomColor);
+  }
+
+  const linkTo = `${PATH_DASHBOARD.eCommerce.root}/product/${paramCase(url)}`;
+  const status = 'isChecked';
 
   return (
     <Card>
@@ -29,7 +40,7 @@ export default function ShopProductCard({ product }) {
         {status && (
           <Label
             variant="filled"
-            color={(status === 'sale' && 'error') || 'info'}
+            color={(status === 'sale' && 'error') || 'info' || 'warning'}
             sx={{
               top: 16,
               right: 16,
@@ -41,13 +52,14 @@ export default function ShopProductCard({ product }) {
             {status}
           </Label>
         )}
-        <Image alt={name} src={cover} ratio="1/1" />
+        {/* <EcommerceSaleByGender /> */}
+        <BookingRoomAvailable />
       </Box>
 
       <Stack spacing={2} sx={{ p: 3 }}>
         <Link to={linkTo} color="inherit" component={RouterLink}>
           <Typography variant="subtitle2" noWrap>
-            {name}
+            {'Update at: ' + format(new Date(updatedAt), 'dd MMM yyyy')}
           </Typography>
         </Link>
 
@@ -55,16 +67,22 @@ export default function ShopProductCard({ product }) {
           <ColorPreview colors={colors} />
 
           <Stack direction="row" spacing={0.5}>
-            {priceSale && (
+            {/* {updatedAtSale && (
               <Typography component="span" sx={{ color: 'text.disabled', textDecoration: 'line-through' }}>
-                {fCurrency(priceSale)}
+                {fCurrency(updatedAtSale)}
               </Typography>
-            )}
+            )} */}
 
-            <Typography variant="subtitle1">{fCurrency(price)}</Typography>
+            <Typography variant="subtitle1">{validURL(url)}</Typography>
           </Stack>
         </Stack>
       </Stack>
     </Card>
   );
+}
+function validURL(url) {
+  var match;
+  if ((match = url.match(/^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:\/\n\?\=]+)/im))) {
+    return match[1];
+  }
 }

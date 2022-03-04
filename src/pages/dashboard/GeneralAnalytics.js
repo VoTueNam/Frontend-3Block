@@ -90,14 +90,16 @@ result.categories.forEach((i) =>
 const propsDetails = [];
 Object.keys(result.result).forEach((i) => props.label.push(i));
 Object.values(result.result).forEach((i) => props.chartData.push(Number(i)));
-Object.keys(result.detail).forEach((i) => {
-  propsDetails.push({ [i]: result.detail[i] });
-});
+try {
+  Object.keys(result?.detail).forEach((i) => {
+    propsDetails.push({ [i]: result.detail[i] });
+  });
+} catch (error) {}
 
 export default function GeneralAnalytics() {
   const { themeStretch } = useSettings();
   return (
-    <Page title="General: Analytics">
+    <Page title="Analytics URL">
       <Container maxWidth={themeStretch ? false : 'xl'}>
         <Typography variant="h4" sx={{ mb: 5 }}>
           Welcome, Analytics URL
