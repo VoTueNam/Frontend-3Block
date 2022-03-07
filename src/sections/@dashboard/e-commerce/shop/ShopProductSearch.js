@@ -74,57 +74,68 @@ export default function ShopProductSearch({ black, setBlack, setPage }) {
   };
 
   return (
-    <Autocomplete
-      size="small"
-      // autoHighlight
-      popupIcon={null}
-      value={searchQuery}
-      freeSolo={true}
-      // PopperComponent={PopperStyle}
-      options={searchResults}
-      onInputChange={(event, value) => handleChangeSearch(value)}
-      // getOptionLabel={(product) => product.name}
-      // noOptionsText={<SearchNotFound searchQuery={searchQuery} />}
-      isOptionEqualToValue={(option, value) => option.id === value.id}
-      renderInput={(params) => (
-        <InputStyle
-          {...params}
-          stretchStart={200}
-          placeholder="Search URL..."
-          onKeyUp={handleKeyUp}
-          InputProps={{
-            ...params.InputProps,
-            startAdornment: (
-              <InputAdornment position="start">
-                <Iconify icon={'eva:search-fill'} sx={{ ml: 1, width: 20, height: 20, color: 'text.disabled' }} />
-              </InputAdornment>
-            ),
-          }}
-        />
-      )}
-      renderOption={(props, product, { inputValue }) => {
-        const { name, cover } = product;
-        const matches = match(name, inputValue);
-        const parts = parse(name, matches);
+    <>
+      <Autocomplete
+        size="small"
+        // autoHighlight
+        popupIcon={null}
+        value={searchQuery}
+        freeSolo={true}
+        // PopperComponent={PopperStyle}
+        options={searchResults}
+        onInputChange={(event, value) => handleChangeSearch(value)}
+        // getOptionLabel={(product) => product.name}
+        // noOptionsText={<SearchNotFound searchQuery={searchQuery} />}
+        isOptionEqualToValue={(option, value) => option.id === value.id}
+        renderInput={(params) => (
+          <InputStyle
+            {...params}
+            stretchStart={200}
+            placeholder="Search URL..."
+            onKeyUp={handleKeyUp}
+            InputProps={{
+              ...params.InputProps,
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Iconify icon={'eva:search-fill'} sx={{ ml: 1, width: 20, height: 20, color: 'text.disabled' }} />
+                </InputAdornment>
+              ),
+            }}
+          />
+        )}
+        renderOption={(props, product, { inputValue }) => {
+          const { name, cover } = product;
+          const matches = match(name, inputValue);
+          const parts = parse(name, matches);
 
-        return (
-          <li {...props}>
-            {/* <Image alt={cover} src={cover} sx={{ width: 48, height: 48, borderRadius: 1, flexShrink: 0, mr: 1.5 }} /> */}
-            <Link underline="none" onClick={() => handleClick(name)}>
-              {parts.map((part, index) => (
-                <Typography
-                  key={index}
-                  component="span"
-                  variant="subtitle2"
-                  color={part.highlight ? 'primary' : 'textPrimary'}
-                >
-                  {part.text}
-                </Typography>
-              ))}
-            </Link>
-          </li>
-        );
-      }}
-    />
+          return (
+            <li {...props}>
+              {/* <Image alt={cover} src={cover} sx={{ width: 48, height: 48, borderRadius: 1, flexShrink: 0, mr: 1.5 }} /> */}
+              <Link underline="none" onClick={() => handleClick(name)}>
+                {parts.map((part, index) => (
+                  <Typography
+                    key={index}
+                    component="span"
+                    variant="subtitle2"
+                    color={part.highlight ? 'primary' : 'textPrimary'}
+                  >
+                    {part.text}
+                  </Typography>
+                ))}
+              </Link>
+            </li>
+          );
+        }}
+      />
+      <Button
+        color="error"
+        variant="contained"
+        onClick={() => {
+          console.log('Reset Data');
+        }}
+      >
+        Update Data
+      </Button>
+    </>
   );
 }

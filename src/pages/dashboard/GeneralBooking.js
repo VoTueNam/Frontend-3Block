@@ -21,6 +21,7 @@ import { BookingIllustration, CheckInIllustration, CheckOutIllustration } from '
 import Iconify from '../../components/Iconify';
 import EmojiPicker from '../../components/EmojiPicker';
 import MyAvatar from '../../components/MyAvatar';
+import { BankingInviteFriends } from '../../sections/@dashboard/general/banking';
 
 // ----------------------------------------------------------------------
 var gray;
@@ -47,12 +48,18 @@ export default function GeneralBooking() {
     <Page title="Gray Lists">
       <Container maxWidth={themeStretch ? false : 'xl'}>
         <Grid container spacing={3}>
-          <Grid item xs={12} md={4}>
-            <BookingWidgetSummary title="Total URL" total={gray.length} icon={<BookingIllustration />} />
+          <Grid item xs={12} md={6}>
+            <BankingInviteFriends virusTotal={true} url={'Enter your suggestion'} title={' URL here:'} />
           </Grid>
 
-          <Grid item xs={12} md={8}>
+          <Grid item xs={12} md={6}>
+            <br />
+            <br />
+            <BookingWidgetSummary title="Total URL" total={gray.length} icon={<BookingIllustration />} />
+            {/* <Grid item xs={12} md={4}> */}
+            <br />
             <BookingCheckInWidgets isChecked={isChecked} notChecked={notChecked} size={gray.length} />
+            {/* </Grid> */}
           </Grid>
 
           {/* <Grid item xs={12} md={4}>
@@ -95,51 +102,6 @@ export default function GeneralBooking() {
           <Grid item xs={12}>
             <BookingNewestBooking />
           </Grid>
-
-          <Stack direction="row" alignItems="center">
-            <MyAvatar />
-            <TextField
-              fullWidth
-              size="small"
-              value={''}
-              // inputRef={'nothing'}
-              placeholder="Write a comment…"
-              // onChange={(event) => handleChangeMessage(event.target.value)}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton
-                      size="small"
-                      // onClick={ }
-                    >
-                      <Iconify icon={'ic:round-add-photo-alternate'} width={24} height={24} />
-                    </IconButton>
-                    <EmojiPicker
-                      alignRight
-                      // value={ }
-                      // setValue={ }
-                    />
-                  </InputAdornment>
-                ),
-              }}
-              sx={{
-                ml: 2,
-                mr: 1,
-                '& fieldset': {
-                  borderWidth: `1px !important`,
-                  borderColor: (theme) => `${theme.palette.grey[500_32]} !important`,
-                },
-              }}
-            />
-            <IconButton>
-              <Iconify icon={'ic:round-send'} width={24} height={24} />
-            </IconButton>
-            <input
-              type="file"
-              // ref={'nothingsss'}
-              style={{ display: 'none' }}
-            />
-          </Stack>
 
           <Grid item xs={12}>
             <BookingDetails grayList={gray} />

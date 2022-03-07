@@ -108,7 +108,7 @@ export default function GeneralAnalytics() {
         {/* URL and Title */}
         <Grid container spacing={3}>
           <Grid item xs={12} md={6} lg={4}>
-            <BankingInviteFriends url={result.url} title={result.title} />
+            <BankingInviteFriends url={result.url} title={result.title} virusTotal={false} />
           </Grid>
 
           {/* Biểu đồ tròn */}

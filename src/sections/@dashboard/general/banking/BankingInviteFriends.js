@@ -3,6 +3,7 @@ import { styled, alpha } from '@mui/material/styles';
 import { Card, Stack, Typography, Button, OutlinedInput } from '@mui/material';
 // components
 import Image from '../../../../components/Image';
+import { useState } from 'react';
 
 // ----------------------------------------------------------------------
 
@@ -13,20 +14,26 @@ const ContentStyle = styled(Card)(({ theme }) => ({
   paddingTop: theme.spacing(16),
   color: theme.palette.common.white,
   backgroundImage: `linear-gradient(135deg,
-    ${theme.palette.primary.main} 0%,
-    ${theme.palette.primary.dark} 100%)`,
+    ${theme.palette.info.main} 0%,
+    ${theme.palette.success.dark} 100%)`,
 }));
 
 // ----------------------------------------------------------------------
 
-export default function BankingInviteFriends({ url = 'example.com', title = 'None' }) {
-  url = url.slice(7, -1);
+export default function BankingInviteFriends({ url = 'example.com', title = 'None', virusTotal = true }) {
+  if (url != 'Enter your suggestion') url = url.slice(7, -1);
+  const [submitValue, setSubmitValue] = useState('');
+  function onSubmit() {
+    console.log('submit' + submitValue);
+    setSubmitValue('');
+  }
   return (
     <div>
       <Image
         visibleByDefault
         disabledEffect
-        src="https://minimal-assets-api.vercel.app/assets/illustrations/illustration_invite.png"
+        src={'https://votuenam.github.io/image-hosting/BackGroud3Block' + virusTotal + '.png'}
+        // src="https://minimal-assets-api.vercel.app/assets/illustrations/illustration_invite.png"
         sx={{
           left: 45,
           zIndex: 9,
@@ -46,25 +53,31 @@ export default function BankingInviteFriends({ url = 'example.com', title = 'Non
           {title}
         </Typography>
 
-        {/* <Stack direction="row" spacing={1} alignItems="center" justifyContent="space-between">
-          <OutlinedInput
-            size="small"
-            placeholder="Email"
-            sx={{
-              width: 1,
-              color: 'common.white',
-              fontWeight: 'fontWeightMedium',
-              bgcolor: (theme) => alpha(theme.palette.common.black, 0.16),
-              '& input::placeholder': {
-                color: (theme) => alpha(theme.palette.common.white, 0.48),
-              },
-              '& fieldset': { display: 'none' },
-            }}
-          />
-          <Button color="warning" variant="contained">
-            Invite
-          </Button>
-        </Stack> */}
+        {virusTotal && (
+          <Stack direction="row" spacing={1} alignItems="center" justifyContent="space-between">
+            <OutlinedInput
+              size="small"
+              placeholder="..."
+              value={submitValue}
+              onChange={(e) => {
+                setSubmitValue(e.target.value);
+              }}
+              sx={{
+                width: 1,
+                color: 'common.white',
+                fontWeight: 'fontWeightMedium',
+                bgcolor: (theme) => alpha(theme.palette.common.black, 0.16),
+                '& input::placeholder': {
+                  color: (theme) => alpha(theme.palette.common.white, 0.48),
+                },
+                '& fieldset': { display: 'none' },
+              }}
+            />
+            <Button color="warning" variant="contained" onClick={onSubmit}>
+              Submit
+            </Button>
+          </Stack>
+        )}
       </ContentStyle>
     </div>
   );

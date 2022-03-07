@@ -65,7 +65,7 @@ export default function BookingDetails({ grayList }) {
   }
 
   const theme = useTheme();
-  console.log(grayList);
+  // console.log(grayList);
   const isLight = theme.palette.mode === 'light';
 
   return (

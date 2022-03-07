@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 // @mui
 import { useTheme, styled } from '@mui/material/styles';
-import { Toolbar, Tooltip, IconButton, Typography, InputAdornment } from '@mui/material';
+import { Toolbar, Tooltip, IconButton, Typography, InputAdornment, Button } from '@mui/material';
 // components
 import Iconify from '../../../../components/Iconify';
 import InputStyle from '../../../../components/InputStyle';
@@ -70,6 +70,15 @@ export default function ProductListToolbar({ numSelected, filterName, onFilterNa
           </IconButton>
         </Tooltip>
       )} */}
+      <Button
+        color="error"
+        variant="contained"
+        onClick={() => {
+          console.log('Reset Data');
+        }}
+      >
+        Update Data
+      </Button>
     </RootStyle>
   );
 }

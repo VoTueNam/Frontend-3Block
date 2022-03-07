@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 // @mui
 import { styled } from '@mui/material/styles';
-import { Card, Typography, Box } from '@mui/material';
+import { Card, Typography, Box, Button } from '@mui/material';
 // utils
 import { fShortenNumber } from '../../../../utils/formatNumber';
 
@@ -31,6 +31,15 @@ export default function BookingWidgetSummary({ title, total, icon }) {
           {title}
         </Typography>
       </div>
+      <Button
+        color="error"
+        variant="contained"
+        onClick={() => {
+          console.log('Reset Data');
+        }}
+      >
+        Update Data
+      </Button>
       <Box
         sx={{
           width: 120,
