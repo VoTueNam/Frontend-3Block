@@ -46,7 +46,7 @@ export default function ProductListToolbar({ numSelected, filterName, onFilterNa
           stretchStart={240}
           value={filterName}
           onChange={(event) => onFilterName(event.target.value)}
-          placeholder="Search product..."
+          placeholder="Search URL..."
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
@@ -57,7 +57,7 @@ export default function ProductListToolbar({ numSelected, filterName, onFilterNa
         />
       )}
 
-      {numSelected > 0 ? (
+      {/* {numSelected > 0 ? (
         <Tooltip title="Delete">
           <IconButton onClick={onDeleteProducts}>
             <Iconify icon={'eva:trash-2-outline'} />
@@ -69,7 +69,7 @@ export default function ProductListToolbar({ numSelected, filterName, onFilterNa
             <Iconify icon={'ic:round-filter-list'} />
           </IconButton>
         </Tooltip>
-      )}
+      )} */}
     </RootStyle>
   );
 }

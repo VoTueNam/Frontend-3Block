@@ -36,8 +36,8 @@ const navConfig = [
   {
     subheader: 'Public Information',
     items: [
-      { title: 'White List URLs', path: PATH_DASHBOARD.eCommerce.shop, icon: ICONS.ecommerce }, //PATH_DASHBOARD.general.ecommerce, icon: ICONS.ecommerce
-      { title: 'Black List URLs', path: PATH_DASHBOARD.general.banking, icon: ICONS.banking },
+      { title: 'Black List URLs', path: PATH_DASHBOARD.eCommerce.shop, icon: ICONS.ecommerce }, //PATH_DASHBOARD.general.ecommerce, icon: ICONS.ecommerce
+      { title: 'White List URLs', path: PATH_DASHBOARD.eCommerce.list, icon: ICONS.banking }, //general.banking
     ],
   },
   {

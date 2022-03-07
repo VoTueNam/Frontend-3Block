@@ -1,5 +1,5 @@
 // @mui
-import { Grid, Container } from '@mui/material';
+import { Grid, Container, InputLabel, InputBase, InputAdornment, IconButton, TextField, Stack } from '@mui/material';
 // hooks
 import useSettings from '../../hooks/useSettings';
 // components
@@ -18,6 +18,9 @@ import {
 } from '../../sections/@dashboard/general/booking';
 // assets
 import { BookingIllustration, CheckInIllustration, CheckOutIllustration } from '../../assets';
+import Iconify from '../../components/Iconify';
+import EmojiPicker from '../../components/EmojiPicker';
+import MyAvatar from '../../components/MyAvatar';
 
 // ----------------------------------------------------------------------
 var gray;
@@ -92,6 +95,51 @@ export default function GeneralBooking() {
           <Grid item xs={12}>
             <BookingNewestBooking />
           </Grid>
+
+          <Stack direction="row" alignItems="center">
+            <MyAvatar />
+            <TextField
+              fullWidth
+              size="small"
+              value={''}
+              // inputRef={'nothing'}
+              placeholder="Write a comment…"
+              // onChange={(event) => handleChangeMessage(event.target.value)}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      size="small"
+                      // onClick={ }
+                    >
+                      <Iconify icon={'ic:round-add-photo-alternate'} width={24} height={24} />
+                    </IconButton>
+                    <EmojiPicker
+                      alignRight
+                      // value={ }
+                      // setValue={ }
+                    />
+                  </InputAdornment>
+                ),
+              }}
+              sx={{
+                ml: 2,
+                mr: 1,
+                '& fieldset': {
+                  borderWidth: `1px !important`,
+                  borderColor: (theme) => `${theme.palette.grey[500_32]} !important`,
+                },
+              }}
+            />
+            <IconButton>
+              <Iconify icon={'ic:round-send'} width={24} height={24} />
+            </IconButton>
+            <input
+              type="file"
+              // ref={'nothingsss'}
+              style={{ display: 'none' }}
+            />
+          </Stack>
 
           <Grid item xs={12}>
             <BookingDetails grayList={gray} />

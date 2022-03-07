@@ -132,7 +132,7 @@ export default function EcommerceShop() {
   return (
     <Page title="Black Lists Public">
       <Container maxWidth={themeStretch ? false : 'lg'}>
-        <HeaderBreadcrumbs heading="Black Lists URL" />
+        <HeaderBreadcrumbs heading="Black List URLs" />
 
         <Stack
           spacing={2}
@@ -153,7 +153,7 @@ export default function EcommerceShop() {
               />
             </FormProvider>
 
-            <ShopProductSort />
+            {/* <ShopProductSort /> */}
           </Stack>
         </Stack>
 

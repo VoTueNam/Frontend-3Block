@@ -14,6 +14,7 @@ import {
   Typography,
   TableContainer,
   TablePagination,
+  Button,
 } from '@mui/material';
 // redux
 import { useDispatch, useSelector } from '../../redux/store';
@@ -38,18 +39,26 @@ import {
   ProductListHead,
   ProductListToolbar,
 } from '../../sections/@dashboard/e-commerce/product-list';
+import Iconify from '../../components/Iconify';
 
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
-  { id: 'name', label: 'Product', alignRight: false },
-  { id: 'createdAt', label: 'Create at', alignRight: false },
+  { id: 'name', label: 'White URLs', alignRight: false },
+  { id: 'createdAt', label: 'Updated at', alignRight: false },
   { id: 'inventoryType', label: 'Status', alignRight: false },
-  { id: 'price', label: 'Price', alignRight: true },
+  { id: 'price', label: 'Link', alignRight: true },
   { id: '' },
 ];
 
 // ----------------------------------------------------------------------
+var white;
+if (!localStorage.getItem('whiteList')) {
+  getWhiteList();
+} else {
+  white = JSON.parse(localStorage.getItem('whiteList'));
+  // console.log(white);
+}
 
 export default function EcommerceProductList() {
   const { themeStretch } = useSettings();
@@ -71,40 +80,41 @@ export default function EcommerceProductList() {
   }, [dispatch]);
 
   useEffect(() => {
-    if (products.length) {
+    if (whites.length) {
       setProductList(products);
     }
   }, [products]);
 
-  const handleRequestSort = (property) => {
-    const isAsc = orderBy === property && order === 'asc';
-    setOrder(isAsc ? 'desc' : 'asc');
-    setOrderBy(property);
-  };
+  // const handleRequestSort = (property) => {
+  //   const isAsc = orderBy === property && order === 'asc';
+  //   setOrder(isAsc ? 'desc' : 'asc');
+  //   setOrderBy(property);
+  // };
 
-  const handleSelectAllClick = (checked) => {
-    if (checked) {
-      const selected = productList.map((n) => n.name);
-      setSelected(selected);
-      return;
-    }
-    setSelected([]);
-  };
+  // const handleSelectAllClick = (checked) => {
+  //   if (checked) {
+  //     const selected = productList.map((n) => n.name);
+  //     setSelected(selected);
+  //     return;
+  //   }
+  //   setSelected([]);
+  // };
+  const [whites, setWhite] = useState(white);
 
-  const handleClick = (name) => {
-    const selectedIndex = selected.indexOf(name);
-    let newSelected = [];
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(selected.slice(0, selectedIndex), selected.slice(selectedIndex + 1));
-    }
-    setSelected(newSelected);
-  };
+  // const handleClick = (name) => {
+  //   const selectedIndex = selected.indexOf(name);
+  //   let newSelected = [];
+  //   if (selectedIndex === -1) {
+  //     newSelected = newSelected.concat(selected, name);
+  //   } else if (selectedIndex === 0) {
+  //     newSelected = newSelected.concat(selected.slice(1));
+  //   } else if (selectedIndex === whites.length - 1) {
+  //     newSelected = newSelected.concat(selected.slice(0, -1));
+  //   } else if (selectedIndex > 0) {
+  //     newSelected = newSelected.concat(selected.slice(0, selectedIndex), selected.slice(selectedIndex + 1));
+  //   }
+  //   setSelected(newSelected);
+  // };
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
@@ -113,31 +123,40 @@ export default function EcommerceProductList() {
 
   const handleFilterByName = (filterName) => {
     setFilterName(filterName);
+    console.log(filterName);
+    const dateWhite = JSON.parse(localStorage.getItem('whiteList'));
+    const whiteSearchResult = dateWhite.filter((da) => {
+      return da.url.includes(filterName);
+    });
+    console.log(whiteSearchResult);
+    setWhite(whiteSearchResult);
+    // setBlack(blackSearchResult);
+    setPage(0);
   };
 
-  const handleDeleteProduct = (productId) => {
-    const deleteProduct = productList.filter((product) => product.id !== productId);
-    setSelected([]);
-    setProductList(deleteProduct);
-  };
+  // const handleDeleteProduct = (productId) => {
+  //   const deleteProduct = productList.filter((product) => product.id !== productId);
+  //   setSelected([]);
+  //   setProductList(deleteProduct);
+  // };
 
-  const handleDeleteProducts = (selected) => {
-    const deleteProducts = productList.filter((product) => !selected.includes(product.name));
-    setSelected([]);
-    setProductList(deleteProducts);
-  };
+  // const handleDeleteProducts = (selected) => {
+  //   const deleteProducts = productList.filter((product) => !selected.includes(product.name));
+  //   setSelected([]);
+  //   setProductList(deleteProducts);
+  // };
 
-  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - productList.length) : 0;
+  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - whites.length) : 0;
 
-  const filteredProducts = applySortFilter(productList, getComparator(order, orderBy), filterName);
+  // const filteredProducts = applySortFilter(productList, getComparator(order, orderBy), filterName);
 
-  const isNotFound = !filteredProducts.length && Boolean(filterName);
+  const isNotFound = !whites.length && Boolean(filterName);
 
   return (
-    <Page title="Ecommerce: Product List">
+    <Page title="White Lists Public">
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
-          heading="Product List"
+          heading="White List URLs"
           links={[
             { name: 'Dashboard', href: PATH_DASHBOARD.root },
             {
@@ -150,60 +169,61 @@ export default function EcommerceProductList() {
 
         <Card>
           <ProductListToolbar
-            numSelected={selected.length}
+            // numSelected={whites.length}
             filterName={filterName}
             onFilterName={handleFilterByName}
-            onDeleteProducts={() => handleDeleteProducts(selected)}
+            // onDeleteProducts={() => handleDeleteProducts(selected)}
           />
 
           <Scrollbar>
             <TableContainer sx={{ minWidth: 800 }}>
               <Table>
                 <ProductListHead
-                  order={order}
-                  orderBy={orderBy}
+                  // order={order}
+                  // orderBy={orderBy}
                   headLabel={TABLE_HEAD}
-                  rowCount={productList.length}
-                  numSelected={selected.length}
-                  onRequestSort={handleRequestSort}
-                  onSelectAllClick={handleSelectAllClick}
+                  // rowCount={whites.length}
+                  // numSelected={whites.length}
+                  // onRequestSort={handleRequestSort}
+                  // onSelectAllClick={handleSelectAllClick}
                 />
 
                 <TableBody>
-                  {filteredProducts.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-                    const { id, name, cover, price, createdAt, inventoryType } = row;
-
-                    const isItemSelected = selected.indexOf(name) !== -1;
+                  {whites.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
+                    const { _id, url, updatedAt } = row;
+                    const inventoryType = 'Clean';
+                    const cover = 'https://api.faviconkit.com/' + validURL(url) + '/144';
+                    const isItemSelected = selected.indexOf(url) !== -1;
 
                     return (
                       <TableRow
                         hover
-                        key={id}
+                        key={_id}
                         tabIndex={-1}
                         role="checkbox"
-                        selected={isItemSelected}
-                        aria-checked={isItemSelected}
+                        // selected={isItemSelected}
+                        // aria-checked={isItemSelected}
                       >
-                        <TableCell padding="checkbox">
+                        {/* <TableCell padding="checkbox">
                           <Checkbox checked={isItemSelected} onClick={() => handleClick(name)} />
-                        </TableCell>
-                        <TableCell sx={{ display: 'flex', alignItems: 'center' }}>
+                        </TableCell> */}
+                        <TableCell sx={{ display: 'flex', alignItems: 'center' }} align="center">
                           <Image
                             disabledEffect
-                            alt={name}
+                            alt={url}
                             src={cover}
                             sx={{ borderRadius: 1.5, width: 64, height: 64, mr: 2 }}
                           />
-                          <Typography variant="subtitle2" noWrap>
-                            {name}
+                          <Typography variant="subtitle1" noWrap>
+                            {url}
                           </Typography>
                         </TableCell>
-                        <TableCell style={{ minWidth: 160 }}>{fDate(createdAt)}</TableCell>
+                        <TableCell style={{ minWidth: 160 }}>{fDate(updatedAt)}</TableCell>
                         <TableCell style={{ minWidth: 160 }}>
                           <Label
                             variant={theme.palette.mode === 'light' ? 'ghost' : 'filled'}
                             color={
-                              (inventoryType === 'out_of_stock' && 'error') ||
+                              (inventoryType === 'Clean' && 'success') ||
                               (inventoryType === 'low_stock' && 'warning') ||
                               'success'
                             }
@@ -211,10 +231,27 @@ export default function EcommerceProductList() {
                             {inventoryType ? sentenceCase(inventoryType) : ''}
                           </Label>
                         </TableCell>
-                        <TableCell align="right">{fCurrency(price)}</TableCell>
-                        <TableCell align="right">
-                          <ProductMoreMenu productName={name} onDelete={() => handleDeleteProduct(id)} />
+                        <TableCell align="right" style={{ minWidth: 100, maxWidth: 100 }}>
+                          {/* {fCurrency(price)} */}
+                          <a href={'http://' + url} target="_blank" rel="noreferrer">
+                            <Button
+                              // disabled={isMaxQuantity}
+                              size="small"
+                              color="warning"
+                              variant="contained"
+                              startIcon={<Iconify icon={'flat-color-icons:broken-link'} />}
+                              // onClick={handleAddCart}
+                              sx={{ whiteSpace: 'nowrap' }}
+                            >
+                              Access this
+                            </Button>
+                          </a>
                         </TableCell>
+
+                        {/* <TableCell align="right">
+                          <ProductMoreMenu />
+                          
+                        </TableCell> */}
                       </TableRow>
                     );
                   })}
@@ -243,7 +280,7 @@ export default function EcommerceProductList() {
           <TablePagination
             rowsPerPageOptions={[5, 10, 25]}
             component="div"
-            count={productList.length}
+            count={whites.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={(event, value) => setPage(value)}
@@ -257,33 +294,52 @@ export default function EcommerceProductList() {
 
 // ----------------------------------------------------------------------
 
-function descendingComparator(a, b, orderBy) {
-  if (b[orderBy] < a[orderBy]) {
-    return -1;
-  }
-  if (b[orderBy] > a[orderBy]) {
-    return 1;
-  }
-  return 0;
+// function descendingComparator(a, b, orderBy) {
+//   if (b[orderBy] < a[orderBy]) {
+//     return -1;
+//   }
+//   if (b[orderBy] > a[orderBy]) {
+//     return 1;
+//   }
+//   return 0;
+// }
+
+// function getComparator(order, orderBy) {
+//   return order === 'desc'
+//     ? (a, b) => descendingComparator(a, b, orderBy)
+//     : (a, b) => -descendingComparator(a, b, orderBy);
+// }
+
+// function applySortFilter(array, comparator, query) {
+//   const stabilizedThis = array.map((el, index) => [el, index]);
+//   stabilizedThis.sort((a, b) => {
+//     const order = comparator(a[0], b[0]);
+//     if (order !== 0) return order;
+//     return a[1] - b[1];
+//   });
+
+//   if (query) {
+//     return array.filter((_product) => _product.name.toLowerCase().indexOf(query.toLowerCase()) !== -1);
+//   }
+
+//   return stabilizedThis.map((el) => el[0]);
+// }
+function getWhiteList() {
+  fetch('https://api3blockserver.herokuapp.com/db/api/system/3block/getAllWhitePublic', {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' },
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .then((json) => {
+      localStorage.setItem('whiteList', JSON.stringify(json));
+      window.location.reload();
+    });
 }
-
-function getComparator(order, orderBy) {
-  return order === 'desc'
-    ? (a, b) => descendingComparator(a, b, orderBy)
-    : (a, b) => -descendingComparator(a, b, orderBy);
-}
-
-function applySortFilter(array, comparator, query) {
-  const stabilizedThis = array.map((el, index) => [el, index]);
-  stabilizedThis.sort((a, b) => {
-    const order = comparator(a[0], b[0]);
-    if (order !== 0) return order;
-    return a[1] - b[1];
-  });
-
-  if (query) {
-    return array.filter((_product) => _product.name.toLowerCase().indexOf(query.toLowerCase()) !== -1);
+function validURL(url) {
+  var match;
+  if ((match = url.match(/^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:\/\n\?\=]+)/im))) {
+    return match[1];
   }
-
-  return stabilizedThis.map((el) => el[0]);
 }

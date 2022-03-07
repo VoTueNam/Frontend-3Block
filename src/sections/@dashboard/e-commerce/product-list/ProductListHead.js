@@ -42,24 +42,25 @@ export default function ProductListHead({
   return (
     <TableHead>
       <TableRow>
-        <TableCell padding="checkbox">
+        {/* <TableCell padding="checkbox">
           <Checkbox
             indeterminate={numSelected > 0 && numSelected < rowCount}
             checked={rowCount > 0 && numSelected === rowCount}
-            onChange={onSelectAllClick}
+            // onChange={onSelectAllClick}
           />
-        </TableCell>
+        </TableCell> */}
         {headLabel.map((headCell) => (
           <TableCell
             key={headCell.id}
-            align={headCell.alignRight ? 'right' : 'left'}
-            sortDirection={orderBy === headCell.id ? order : false}
+            align={'left'}
+            // sortDirection={orderBy === headCell.id ? order : false}
           >
             <TableSortLabel
+              disabled
               hideSortIcon
-              active={orderBy === headCell.id}
+              // active={orderBy === headCell.id}
               direction={orderBy === headCell.id ? order : 'asc'}
-              onClick={createSortHandler(headCell.id)}
+              // onClick={createSortHandler(headCell.id)}
             >
               {headCell.label}
               {orderBy === headCell.id ? (
