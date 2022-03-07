@@ -32,7 +32,7 @@ export const SORT_BY_OPTIONS = [
   { value: 'priceAsc', label: 'Price: Low-High' },
 ];
 
-export const FILTER_GENDER_OPTIONS = ['Men', 'Women', 'Kids'];
+export const FILTER_GENDER_OPTIONS = ['None', 'Low', 'Medium', 'High'];
 
 export const FILTER_CATEGORY_OPTIONS = ['All', 'Shose', 'Apparel', 'Accessories'];
 
@@ -98,15 +98,15 @@ export default function ShopFilterSidebar({ isOpen, onResetAll, onOpen, onClose 
         <Scrollbar>
           <Stack spacing={3} sx={{ p: 3 }}>
             <Stack spacing={1}>
-              <Typography variant="subtitle1">Gender</Typography>
+              <Typography variant="subtitle1">Level</Typography>
               <RHFMultiCheckbox name="gender" options={FILTER_GENDER_OPTIONS} sx={{ width: 1 }} />
             </Stack>
 
-            <Stack spacing={1}>
+            {/* <Stack spacing={1}>
               <Typography variant="subtitle1">Category</Typography>
               <RHFRadioGroup name="category" options={FILTER_CATEGORY_OPTIONS} row={false} />
-            </Stack>
-
+            </Stack> */}
+            {/* 
             <Stack spacing={1}>
               <Typography variant="subtitle1">Colour</Typography>
 
@@ -121,18 +121,18 @@ export default function ShopFilterSidebar({ isOpen, onResetAll, onOpen, onClose 
                   />
                 )}
               />
-            </Stack>
+            </Stack> */}
 
-            <Stack spacing={1}>
+            {/* <Stack spacing={1}>
               <Typography variant="subtitle1">Price</Typography>
               <RHFRadioGroup
                 name="priceRange"
                 options={FILTER_PRICE_OPTIONS.map((item) => item.value)}
                 getOptionLabel={FILTER_PRICE_OPTIONS.map((item) => item.label)}
               />
-            </Stack>
+            </Stack> */}
 
-            <Stack spacing={1}>
+            {/* <Stack spacing={1}>
               <Typography variant="subtitle1">Rating</Typography>
 
               <Controller
@@ -169,7 +169,7 @@ export default function ShopFilterSidebar({ isOpen, onResetAll, onOpen, onClose 
                   </RadioGroup>
                 )}
               />
-            </Stack>
+            </Stack> */}
           </Stack>
         </Scrollbar>
 

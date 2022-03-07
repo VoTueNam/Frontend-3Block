@@ -9,7 +9,6 @@ import ShopProductCard from './ShopProductCard';
 // ----------------------------------------------------------------------
 
 ShopProductList.propTypes = {
-  products: PropTypes.array.isRequired,
   loading: PropTypes.bool,
 };
 

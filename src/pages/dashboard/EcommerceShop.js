@@ -48,6 +48,15 @@ export default function EcommerceShop() {
 
   const [openFilter, setOpenFilter] = useState(false);
 
+  useEffect(() => {
+    if (filters.gender.length == 0) {
+      const newBlack = JSON.parse(localStorage.getItem('blackList'));
+      if (black != newBlack) {
+        // console.log('Zero');
+        setBlack(newBlack);
+      }
+    }
+  }, [filters.gender]);
   const defaultValues = {
     gender: filters.gender,
     category: filters.category,
@@ -89,30 +98,32 @@ export default function EcommerceShop() {
 
   const handleResetFilter = () => {
     reset();
+    setBlack(JSON.parse(localStorage.getItem('blackList')));
     handleCloseFilter();
   };
 
   const handleRemoveGender = (value) => {
+    // console.log(value + ' XXX');
     const newValue = filters.gender.filter((item) => item !== value);
     setValue('gender', newValue);
   };
 
-  const handleRemoveCategory = () => {
-    setValue('category', 'All');
-  };
+  // const handleRemoveCategory = () => {
+  //   setValue('category', 'All');
+  // };
 
-  const handleRemoveColor = (value) => {
-    const newValue = filters.colors.filter((item) => item !== value);
-    setValue('colors', newValue);
-  };
+  // const handleRemoveColor = (value) => {
+  //   const newValue = filters.colors.filter((item) => item !== value);
+  //   setValue('colors', newValue);
+  // };
 
-  const handleRemovePrice = () => {
-    setValue('priceRange', '');
-  };
+  // const handleRemovePrice = () => {
+  //   setValue('priceRange', '');
+  // };
 
-  const handleRemoveRating = () => {
-    setValue('rating', '');
-  };
+  // const handleRemoveRating = () => {
+  //   setValue('rating', '');
+  // };
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 12));
@@ -130,7 +141,7 @@ export default function EcommerceShop() {
           justifyContent="space-between"
           sx={{ mb: 2 }}
         >
-          <ShopProductSearch black={black} setBlack={setBlack} />
+          <ShopProductSearch black={black} setBlack={setBlack} setPage={setPage} />
 
           <Stack direction="row" spacing={1} flexShrink={0} sx={{ my: 1 }}>
             <FormProvider methods={methods}>
@@ -150,7 +161,7 @@ export default function EcommerceShop() {
           {!isDefault && (
             <>
               <Typography variant="body2" gutterBottom>
-                <strong>{filteredProducts.length}</strong>
+                <strong>{black.length}</strong>
                 &nbsp;Products found
               </Typography>
 
@@ -158,18 +169,20 @@ export default function EcommerceShop() {
                 filters={filters}
                 isShowReset={!isDefault && !openFilter}
                 onRemoveGender={handleRemoveGender}
-                onRemoveCategory={handleRemoveCategory}
-                onRemoveColor={handleRemoveColor}
-                onRemovePrice={handleRemovePrice}
-                onRemoveRating={handleRemoveRating}
+                // onRemoveCategory={handleRemoveCategory}
+                // onRemoveColor={handleRemoveColor}
+                // onRemovePrice={handleRemovePrice}
+                // onRemoveRating={handleRemoveRating}
                 onResetAll={handleResetFilter}
+                setBlack={setBlack}
+                black={black}
+                setPage={setPage}
               />
             </>
           )}
         </Stack>
 
         <ShopProductList
-          products={filteredProducts}
           black={black.slice(page * rowsPerPage, (page + 1) * rowsPerPage)}
           loading={!products.length && isDefault}
         />
@@ -192,50 +205,50 @@ export default function EcommerceShop() {
 
 function applyFilter(products, sortBy, filters) {
   // SORT BY
-  if (sortBy === 'featured') {
-    products = orderBy(products, ['sold'], ['desc']);
-  }
-  if (sortBy === 'newest') {
-    products = orderBy(products, ['createdAt'], ['desc']);
-  }
-  if (sortBy === 'priceDesc') {
-    products = orderBy(products, ['price'], ['desc']);
-  }
-  if (sortBy === 'priceAsc') {
-    products = orderBy(products, ['price'], ['asc']);
-  }
+  // if (sortBy === 'featured') {
+  //   products = orderBy(products, ['sold'], ['desc']);
+  // }
+  // if (sortBy === 'newest') {
+  //   products = orderBy(products, ['createdAt'], ['desc']);
+  // }
+  // if (sortBy === 'priceDesc') {
+  //   products = orderBy(products, ['price'], ['desc']);
+  // }
+  // if (sortBy === 'priceAsc') {
+  //   products = orderBy(products, ['price'], ['asc']);
+  // }
   // FILTER PRODUCTS
   if (filters.gender.length > 0) {
     products = products.filter((product) => filters.gender.includes(product.gender));
   }
-  if (filters.category !== 'All') {
-    products = products.filter((product) => product.category === filters.category);
-  }
-  if (filters.colors.length > 0) {
-    products = products.filter((product) => product.colors.some((color) => filters.colors.includes(color)));
-  }
-  if (filters.priceRange) {
-    products = products.filter((product) => {
-      if (filters.priceRange === 'below') {
-        return product.price < 25;
-      }
-      if (filters.priceRange === 'between') {
-        return product.price >= 25 && product.price <= 75;
-      }
-      return product.price > 75;
-    });
-  }
-  if (filters.rating) {
-    products = products.filter((product) => {
-      const convertRating = (value) => {
-        if (value === 'up4Star') return 4;
-        if (value === 'up3Star') return 3;
-        if (value === 'up2Star') return 2;
-        return 1;
-      };
-      return product.totalRating > convertRating(filters.rating);
-    });
-  }
+  // if (filters.category !== 'All') {
+  //   products = products.filter((product) => product.category === filters.category);
+  // }
+  // if (filters.colors.length > 0) {
+  //   products = products.filter((product) => product.colors.some((color) => filters.colors.includes(color)));
+  // }
+  // if (filters.priceRange) {
+  //   products = products.filter((product) => {
+  //     if (filters.priceRange === 'below') {
+  //       return product.price < 25;
+  //     }
+  //     if (filters.priceRange === 'between') {
+  //       return product.price >= 25 && product.price <= 75;
+  //     }
+  //     return product.price > 75;
+  //   });
+  // }
+  // if (filters.rating) {
+  //   products = products.filter((product) => {
+  //     const convertRating = (value) => {
+  //       if (value === 'up4Star') return 4;
+  //       if (value === 'up3Star') return 3;
+  //       if (value === 'up2Star') return 2;
+  //       return 1;
+  //     };
+  //     return product.totalRating > convertRating(filters.rating);
+  //   });
+  // }
   return products;
 }
 function getBlackList() {

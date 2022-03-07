@@ -7,9 +7,11 @@ import { Chip, Typography, Stack, Button } from '@mui/material';
 import getColorName from '../../../../utils/getColorName';
 // components
 import Iconify from '../../../../components/Iconify';
+import { useEffect } from 'react';
+import { varBgColor } from '../../../../components/animate';
 
 // ----------------------------------------------------------------------
-
+var a = 0;
 const RootStyle = styled('div')({
   flexGrow: 1,
   display: 'flex',
@@ -67,16 +69,43 @@ export default function ShopTagFiltered({
   onRemovePrice,
   onRemoveRating,
   onResetAll,
+  setBlack,
+  black,
+  setPage,
 }) {
   const theme = useTheme();
 
   const { gender, category, colors, priceRange, rating } = filters;
+  const gendersToLower = gender.map((element) => {
+    return element.toLowerCase();
+  });
+
+  //Filter Black List
+  const dateBlack = JSON.parse(localStorage.getItem('blackList'));
+  var blackSearchResult = [];
+  if (gender.length == 0) {
+    blackSearchResult = dateBlack;
+  } else {
+    blackSearchResult = dateBlack.filter((da) => {
+      return gendersToLower.includes(da.level);
+      // da.level.includes(value);
+    });
+  }
+  useEffect(() => {
+    if (black.length != blackSearchResult.length) {
+      //console.log(black.length + ' -|- ' + blackSearchResult.length);
+      setBlack(blackSearchResult);
+      setPage(0);
+      //console.log('render');
+    }
+  }, [gender]);
+  localStorage.setItem('filterBlack', JSON.stringify(blackSearchResult));
 
   return (
     <RootStyle>
       {gender.length > 0 && (
         <WrapperStyle>
-          <LabelStyle>Gender:</LabelStyle>
+          <LabelStyle>Level:</LabelStyle>
           <Stack direction="row" flexWrap="wrap" sx={{ p: 0.75 }}>
             {gender.map((_gender) => (
               <Chip
@@ -91,7 +120,7 @@ export default function ShopTagFiltered({
         </WrapperStyle>
       )}
 
-      {category !== 'All' && (
+      {/* {category !== 'All' && (
         <WrapperStyle>
           <LabelStyle>Category:</LabelStyle>
           <Stack direction="row" flexWrap="wrap" sx={{ p: 0.75 }}>
@@ -143,7 +172,7 @@ export default function ShopTagFiltered({
             <Chip size="small" label={sentenceCase(rating)} onDelete={onRemoveRating} sx={{ m: 0.5 }} />
           </Stack>
         </WrapperStyle>
-      )}
+      )} */}
 
       {isShowReset && (
         <Button color="error" size="small" onClick={onResetAll} startIcon={<Iconify icon={'ic:round-clear-all'} />}>

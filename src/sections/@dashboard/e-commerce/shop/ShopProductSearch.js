@@ -5,7 +5,7 @@ import match from 'autosuggest-highlight/match';
 import { useNavigate } from 'react-router-dom';
 // @mui
 import { styled } from '@mui/material/styles';
-import { Link, Typography, Autocomplete, InputAdornment, Popper } from '@mui/material';
+import { Link, Typography, Autocomplete, InputAdornment, Popper, Button } from '@mui/material';
 // hooks
 import useIsMountedRef from '../../../../hooks/useIsMountedRef';
 // utils
@@ -17,6 +17,7 @@ import Image from '../../../../components/Image';
 import Iconify from '../../../../components/Iconify';
 import InputStyle from '../../../../components/InputStyle';
 import SearchNotFound from '../../../../components/SearchNotFound';
+import { MotionInView, varFade } from '../../../../components/animate';
 
 // ----------------------------------------------------------------------
 
@@ -26,7 +27,7 @@ const PopperStyle = styled((props) => <Popper placement="bottom-start" {...props
 
 // ----------------------------------------------------------------------
 
-export default function ShopProductSearch({ black, setBlack }) {
+export default function ShopProductSearch({ black, setBlack, setPage }) {
   const navigate = useNavigate();
 
   const isMountedRef = useIsMountedRef();
@@ -36,13 +37,14 @@ export default function ShopProductSearch({ black, setBlack }) {
   const [searchResults, setSearchResults] = useState([]);
 
   const handleChangeSearch = async (value) => {
-    const datea = JSON.parse(localStorage.getItem('blackList'));
-    console.log(datea);
-    const c = datea.filter((da) => {
+    const dateBlack = JSON.parse(localStorage.getItem('blackList'));
+    const blackSearchResult = dateBlack.filter((da) => {
       return da.url.includes(value);
     });
     setSearchQuery(value);
-    setBlack(c);
+    setBlack(blackSearchResult);
+    setPage(0);
+
     // setSearchResults(c);
     // try {
     //   setSearchQuery(value);
@@ -66,20 +68,23 @@ export default function ShopProductSearch({ black, setBlack }) {
 
   const handleKeyUp = (event) => {
     if (event.key === 'Enter') {
-      handleClick(searchQuery);
+      // handleClick(searchQuery);
+      setSearchQuery(searchQuery);
     }
   };
 
   return (
     <Autocomplete
       size="small"
-      autoHighlight
+      // autoHighlight
       popupIcon={null}
-      PopperComponent={PopperStyle}
+      value={searchQuery}
+      freeSolo={true}
+      // PopperComponent={PopperStyle}
       options={searchResults}
       onInputChange={(event, value) => handleChangeSearch(value)}
-      getOptionLabel={(product) => product.name}
-      noOptionsText={<SearchNotFound searchQuery={searchQuery} />}
+      // getOptionLabel={(product) => product.name}
+      // noOptionsText={<SearchNotFound searchQuery={searchQuery} />}
       isOptionEqualToValue={(option, value) => option.id === value.id}
       renderInput={(params) => (
         <InputStyle
