@@ -7,7 +7,9 @@ import { Box, Divider, Typography, Stack, MenuItem } from '@mui/material';
 // routes
 import { PATH_DASHBOARD, PATH_AUTH } from '../../../routes/paths';
 // hooks
-import useAuth from '../../../hooks/useAuth';
+// import useAuth from '../../../hooks/useAuth';
+import { useAuth } from '../../../firebaseLogin/contexts/AuthContext';
+
 import useIsMountedRef from '../../../hooks/useIsMountedRef';
 // components
 import MyAvatar from '../../../components/MyAvatar';
@@ -36,7 +38,10 @@ const MENU_OPTIONS = [
 export default function AccountPopover() {
   const navigate = useNavigate();
 
-  const { user, logout } = useAuth();
+  const { logout, currentUser } = useAuth();
+
+  // var user = JSON.parse(localStorage.getItem('user'));
+  const user = currentUser;
 
   const isMountedRef = useIsMountedRef();
 
@@ -54,9 +59,10 @@ export default function AccountPopover() {
 
   const handleLogout = async () => {
     try {
+      enqueueSnackbar('Log Out NOW!!!', { variant: 'error' });
       await logout();
       navigate(PATH_AUTH.login, { replace: true });
-
+      localStorage.removeItem('user');
       if (isMountedRef.current) {
         handleClose();
       }
@@ -104,7 +110,7 @@ export default function AccountPopover() {
       >
         <Box sx={{ my: 1.5, px: 2.5 }}>
           <Typography variant="subtitle2" noWrap>
-            {user?.displayName}
+            {user?.displayName || user?.email}
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
             {user?.email}
@@ -113,15 +119,15 @@ export default function AccountPopover() {
 
         <Divider sx={{ borderStyle: 'dashed' }} />
 
-        <Stack sx={{ p: 1 }}>
+        {/* <Stack sx={{ p: 1 }}>
           {MENU_OPTIONS.map((option) => (
             <MenuItem key={option.label} to={option.linkTo} component={RouterLink} onClick={handleClose}>
               {option.label}
             </MenuItem>
           ))}
-        </Stack>
+        </Stack> */}
 
-        <Divider sx={{ borderStyle: 'dashed' }} />
+        {/* <Divider sx={{ borderStyle: 'dashed' }} /> */}
 
         <MenuItem onClick={handleLogout} sx={{ m: 1 }}>
           Logout

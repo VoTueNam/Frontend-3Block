@@ -15,6 +15,13 @@ export const FIREBASE_API = {
   messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
   appId: process.env.REACT_APP_FIREBASE_APPID,
   measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
+  // apiKey: 'AIzaSyCJgyWOPITjIg-s4wDjcubWq43de-PwUwE',
+  // authDomain: 'react-login-3block.firebaseapp.com',
+  // projectId: 'react-login-3block',
+  // storageBucket: 'react-login-3block.appspot.com',
+  // messagingSenderId: '245069606140',
+  // appId: '1:245069606140:web:5db28efa6869dcfb0a3b79',
+  // measurementId: 'G-EEGTK5P97P',
 };
 
 export const COGNITO_API = {
@@ -28,7 +35,6 @@ export const AUTH0_API = {
 };
 
 export const MAPBOX_API = process.env.REACT_APP_MAPBOX;
-
 
 // ROOT PATH AFTER LOGIN SUCCESSFUL
 export const PATH_AFTER_LOGIN = PATH_DASHBOARD.general.app; // as '/dashboard/app'

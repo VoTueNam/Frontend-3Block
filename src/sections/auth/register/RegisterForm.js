@@ -7,16 +7,27 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Stack, IconButton, InputAdornment, Alert } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 // hooks
-import useAuth from '../../../hooks/useAuth';
+// import useAuth from '../../../hooks/useAuth';
+import { useAuth } from '../../../firebaseLogin/contexts/AuthContext';
+
 import useIsMountedRef from '../../../hooks/useIsMountedRef';
 // components
 import Iconify from '../../../components/Iconify';
 import { FormProvider, RHFTextField } from '../../../components/hook-form';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { useSnackbar } from 'notistack';
 
 // ----------------------------------------------------------------------
 
 export default function RegisterForm() {
   const { register } = useAuth();
+
+  const [isSubmittings, setIsSubmittings] = useState(false);
+  const [showError, setShowError] = useState(true);
+  const [errorsNe, setErrorsNe] = useState(''); //errorsNe
+  const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
 
   const isMountedRef = useIsMountedRef();
 
@@ -49,22 +60,55 @@ export default function RegisterForm() {
     formState: { errors, isSubmitting },
   } = methods;
 
-  const onSubmit = async (data) => {
-    try {
-      await register(data.email, data.password, data.firstName, data.lastName);
-    } catch (error) {
-      console.error(error);
-      reset();
-      if (isMountedRef.current) {
-        setError('afterSubmit', error);
-      }
-    }
+  const onSubmit = (data) => {
+    setIsSubmittings(true);
+
+    axios
+      .get('https://emailvalidation.abstractapi.com/v1/?api_key=c8fb3d51ced64b25ad35773d2558a754&email=' + data.email)
+      .then(async function (response) {
+        if (response.data.deliverability == 'DELIVERABLE') {
+          try {
+            await register(data.email, data.password, data.firstName, data.lastName).then((res) => {
+              res.user.displayName = data.firstName + ' ' + data.lastName;
+              // console.log(res.user);
+              setIsSubmittings(false);
+              navigate('/auth/login');
+              enqueueSnackbar('Register Successfully', { variant: 'success' });
+              const oldDisplayName = JSON.parse(localStorage.getItem('displayName'));
+              if (!oldDisplayName) {
+                localStorage.setItem('displayName', JSON.stringify([{ [data.email]: res.user.displayName }]));
+              } else {
+                oldDisplayName.push({ [data.email]: res.user.displayName });
+                localStorage.setItem('displayName', JSON.stringify(oldDisplayName));
+              }
+            });
+          } catch (error) {
+            setIsSubmittings(false);
+            setShowError(false);
+            reset();
+            if (error.message == 'Firebase: Error (auth/email-already-in-use).') {
+              setErrorsNe('Email Already In Use!');
+            } else if (error.message == 'Firebase: Password should be at least 6 characters (auth/weak-password).') {
+              setErrorsNe('Password should be at least 6 characters');
+            } else {
+              setErrorsNe(error.message);
+            }
+          }
+        } else {
+          throw 'Wrong Email';
+        }
+      })
+      .catch((err) => {
+        setShowError(false);
+        setIsSubmittings(false);
+        setErrorsNe(err);
+      });
   };
 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Stack spacing={3}>
-        {!!errors.afterSubmit && <Alert severity="error">{errors.afterSubmit.message}</Alert>}
+        {!showError && <Alert severity="error">{errorsNe}</Alert>}
 
         <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
           <RHFTextField name="firstName" label="First name" />
@@ -88,7 +132,7 @@ export default function RegisterForm() {
           }}
         />
 
-        <LoadingButton fullWidth size="large" type="submit" variant="contained" loading={isSubmitting}>
+        <LoadingButton fullWidth size="large" type="submit" variant="contained" loading={isSubmittings}>
           Register
         </LoadingButton>
       </Stack>

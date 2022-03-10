@@ -18,7 +18,7 @@ ResetPasswordForm.propTypes = {
   onGetEmail: PropTypes.func,
 };
 
-export default function ResetPasswordForm({ onSent, onGetEmail }) {
+export default function ResetPasswordForm({ onSent, onGetEmail, forgotPassword }) {
   const isMountedRef = useIsMountedRef();
 
   const ResetPasswordSchema = Yup.object().shape({
@@ -37,7 +37,8 @@ export default function ResetPasswordForm({ onSent, onGetEmail }) {
 
   const onSubmit = async (data) => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      // await new Promise((resolve) => setTimeout(resolve, 500));
+      await forgotPassword(data.email);
       if (isMountedRef.current) {
         onSent();
         onGetEmail(data.email);

@@ -18,6 +18,7 @@ import Iconify from '../../../../components/Iconify';
 import InputStyle from '../../../../components/InputStyle';
 import SearchNotFound from '../../../../components/SearchNotFound';
 import { MotionInView, varFade } from '../../../../components/animate';
+import { useSnackbar } from 'notistack';
 
 // ----------------------------------------------------------------------
 
@@ -28,6 +29,27 @@ const PopperStyle = styled((props) => <Popper placement="bottom-start" {...props
 // ----------------------------------------------------------------------
 
 export default function ShopProductSearch({ black, setBlack, setPage }) {
+  const { enqueueSnackbar } = useSnackbar();
+  function getBlackList() {
+    fetch('https://api3blockserver.herokuapp.com/db/api/system/3block/getAllBlackPublic', {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+    })
+      .then((response) => {
+        // throw 'Err';
+        return response.json();
+      })
+      .then((json) => {
+        localStorage.setItem('blackList', JSON.stringify(json));
+        setBlack(json);
+        setPage(0);
+        enqueueSnackbar('Update Black Lists Successfully!', { variant: 'success' });
+      })
+      .catch((err) => {
+        enqueueSnackbar('Update Black Lists Failure!', { variant: 'error' });
+      });
+  }
+
   const navigate = useNavigate();
 
   const isMountedRef = useIsMountedRef();
@@ -127,13 +149,7 @@ export default function ShopProductSearch({ black, setBlack, setPage }) {
           );
         }}
       />
-      <Button
-        color="error"
-        variant="contained"
-        onClick={() => {
-          console.log('Reset Data');
-        }}
-      >
+      <Button color="error" variant="contained" onClick={getBlackList}>
         Update Data
       </Button>
     </>

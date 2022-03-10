@@ -1,5 +1,7 @@
 // hooks
-import useAuth from '../hooks/useAuth';
+// import useAuth from '../hooks/useAuth';
+import { useAuth } from '../firebaseLogin/contexts/AuthContext';
+
 // utils
 import createAvatar from '../utils/createAvatar';
 //
@@ -8,16 +10,21 @@ import Avatar from './Avatar';
 // ----------------------------------------------------------------------
 
 export default function MyAvatar({ ...other }) {
-  const { user } = useAuth();
+  const { currentUser } = useAuth();
+  // var results = JSON.parse(localStorage.getItem('user'));
+  const results = currentUser;
 
   return (
     <Avatar
-      src={user?.photoURL}
-      alt={user?.displayName}
-      color={user?.photoURL ? 'default' : createAvatar(user?.displayName).color}
+      src={
+        // user?.photoURL
+        results?.photoURL
+      }
+      alt={results?.displayName || results?.email}
+      color={results?.photoURL ? 'default' : createAvatar(results?.displayName).color}
       {...other}
     >
-      {createAvatar(user?.displayName).name}
+      {createAvatar(results?.displayName || results?.email).name}
     </Avatar>
   );
 }

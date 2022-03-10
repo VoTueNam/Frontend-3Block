@@ -115,7 +115,7 @@ export default function HomeHugePackElements() {
                   color="inherit"
                   variant="outlined"
                   component={RouterLink}
-                  to={PATH_PAGE.components}
+                  to={'/dashboard/analytics'}
                 >
                   Check URL Now!
                 </Button>
@@ -162,6 +162,9 @@ export default function HomeHugePackElements() {
                   <Image
                     disabledEffect
                     alt={`screen ${index + 1}`}
+                    // src={`https://votuenam.github.io/image-hosting/INTERFACE_MAIN_FEATURE/Long${index + 1}${
+                    //   isLight ? 'light' : 'dark'
+                    // }.png`}
                     src={`https://votuenam.github.io/image-hosting/INTERFACE_MAIN_FEATURE/malwareWebsite_${
                       isLight ? 'light' : 'dark'
                     }_${index + 1}.png`}

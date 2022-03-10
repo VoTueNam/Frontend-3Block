@@ -4,6 +4,7 @@ import { Card, Stack, Typography, Button, OutlinedInput } from '@mui/material';
 // components
 import Image from '../../../../components/Image';
 import { useState } from 'react';
+import useAuth from '../../../../firebaseLogin/contexts/AuthContext';
 
 // ----------------------------------------------------------------------
 
@@ -21,12 +22,32 @@ const ContentStyle = styled(Card)(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 export default function BankingInviteFriends({ url = 'example.com', title = 'None', virusTotal = true }) {
+  const currentUser = JSON.parse(localStorage.getItem('user'));
   if (url != 'Enter your suggestion') url = url.slice(7, -1);
+  console.log('image = ' + currentUser?.photoURL);
   const [submitValue, setSubmitValue] = useState('');
   function onSubmit() {
-    console.log('submit' + submitValue);
-    setSubmitValue('');
+    // console.log('submit ' + submitValue);
+    // console.log(currentUser.displayName);
+    fetch('https://api3blockserver.herokuapp.com/user/gray/system/3block/createNew', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        url: submitValue,
+        user: currentUser.displayName,
+        image: currentUser?.photoURL,
+      }),
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((json) => {
+        setSubmitValue('');
+
+        console.log(json);
+      });
   }
+
   return (
     <div>
       <Image

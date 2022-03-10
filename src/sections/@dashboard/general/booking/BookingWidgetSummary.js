@@ -4,6 +4,7 @@ import { styled } from '@mui/material/styles';
 import { Card, Typography, Box, Button } from '@mui/material';
 // utils
 import { fShortenNumber } from '../../../../utils/formatNumber';
+import { useSnackbar } from 'notistack';
 
 // ----------------------------------------------------------------------
 
@@ -22,7 +23,26 @@ BookingWidgetSummary.propTypes = {
   total: PropTypes.number,
 };
 
-export default function BookingWidgetSummary({ title, total, icon }) {
+export default function BookingWidgetSummary({ title, total, icon, setGray }) {
+  const { enqueueSnackbar } = useSnackbar();
+  function getGrayList() {
+    fetch('https://api3blockserver.herokuapp.com/user/gray/system/3block/getAll', {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+    })
+      .then((response) => {
+        // throw 'Err';
+        return response.json();
+      })
+      .then((json) => {
+        localStorage.setItem('grayList', JSON.stringify(json));
+        setGray(json);
+        enqueueSnackbar('Update Gray Lists Successfully!', { variant: 'success' });
+      })
+      .catch((err) => {
+        enqueueSnackbar('Update Gray Lists Failure!', { variant: 'error' });
+      });
+  }
   return (
     <RootStyle>
       <div>
@@ -35,7 +55,8 @@ export default function BookingWidgetSummary({ title, total, icon }) {
         color="error"
         variant="contained"
         onClick={() => {
-          console.log('Reset Data');
+          // console.log('Reset Data');
+          getGrayList();
         }}
       >
         Update Data

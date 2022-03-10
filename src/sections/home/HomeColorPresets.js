@@ -29,6 +29,8 @@ const RootStyle = styled('div')(({ theme }) => ({
 
 export default function HomeColorPresets() {
   const { themeColorPresets, onChangeColor, colorOption } = useSettings();
+  // alert(themeColorPresets);
+  console.log('danh dau Color Present here Color =' + themeColorPresets);
 
   return (
     <RootStyle>

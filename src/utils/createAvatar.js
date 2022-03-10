@@ -20,8 +20,12 @@ function getAvatarColor(name) {
 }
 
 export default function createAvatar(name) {
+  const colorNe = ['primary', 'info', 'success', 'warning', 'error', 'default'];
+  const randomColor = Math.floor(Math.random() * colorNe.length);
+  // console.log(colorNe[randomColor]);
   return {
     name: getFirstCharacter(name),
-    color: getAvatarColor(name),
+    color: colorNe[randomColor],
+    // color: getAvatarColor(name),
   };
 }

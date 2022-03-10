@@ -63,7 +63,7 @@ const MostUsers = [
   },
 ];
 
-export default function BookingNewestBooking() {
+export default function BookingNewestBooking({ grayList }) {
   const theme = useTheme();
   const carouselRef = useRef(null);
 

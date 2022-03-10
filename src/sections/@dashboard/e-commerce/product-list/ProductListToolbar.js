@@ -5,6 +5,7 @@ import { Toolbar, Tooltip, IconButton, Typography, InputAdornment, Button } from
 // components
 import Iconify from '../../../../components/Iconify';
 import InputStyle from '../../../../components/InputStyle';
+import { useSnackbar } from 'notistack';
 
 // ----------------------------------------------------------------------
 
@@ -24,7 +25,27 @@ ProductListToolbar.propTypes = {
   onDeleteProducts: PropTypes.func,
 };
 
-export default function ProductListToolbar({ numSelected, filterName, onFilterName, onDeleteProducts }) {
+export default function ProductListToolbar({ numSelected, filterName, onFilterName, onDeleteProducts, setWhite }) {
+  const { enqueueSnackbar } = useSnackbar();
+  function getWhiteList() {
+    fetch('https://api3blockserver.herokuapp.com/db/api/system/3block/getAllWhitePublic', {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+    })
+      .then((response) => {
+        // throw 'Err';
+        return response.json();
+      })
+      .then((json) => {
+        localStorage.setItem('whiteList', JSON.stringify(json));
+        setWhite(json);
+        enqueueSnackbar('Update White Lists Successfully!', { variant: 'success' });
+      })
+      .catch((err) => {
+        enqueueSnackbar('Update White Lists Failure!', { variant: 'error' });
+      });
+  }
+
   const theme = useTheme();
   const isLight = theme.palette.mode === 'light';
 
@@ -70,13 +91,7 @@ export default function ProductListToolbar({ numSelected, filterName, onFilterNa
           </IconButton>
         </Tooltip>
       )} */}
-      <Button
-        color="error"
-        variant="contained"
-        onClick={() => {
-          console.log('Reset Data');
-        }}
-      >
+      <Button color="error" variant="contained" onClick={getWhiteList}>
         Update Data
       </Button>
     </RootStyle>

@@ -40,6 +40,7 @@ import {
   ProductListToolbar,
 } from '../../sections/@dashboard/e-commerce/product-list';
 import Iconify from '../../components/Iconify';
+import { useSnackbar } from 'notistack';
 
 // ----------------------------------------------------------------------
 
@@ -59,7 +60,6 @@ if (!localStorage.getItem('whiteList')) {
   white = JSON.parse(localStorage.getItem('whiteList'));
   // console.log(white);
 }
-
 export default function EcommerceProductList() {
   const { themeStretch } = useSettings();
   const theme = useTheme();
@@ -99,6 +99,7 @@ export default function EcommerceProductList() {
   //   }
   //   setSelected([]);
   // };
+
   const [whites, setWhite] = useState(white);
 
   // const handleClick = (name) => {
@@ -172,6 +173,7 @@ export default function EcommerceProductList() {
             // numSelected={whites.length}
             filterName={filterName}
             onFilterName={handleFilterByName}
+            setWhite={setWhite}
             // onDeleteProducts={() => handleDeleteProducts(selected)}
           />
 
@@ -291,7 +293,26 @@ export default function EcommerceProductList() {
     </Page>
   );
 }
-
+function getWhiteList() {
+  fetch('https://api3blockserver.herokuapp.com/db/api/system/3block/getAllWhitePublic', {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' },
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .then((json) => {
+      localStorage.setItem('whiteList', JSON.stringify(json));
+      // enqueueSnackbar('Update White Lists Successfully!', { variant: 'success' });
+      window.location.reload();
+    });
+}
+function validURL(url) {
+  var match;
+  if ((match = url.match(/^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:\/\n\?\=]+)/im))) {
+    return match[1];
+  }
+}
 // ----------------------------------------------------------------------
 
 // function descendingComparator(a, b, orderBy) {
@@ -324,22 +345,3 @@ export default function EcommerceProductList() {
 
 //   return stabilizedThis.map((el) => el[0]);
 // }
-function getWhiteList() {
-  fetch('https://api3blockserver.herokuapp.com/db/api/system/3block/getAllWhitePublic', {
-    method: 'GET',
-    headers: { 'Content-Type': 'application/json' },
-  })
-    .then((response) => {
-      return response.json();
-    })
-    .then((json) => {
-      localStorage.setItem('whiteList', JSON.stringify(json));
-      window.location.reload();
-    });
-}
-function validURL(url) {
-  var match;
-  if ((match = url.match(/^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:\/\n\?\=]+)/im))) {
-    return match[1];
-  }
-}

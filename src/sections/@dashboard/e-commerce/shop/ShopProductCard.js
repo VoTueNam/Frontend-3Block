@@ -62,10 +62,17 @@ export default function ShopProductCard({ product }) {
       </Box>
 
       <Stack spacing={2} sx={{ p: 3 }}>
-        <Link
+        {/* <Link
           to={linkTo}
           color="inherit"
           component={RouterLink}
+          onClick={() => {
+            localStorage.setItem('virusTotal', JSON.stringify(product));
+          }}
+        > */}
+        <a
+          href={'/dashboard/analytics'}
+          target="_blank"
           onClick={() => {
             localStorage.setItem('virusTotal', JSON.stringify(product));
           }}
@@ -73,7 +80,8 @@ export default function ShopProductCard({ product }) {
           <Typography variant="subtitle1" noWrap>
             {validURL(url)}
           </Typography>
-        </Link>
+        </a>
+        {/* </Link> */}
 
         <Stack direction="row" alignItems="center" justifyContent="space-between">
           <ColorPreview colors={colors} />

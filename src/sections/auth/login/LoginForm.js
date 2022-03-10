@@ -10,18 +10,25 @@ import { LoadingButton } from '@mui/lab';
 // routes
 import { PATH_AUTH } from '../../../routes/paths';
 // hooks
-import useAuth from '../../../hooks/useAuth';
+// import useAuth from '../../../hooks/useAuth';
+import { useAuth } from '../../../firebaseLogin/contexts/AuthContext';
 import useIsMountedRef from '../../../hooks/useIsMountedRef';
 // components
 import Iconify from '../../../components/Iconify';
+import { useNavigate } from 'react-router-dom';
 import { FormProvider, RHFTextField, RHFCheckbox } from '../../../components/hook-form';
 
 // ----------------------------------------------------------------------
 
 export default function LoginForm() {
   const { login } = useAuth();
+  const navigate = useNavigate();
+  const [isSubmittings, setIsSubmittings] = useState(false);
 
   const isMountedRef = useIsMountedRef();
+
+  const [showError, setShowError] = useState(true);
+  const [errorsNe, setErrorsNe] = useState('');
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -49,21 +56,57 @@ export default function LoginForm() {
   } = methods;
 
   const onSubmit = async (data) => {
-    try {
-      await login(data.email, data.password);
-    } catch (error) {
-      console.error(error);
-      reset();
-      if (isMountedRef.current) {
-        setError('afterSubmit', error);
-      }
-    }
+    setIsSubmittings(true);
+    login(data.email, data.password)
+      .then((res) => {
+        // console.log(res);
+        localStorage.setItem('user', JSON.stringify(res.user));
+        setIsSubmittings(false);
+        navigate('/dashboard/analytics');
+
+        // handleRedirectToOrBack();
+      })
+      .catch((error) => {
+        console.log(error.message);
+        reset();
+        setShowError(false);
+        setIsSubmittings(false);
+        // const loiNe = ;
+
+        const newErr = error.message
+          .slice(22, -2)
+          .replace(/-/g, ' ')
+          .split(' ')
+          .map((w) => w[0].toUpperCase() + w.substring(1).toLowerCase())
+          .join(' ');
+
+        setErrorsNe(newErr);
+        // if (isMountedRef.current) {
+
+        // }
+        // toast({
+        //   description: error.message,
+        //   status: 'error',
+        //   duration: 9000,
+        //   isClosable: true,
+        // });
+      });
+
+    // try {
+    //   await login(data.email, data.password);
+    // } catch (error) {
+    //   console.error(error);
+    //   reset();
+    //   if (isMountedRef.current) {
+    //     setError('afterSubmit', error);
+    //   }
+    // }
   };
 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Stack spacing={3}>
-        {!!errors.afterSubmit && <Alert severity="error">{errors.afterSubmit.message}</Alert>}
+        {!showError && <Alert severity="error">{errorsNe}</Alert>}
 
         <RHFTextField name="email" label="Email address" />
 
@@ -90,7 +133,7 @@ export default function LoginForm() {
         </Link>
       </Stack>
 
-      <LoadingButton fullWidth size="large" type="submit" variant="contained" loading={isSubmitting}>
+      <LoadingButton fullWidth size="large" type="submit" variant="contained" loading={isSubmittings}>
         Login
       </LoadingButton>
     </FormProvider>

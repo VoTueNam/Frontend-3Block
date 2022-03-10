@@ -22,8 +22,8 @@ var CHART_DATA_CHECK_OUT = [64];
 export default function BookingCheckInWidgets({ isChecked, notChecked, size }) {
   TOTAL_CHECK_IN = isChecked;
   TOTAL_CHECK_OUT = notChecked;
-  CHART_DATA_CHECK_IN = [(isChecked * 100) / size];
-  CHART_DATA_CHECK_OUT = [(notChecked * 100) / size];
+  CHART_DATA_CHECK_IN = [Number(((isChecked * 100) / size).toFixed(2))];
+  CHART_DATA_CHECK_OUT = [Number(((notChecked * 100) / size).toFixed(2))];
   const theme = useTheme();
 
   const isDesktop = useResponsive('up', 'sm');

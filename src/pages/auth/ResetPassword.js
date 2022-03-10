@@ -13,6 +13,7 @@ import Page from '../../components/Page';
 import { ResetPasswordForm } from '../../sections/auth/reset-password';
 // assets
 import { SentIcon } from '../../assets';
+import { useAuth } from '../../firebaseLogin/contexts/AuthContext';
 
 // ----------------------------------------------------------------------
 
@@ -29,6 +30,7 @@ const RootStyle = styled('div')(({ theme }) => ({
 export default function ResetPassword() {
   const [email, setEmail] = useState('');
   const [sent, setSent] = useState(false);
+  const { forgotPassword } = useAuth();
 
   return (
     <Page title="Reset Password" sx={{ height: 1 }}>
@@ -47,7 +49,11 @@ export default function ResetPassword() {
                   password.
                 </Typography>
 
-                <ResetPasswordForm onSent={() => setSent(true)} onGetEmail={(value) => setEmail(value)} />
+                <ResetPasswordForm
+                  onSent={() => setSent(true)}
+                  onGetEmail={(value) => setEmail(value)}
+                  forgotPassword={forgotPassword}
+                />
 
                 <Button fullWidth size="large" component={RouterLink} to={PATH_AUTH.login} sx={{ mt: 1 }}>
                   Back

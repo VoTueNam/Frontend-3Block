@@ -1,12 +1,12 @@
 import { capitalCase } from 'change-case';
-import { Link as RouterLink } from 'react-router-dom';
+import { useNavigate, Link as RouterLink, useLocation } from 'react-router-dom';
 // @mui
 import { styled } from '@mui/material/styles';
 import { Box, Card, Stack, Link, Alert, Tooltip, Container, Typography } from '@mui/material';
 // routes
 import { PATH_AUTH } from '../../routes/paths';
 // hooks
-import useAuth from '../../hooks/useAuth';
+// import useAuth from '../../hooks/useAuth';
 import useResponsive from '../../hooks/useResponsive';
 // components
 import Page from '../../components/Page';
@@ -14,6 +14,10 @@ import Logo from '../../components/Logo';
 import Image from '../../components/Image';
 // sections
 import { LoginForm } from '../../sections/auth/login';
+import { GoogleLoginButton, FacebookLoginButton, GithubLoginButton } from 'react-social-login-buttons';
+import { useAuth } from '../../firebaseLogin/contexts/AuthContext';
+import useMounted from '../../firebaseLogin/hooks/useMounted';
+import { useState } from 'react';
 
 // ----------------------------------------------------------------------
 
@@ -61,7 +65,19 @@ const ContentStyle = styled('div')(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 export default function Login() {
-  const { method } = useAuth();
+  // const { method } = useAuth();
+  //! ################
+
+  const navigate = useNavigate();
+  const { signInWithGoogle, signInWithGithub, signInWithFacebook, login, currentUser } = useAuth();
+  // console.log('login', currentUser?.email);
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const location = useLocation();
+
+  //todo #############
 
   const smUp = useResponsive('up', 'sm');
 
@@ -104,31 +120,68 @@ export default function Login() {
                 <Typography sx={{ color: 'text.secondary' }}>Enter your details below.</Typography>
               </Box>
 
-              <Tooltip title={capitalCase(method)} placement="right">
+              <Tooltip
+                title={
+                  'Login'
+                  // capitalCase(method)
+                }
+                placement="right"
+              >
                 <>
                   <Image
                     disabledEffect
-                    src={`https://minimal-assets-api.vercel.app/assets/icons/auth/ic_${method}.png`}
+                    src={`https://minimal-assets-api.vercel.app/assets/icons/auth/ic_jwt.png`}
                     sx={{ width: 32, height: 32 }}
                   />
                 </>
               </Tooltip>
             </Stack>
-
-            <Alert severity="info" sx={{ mb: 3 }}>
+            {/* <Alert severity="info" sx={{ mb: 3 }}>
               Use email : <strong>demo@minimals.cc</strong> / password :<strong> demo1234</strong>
-            </Alert>
-
+            </Alert> */}
+            {/* //! Login FORM here!!! */}
             <LoginForm />
-
-            {!smUp && (
+            <Stack direction="row" alignItems="center" sx={{ mb: 5 }}>
+              <GoogleLoginButton
+                onClick={() =>
+                  signInWithGoogle()
+                    .then((user) => {
+                      localStorage.setItem('user', JSON.stringify(user.user));
+                      navigate('/dashboard/analytics');
+                      // console.log(user);
+                    })
+                    .catch((e) => console.log(e.message))
+                }
+              />
+              <FacebookLoginButton
+                onClick={() =>
+                  signInWithFacebook()
+                    .then((user) => {
+                      localStorage.setItem('user', JSON.stringify(user.user));
+                      navigate('/dashboard/analytics');
+                    })
+                    .catch((e) => console.log(e.message))
+                }
+              />
+              <GithubLoginButton
+                onClick={() =>
+                  signInWithGithub()
+                    .then((user) => {
+                      localStorage.setItem('user', JSON.stringify(user.user));
+                      navigate('/dashboard/analytics');
+                    })
+                    .catch((e) => console.log(e.message))
+                }
+              />
+            </Stack>
+            {/* {smUp && (
               <Typography variant="body2" align="center" sx={{ mt: 3 }}>
                 Don’t have an account?{' '}
                 <Link variant="subtitle2" component={RouterLink} to={PATH_AUTH.register}>
                   Get started
                 </Link>
               </Typography>
-            )}
+            )} */}
           </ContentStyle>
         </Container>
       </RootStyle>

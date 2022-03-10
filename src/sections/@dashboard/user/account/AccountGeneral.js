@@ -60,7 +60,7 @@ export default function AccountGeneral() {
       console.error(error);
     }
   };
-
+  //https://avatars.githubusercontent.com/u/57885184?v=4
   const handleDrop = useCallback(
     (acceptedFiles) => {
       const file = acceptedFiles[0];

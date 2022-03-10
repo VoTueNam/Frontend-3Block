@@ -4,11 +4,14 @@ import { Link as RouterLink } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import { Box, Link, Typography } from '@mui/material';
 // hooks
-import useAuth from '../../../hooks/useAuth';
+// import useAuth from '../../../hooks/useAuth';
+import { useAuth } from '../../../firebaseLogin/contexts/AuthContext';
+
 // routes
 import { PATH_DASHBOARD } from '../../../routes/paths';
 // components
 import MyAvatar from '../../../components/MyAvatar';
+import { useEffect, useState } from 'react';
 
 // ----------------------------------------------------------------------
 
@@ -30,10 +33,16 @@ NavbarAccount.propTypes = {
 };
 
 export default function NavbarAccount({ isCollapse }) {
-  const { user } = useAuth();
+  const { currentUser } = useAuth();
+  // const [user, setUser] = useState(users);
+  // useEffect(() => {
+  //   setUser(JSON.parse(localStorage.getItem('user')));
+  // });
+  // var user = JSON.parse(localStorage.getItem('user'));
+  const user = currentUser;
 
   return (
-    <Link underline="none" color="inherit" component={RouterLink} to={PATH_DASHBOARD.user.account}>
+    <Link underline="none" color="inherit" to={'#'}>
       <RootStyle
         sx={{
           ...(isCollapse && {
@@ -57,10 +66,10 @@ export default function NavbarAccount({ isCollapse }) {
           }}
         >
           <Typography variant="subtitle2" noWrap>
-            {user?.displayName}
+            {user?.displayName || user?.email}
           </Typography>
           <Typography variant="body2" noWrap sx={{ color: 'text.secondary' }}>
-            {user?.role}
+            {user?.email}
           </Typography>
         </Box>
       </RootStyle>

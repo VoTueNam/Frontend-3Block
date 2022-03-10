@@ -22,27 +22,30 @@ import Iconify from '../../components/Iconify';
 import EmojiPicker from '../../components/EmojiPicker';
 import MyAvatar from '../../components/MyAvatar';
 import { BankingInviteFriends } from '../../sections/@dashboard/general/banking';
+import { useState } from 'react';
 
 // ----------------------------------------------------------------------
-var gray;
+var grays;
 if (!localStorage.getItem('grayList')) {
-  getGrayList();
+  getGrayLists();
 } else {
-  gray = JSON.parse(localStorage.getItem('grayList'));
+  grays = JSON.parse(localStorage.getItem('grayList'));
   // console.log(gray);
 }
 var isChecked = 0;
 var notChecked = 0;
 
-for (var url of gray) {
+for (var url of grays) {
   if (url.isCheck == 'false') {
     notChecked++;
   } else if (url.isCheck == 'true') {
     isChecked++;
   }
 }
+
 export default function GeneralBooking() {
   const { themeStretch } = useSettings();
+  const [gray, setGray] = useState(grays);
 
   return (
     <Page title="Gray Lists">
@@ -55,7 +58,12 @@ export default function GeneralBooking() {
           <Grid item xs={12} md={6}>
             <br />
             <br />
-            <BookingWidgetSummary title="Total URL" total={gray.length} icon={<BookingIllustration />} />
+            <BookingWidgetSummary
+              title="Total URL"
+              total={gray.length}
+              icon={<BookingIllustration />}
+              setGray={setGray}
+            />
             {/* <Grid item xs={12} md={4}> */}
             <br />
             <BookingCheckInWidgets isChecked={isChecked} notChecked={notChecked} size={gray.length} />
@@ -100,7 +108,7 @@ export default function GeneralBooking() {
           </Grid> */}
 
           <Grid item xs={12}>
-            <BookingNewestBooking />
+            <BookingNewestBooking grayList={gray} />
           </Grid>
 
           <Grid item xs={12}>
@@ -111,7 +119,7 @@ export default function GeneralBooking() {
     </Page>
   );
 }
-function getGrayList() {
+function getGrayLists() {
   fetch('https://api3blockserver.herokuapp.com/user/gray/system/3block/getAll', {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' },

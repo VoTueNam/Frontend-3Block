@@ -3,6 +3,7 @@ import Router from './routes';
 // theme
 import ThemeProvider from './theme';
 // components
+import AuthContextProvider from './firebaseLogin/contexts/AuthContext';
 import Settings from './components/settings';
 import RtlLayout from './components/RtlLayout';
 import { ChartStyle } from './components/chart';
@@ -17,22 +18,24 @@ import MotionLazyContainer from './components/animate/MotionLazyContainer';
 
 export default function App() {
   return (
-    <ThemeProvider>
-      <ThemeColorPresets>
-        <ThemeLocalization>
-          <RtlLayout>
-            <NotistackProvider>
-              <MotionLazyContainer>
-                <ProgressBarStyle />
-                <ChartStyle />
-                <Settings />
-                <ScrollToTop />
-                <Router />
-              </MotionLazyContainer>
-            </NotistackProvider>
-          </RtlLayout>
-        </ThemeLocalization>
-      </ThemeColorPresets>
-    </ThemeProvider>
+    <AuthContextProvider>
+      <ThemeProvider>
+        <ThemeColorPresets>
+          <ThemeLocalization>
+            <RtlLayout>
+              <NotistackProvider>
+                <MotionLazyContainer>
+                  <ProgressBarStyle />
+                  <ChartStyle />
+                  <Settings />
+                  <ScrollToTop />
+                  <Router />
+                </MotionLazyContainer>
+              </NotistackProvider>
+            </RtlLayout>
+          </ThemeLocalization>
+        </ThemeColorPresets>
+      </ThemeProvider>
+    </AuthContextProvider>
   );
 }
