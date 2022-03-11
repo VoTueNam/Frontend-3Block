@@ -36,7 +36,7 @@ export default function AnalyticsCurrentVisits({ props }) {
 
   const chartOptions = merge(BaseOptionChart(), {
     colors: [
-      theme.palette.primary.main,
+      theme.palette.success.main,
       theme.palette.chart.blue[0],
       theme.palette.chart.violet[0],
       theme.palette.chart.yellow[0],

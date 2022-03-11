@@ -1,17 +1,12 @@
-import PropTypes from 'prop-types';
-import { Link as RouterLink } from 'react-router-dom';
+import { Box, Link, Typography } from '@mui/material';
 // @mui
 import { styled } from '@mui/material/styles';
-import { Box, Link, Typography } from '@mui/material';
+import PropTypes from 'prop-types';
+// components
+import MyAvatar from '../../../components/MyAvatar';
 // hooks
 // import useAuth from '../../../hooks/useAuth';
 import { useAuth } from '../../../firebaseLogin/contexts/AuthContext';
-
-// routes
-import { PATH_DASHBOARD } from '../../../routes/paths';
-// components
-import MyAvatar from '../../../components/MyAvatar';
-import { useEffect, useState } from 'react';
 
 // ----------------------------------------------------------------------
 

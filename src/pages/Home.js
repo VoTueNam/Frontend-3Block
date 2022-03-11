@@ -4,15 +4,14 @@ import { styled } from '@mui/material/styles';
 import Page from '../components/Page';
 // sections
 import {
-  HomeHero,
-  HomeMinimal,
-  HomeDarkMode,
-  HomeLookingFor,
-  HomeColorPresets,
-  HomePricingPlans,
   HomeAdvertisement,
   HomeCleanInterfaces,
+  HomeColorPresets,
+  HomeDarkMode,
+  HomeHero,
   HomeHugePackElements,
+  HomeLookingFor,
+  HomeMinimal,
 } from '../sections/home';
 
 // ----------------------------------------------------------------------

@@ -1,17 +1,16 @@
-import PropTypes from 'prop-types';
+import { Box, Container, Grid, LinearProgress, Typography } from '@mui/material';
 // @mui
-import { alpha, useTheme, styled } from '@mui/material/styles';
-import { Box, Grid, Button, Container, Typography, LinearProgress } from '@mui/material';
+import { alpha, styled, useTheme } from '@mui/material/styles';
+import PropTypes from 'prop-types';
+import { MotionInView, varFade } from '../../components/animate';
+// components
+import Image from '../../components/Image';
 // hooks
 import useResponsive from '../../hooks/useResponsive';
 // utils
 import { fPercent } from '../../utils/formatNumber';
 // _mock_
 import { _skills } from '../../_mock';
-// components
-import Image from '../../components/Image';
-import Iconify from '../../components/Iconify';
-import { MotionInView, varFade } from '../../components/animate';
 
 // ----------------------------------------------------------------------
 

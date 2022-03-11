@@ -1,17 +1,13 @@
-import PropTypes from 'prop-types';
-import { sentenceCase } from 'change-case';
+import { Button, Chip, Stack, Typography } from '@mui/material';
 // @mui
-import { useTheme, styled } from '@mui/material/styles';
-import { Chip, Typography, Stack, Button } from '@mui/material';
-// utils
-import getColorName from '../../../../utils/getColorName';
+import { styled } from '@mui/material/styles';
+import PropTypes from 'prop-types';
+import { useEffect } from 'react';
 // components
 import Iconify from '../../../../components/Iconify';
-import { useEffect } from 'react';
-import { varBgColor } from '../../../../components/animate';
 
 // ----------------------------------------------------------------------
-var a = 0;
+
 const RootStyle = styled('div')({
   flexGrow: 1,
   display: 'flex',
@@ -39,15 +35,15 @@ const LabelStyle = styled((props) => <Typography component="span" variant="subti
 
 // ----------------------------------------------------------------------
 
-function labelPriceRange(range) {
-  if (range === 'below') {
-    return 'Below $25';
-  }
-  if (range === 'between') {
-    return 'Between $25 - $75';
-  }
-  return 'Above $75';
-}
+// function labelPriceRange(range) {
+//   if (range === 'below') {
+//     return 'Below $25';
+//   }
+//   if (range === 'between') {
+//     return 'Between $25 - $75';
+//   }
+//   return 'Above $75';
+// }
 
 ShopTagFiltered.propTypes = {
   filters: PropTypes.object,
@@ -73,9 +69,12 @@ export default function ShopTagFiltered({
   black,
   setPage,
 }) {
-  const theme = useTheme();
+  // const theme = useTheme();
 
-  const { gender, category, colors, priceRange, rating } = filters;
+  const {
+    gender,
+    // category, colors, priceRange, rating
+  } = filters;
   const gendersToLower = gender.map((element) => {
     return element.toLowerCase();
   });
@@ -83,7 +82,7 @@ export default function ShopTagFiltered({
   //Filter Black List
   const dateBlack = JSON.parse(localStorage.getItem('blackList'));
   var blackSearchResult = [];
-  if (gender.length == 0) {
+  if (gender.length === 0) {
     blackSearchResult = dateBlack;
   } else {
     blackSearchResult = dateBlack.filter((da) => {
@@ -91,13 +90,15 @@ export default function ShopTagFiltered({
       // da.level.includes(value);
     });
   }
+
   useEffect(() => {
-    if (black.length != blackSearchResult.length) {
+    if (black.length !== blackSearchResult.length) {
       //console.log(black.length + ' -|- ' + blackSearchResult.length);
       setBlack(blackSearchResult);
       setPage(0);
       //console.log('render');
     }
+    // eslint-disable-next-line
   }, [gender]);
   localStorage.setItem('filterBlack', JSON.stringify(blackSearchResult));
 

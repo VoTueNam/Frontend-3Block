@@ -1,22 +1,20 @@
-import * as Yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { LoadingButton } from '@mui/lab';
+// @mui
+import { Alert, IconButton, InputAdornment, Link, Stack } from '@mui/material';
 import { useState } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
 // form
 import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-// @mui
-import { Link, Stack, Alert, IconButton, InputAdornment } from '@mui/material';
-import { LoadingButton } from '@mui/lab';
-// routes
-import { PATH_AUTH } from '../../../routes/paths';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import * as Yup from 'yup';
+import { FormProvider, RHFCheckbox, RHFTextField } from '../../../components/hook-form';
+// components
+import Iconify from '../../../components/Iconify';
 // hooks
 // import useAuth from '../../../hooks/useAuth';
 import { useAuth } from '../../../firebaseLogin/contexts/AuthContext';
-import useIsMountedRef from '../../../hooks/useIsMountedRef';
-// components
-import Iconify from '../../../components/Iconify';
-import { useNavigate } from 'react-router-dom';
-import { FormProvider, RHFTextField, RHFCheckbox } from '../../../components/hook-form';
+// routes
+import { PATH_AUTH } from '../../../routes/paths';
 
 // ----------------------------------------------------------------------
 
@@ -25,7 +23,7 @@ export default function LoginForm() {
   const navigate = useNavigate();
   const [isSubmittings, setIsSubmittings] = useState(false);
 
-  const isMountedRef = useIsMountedRef();
+  // const isMountedRef = useIsMountedRef();
 
   const [showError, setShowError] = useState(true);
   const [errorsNe, setErrorsNe] = useState('');
@@ -50,9 +48,9 @@ export default function LoginForm() {
 
   const {
     reset,
-    setError,
+    // setError,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    // formState: { errors, isSubmitting },
   } = methods;
 
   const onSubmit = async (data) => {

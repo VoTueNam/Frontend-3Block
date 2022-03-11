@@ -1,12 +1,7 @@
-import PropTypes from 'prop-types';
-import orderBy from 'lodash/orderBy';
+import { Avatar, Box, Card, CardHeader, Stack, Typography } from '@mui/material';
 // @mui
 import { alpha, styled } from '@mui/material/styles';
-import { Box, Stack, Card, Avatar, CardHeader, Typography } from '@mui/material';
-// utils
-import { fShortenNumber } from '../../../../utils/formatNumber';
-// _mock_
-import { _appAuthors } from '../../../../_mock';
+import PropTypes from 'prop-types';
 // components
 import Iconify from '../../../../components/Iconify';
 

@@ -1,28 +1,20 @@
 // @mui
-import { Grid, Container, InputLabel, InputBase, InputAdornment, IconButton, TextField, Stack } from '@mui/material';
-// hooks
-import useSettings from '../../hooks/useSettings';
+import { Container, Grid } from '@mui/material';
+import { useState } from 'react';
+// assets
+import { BookingIllustration } from '../../assets';
 // components
 import Page from '../../components/Page';
+// hooks
+import useSettings from '../../hooks/useSettings';
+import { BankingInviteFriends } from '../../sections/@dashboard/general/banking';
 // sections
 import {
+  BookingCheckInWidgets,
   BookingDetails,
-  BookingBookedRoom,
-  BookingTotalIncomes,
-  BookingRoomAvailable,
   BookingNewestBooking,
   BookingWidgetSummary,
-  BookingCheckInWidgets,
-  BookingCustomerReviews,
-  BookingReservationStats,
 } from '../../sections/@dashboard/general/booking';
-// assets
-import { BookingIllustration, CheckInIllustration, CheckOutIllustration } from '../../assets';
-import Iconify from '../../components/Iconify';
-import EmojiPicker from '../../components/EmojiPicker';
-import MyAvatar from '../../components/MyAvatar';
-import { BankingInviteFriends } from '../../sections/@dashboard/general/banking';
-import { useState } from 'react';
 
 // ----------------------------------------------------------------------
 var grays;
@@ -36,15 +28,16 @@ var isChecked = 0;
 var notChecked = 0;
 
 for (var url of grays) {
-  if (url.isCheck == 'false') {
+  if (url.isCheck === 'false') {
     notChecked++;
-  } else if (url.isCheck == 'true') {
+  } else if (url.isCheck === 'true') {
     isChecked++;
   }
 }
 
 export default function GeneralBooking() {
   const { themeStretch } = useSettings();
+
   const [gray, setGray] = useState(grays);
 
   return (
@@ -52,7 +45,12 @@ export default function GeneralBooking() {
       <Container maxWidth={themeStretch ? false : 'xl'}>
         <Grid container spacing={3}>
           <Grid item xs={12} md={6}>
-            <BankingInviteFriends virusTotal={true} url={'Enter your suggestion'} title={' URL here:'} />
+            <BankingInviteFriends
+              virusTotal={true}
+              url={'Enter your suggestion'}
+              title={' URL here:'}
+              setGray={setGray}
+            />
           </Grid>
 
           <Grid item xs={12} md={6}>

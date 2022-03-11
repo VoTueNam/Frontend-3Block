@@ -21,7 +21,7 @@ const ArrowStyle = styled(IconButtonAnimate, {
   alignItems: 'center',
   justifyContent: 'center',
   '&:hover': {
-    color: theme.palette.text.primary,
+    color: theme.palette.text.success,
   },
   ...(filled && {
     opacity: 0.48,

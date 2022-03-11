@@ -1,7 +1,7 @@
-import PropTypes from 'prop-types';
+import { Box } from '@mui/material';
 // @mui
 import { alpha, styled } from '@mui/material/styles';
-import { Box, Typography } from '@mui/material';
+import PropTypes from 'prop-types';
 
 // ----------------------------------------------------------------------
 
@@ -30,7 +30,7 @@ ColorPreview.propTypes = {
 
 export default function ColorPreview({ colors, limit = 3, sx }) {
   const showColor = colors.slice(0, limit);
-  const moreColor = colors.length - limit;
+  // const moreColor = colors.length - limit;
 
   return (
     <RootStyle component="span" sx={sx}>

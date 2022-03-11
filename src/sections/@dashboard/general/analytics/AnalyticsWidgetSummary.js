@@ -1,9 +1,7 @@
-import PropTypes from 'prop-types';
+import { Card, Typography } from '@mui/material';
 // @mui
 import { alpha, styled } from '@mui/material/styles';
-import { Card, Typography } from '@mui/material';
-// utils
-import { fShortenNumber } from '../../../../utils/formatNumber';
+import PropTypes from 'prop-types';
 // components
 import Iconify from '../../../../components/Iconify';
 

@@ -1,29 +1,24 @@
+// @mui
+import { Container, Stack, TablePagination, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
-import orderBy from 'lodash/orderBy';
 // form
 import { useForm } from 'react-hook-form';
-// @mui
-import { Container, Typography, Stack, TablePagination } from '@mui/material';
-// redux
-import { useDispatch, useSelector } from '../../redux/store';
-import { getProducts, filterProducts } from '../../redux/slices/product';
-// routes
-import { PATH_DASHBOARD } from '../../routes/paths';
-// hooks
-import useSettings from '../../hooks/useSettings';
-// components
-import Page from '../../components/Page';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 import { FormProvider } from '../../components/hook-form';
+// components
+import Page from '../../components/Page';
+// hooks
+import useSettings from '../../hooks/useSettings';
+import { filterProducts, getProducts } from '../../redux/slices/product';
+// redux
+import { useDispatch, useSelector } from '../../redux/store';
 // sections
 import {
-  ShopTagFiltered,
-  ShopProductSort,
-  ShopProductList,
   ShopFilterSidebar,
+  ShopProductList,
   ShopProductSearch,
+  ShopTagFiltered
 } from '../../sections/@dashboard/e-commerce/shop';
-import CartWidget from '../../sections/@dashboard/e-commerce/CartWidget';
 
 // ----------------------------------------------------------------------
 var blacks;
@@ -35,9 +30,13 @@ if (!localStorage.getItem('blackList')) {
 }
 
 export default function EcommerceShop() {
-  var { products, sortBy, filters } = useSelector((state) => state.product);
+  var {
+    products,
+    // sortBy,
+    filters,
+  } = useSelector((state) => state.product);
 
-  const filteredProducts = applyFilter(products, sortBy, filters);
+  // const filteredProducts = applyFilter(products, sortBy, filters);
   const { themeStretch } = useSettings();
 
   const [page, setPage] = useState(0);
@@ -49,13 +48,14 @@ export default function EcommerceShop() {
   const [openFilter, setOpenFilter] = useState(false);
 
   useEffect(() => {
-    if (filters.gender.length == 0) {
+    if (filters.gender.length === 0) {
       const newBlack = JSON.parse(localStorage.getItem('blackList'));
-      if (black != newBlack) {
+      if (black !== newBlack) {
         // console.log('Zero');
         setBlack(newBlack);
       }
     }
+    // eslint-disable-next-line
   }, [filters.gender]);
   const defaultValues = {
     gender: filters.gender,
@@ -141,7 +141,7 @@ export default function EcommerceShop() {
           justifyContent="space-between"
           sx={{ mb: 2 }}
         >
-          <ShopProductSearch black={black} setBlack={setBlack} setPage={setPage} />
+          <ShopProductSearch black={black} setBlack={setBlack} setPage={setPage} gender={filters.gender} />
 
           <Stack direction="row" spacing={1} flexShrink={0} sx={{ my: 1 }}>
             <FormProvider methods={methods}>
@@ -203,54 +203,54 @@ export default function EcommerceShop() {
 
 // ----------------------------------------------------------------------
 
-function applyFilter(products, sortBy, filters) {
-  // SORT BY
-  // if (sortBy === 'featured') {
-  //   products = orderBy(products, ['sold'], ['desc']);
-  // }
-  // if (sortBy === 'newest') {
-  //   products = orderBy(products, ['createdAt'], ['desc']);
-  // }
-  // if (sortBy === 'priceDesc') {
-  //   products = orderBy(products, ['price'], ['desc']);
-  // }
-  // if (sortBy === 'priceAsc') {
-  //   products = orderBy(products, ['price'], ['asc']);
-  // }
-  // FILTER PRODUCTS
-  if (filters.gender.length > 0) {
-    products = products.filter((product) => filters.gender.includes(product.gender));
-  }
-  // if (filters.category !== 'All') {
-  //   products = products.filter((product) => product.category === filters.category);
-  // }
-  // if (filters.colors.length > 0) {
-  //   products = products.filter((product) => product.colors.some((color) => filters.colors.includes(color)));
-  // }
-  // if (filters.priceRange) {
-  //   products = products.filter((product) => {
-  //     if (filters.priceRange === 'below') {
-  //       return product.price < 25;
-  //     }
-  //     if (filters.priceRange === 'between') {
-  //       return product.price >= 25 && product.price <= 75;
-  //     }
-  //     return product.price > 75;
-  //   });
-  // }
-  // if (filters.rating) {
-  //   products = products.filter((product) => {
-  //     const convertRating = (value) => {
-  //       if (value === 'up4Star') return 4;
-  //       if (value === 'up3Star') return 3;
-  //       if (value === 'up2Star') return 2;
-  //       return 1;
-  //     };
-  //     return product.totalRating > convertRating(filters.rating);
-  //   });
-  // }
-  return products;
-}
+// function applyFilter(products, sortBy, filters) {
+//   // SORT BY
+//   // if (sortBy === 'featured') {
+//   //   products = orderBy(products, ['sold'], ['desc']);
+//   // }
+//   // if (sortBy === 'newest') {
+//   //   products = orderBy(products, ['createdAt'], ['desc']);
+//   // }
+//   // if (sortBy === 'priceDesc') {
+//   //   products = orderBy(products, ['price'], ['desc']);
+//   // }
+//   // if (sortBy === 'priceAsc') {
+//   //   products = orderBy(products, ['price'], ['asc']);
+//   // }
+//   // FILTER PRODUCTS
+//   if (filters.gender.length > 0) {
+//     products = products.filter((product) => filters.gender.includes(product.gender));
+//   }
+//   // if (filters.category !== 'All') {
+//   //   products = products.filter((product) => product.category === filters.category);
+//   // }
+//   // if (filters.colors.length > 0) {
+//   //   products = products.filter((product) => product.colors.some((color) => filters.colors.includes(color)));
+//   // }
+//   // if (filters.priceRange) {
+//   //   products = products.filter((product) => {
+//   //     if (filters.priceRange === 'below') {
+//   //       return product.price < 25;
+//   //     }
+//   //     if (filters.priceRange === 'between') {
+//   //       return product.price >= 25 && product.price <= 75;
+//   //     }
+//   //     return product.price > 75;
+//   //   });
+//   // }
+//   // if (filters.rating) {
+//   //   products = products.filter((product) => {
+//   //     const convertRating = (value) => {
+//   //       if (value === 'up4Star') return 4;
+//   //       if (value === 'up3Star') return 3;
+//   //       if (value === 'up2Star') return 2;
+//   //       return 1;
+//   //     };
+//   //     return product.totalRating > convertRating(filters.rating);
+//   //   });
+//   // }
+//   return products;
+// }
 function getBlackList() {
   fetch('https://api3blockserver.herokuapp.com/db/api/system/3block/getAllBlackPublic', {
     method: 'GET',

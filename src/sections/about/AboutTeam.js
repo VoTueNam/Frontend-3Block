@@ -1,17 +1,16 @@
+import { Box, Card, Container, Stack, Typography } from '@mui/material';
+// @mui
+import { useTheme } from '@mui/material/styles';
 import PropTypes from 'prop-types';
 import { useRef } from 'react';
 import Slider from 'react-slick';
-// @mui
-import { useTheme } from '@mui/material/styles';
-import { Box, Stack, Card, Button, Container, Typography } from '@mui/material';
-// _mock_
-import { _carouselsMembers } from '../../_mock';
+import { MotionInView, varFade } from '../../components/animate';
+import { CarouselArrows } from '../../components/carousel';
 // components
 import Image from '../../components/Image';
-import Iconify from '../../components/Iconify';
-import { CarouselArrows } from '../../components/carousel';
 import SocialsButton from '../../components/SocialsButton';
-import { MotionInView, varFade } from '../../components/animate';
+// _mock_
+import { _carouselsMembers } from '../../_mock';
 
 // ----------------------------------------------------------------------
 

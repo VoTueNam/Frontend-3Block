@@ -1,10 +1,10 @@
 // @mui
-import { styled, alpha } from '@mui/material/styles';
-import { Card, Stack, Typography, Button, OutlinedInput } from '@mui/material';
+import { Button, Card, OutlinedInput, Stack, Typography } from '@mui/material';
+import { alpha, styled } from '@mui/material/styles';
+import { useSnackbar } from 'notistack';
+import { useState } from 'react';
 // components
 import Image from '../../../../components/Image';
-import { useState } from 'react';
-import useAuth from '../../../../firebaseLogin/contexts/AuthContext';
 
 // ----------------------------------------------------------------------
 
@@ -15,16 +15,17 @@ const ContentStyle = styled(Card)(({ theme }) => ({
   paddingTop: theme.spacing(16),
   color: theme.palette.common.white,
   backgroundImage: `linear-gradient(135deg,
-    ${theme.palette.info.main} 0%,
-    ${theme.palette.success.dark} 100%)`,
+    ${theme.palette.primary.main} 0%,
+    ${theme.palette.info.dark} 100%)`,
 }));
 
 // ----------------------------------------------------------------------
 
-export default function BankingInviteFriends({ url = 'example.com', title = 'None', virusTotal = true }) {
+export default function BankingInviteFriends({ url = 'example.com', title = 'None', virusTotal = true, setGray }) {
+  const { enqueueSnackbar } = useSnackbar();
   const currentUser = JSON.parse(localStorage.getItem('user'));
-  if (url != 'Enter your suggestion') url = url.slice(7, -1);
-  console.log('image = ' + currentUser?.photoURL);
+  if (url !== 'Enter your suggestion') url = url.slice(7, -1);
+  // console.log('image = ' + currentUser?.photoURL);
   const [submitValue, setSubmitValue] = useState('');
   function onSubmit() {
     // console.log('submit ' + submitValue);
@@ -34,7 +35,7 @@ export default function BankingInviteFriends({ url = 'example.com', title = 'Non
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         url: submitValue,
-        user: currentUser.displayName,
+        user: currentUser.displayName || currentUser.email,
         image: currentUser?.photoURL,
       }),
     })
@@ -42,9 +43,38 @@ export default function BankingInviteFriends({ url = 'example.com', title = 'Non
         return response.json();
       })
       .then((json) => {
+        if (json.result === 'failURL') {
+          throw new Error('failURL');
+        }
         setSubmitValue('');
-
-        console.log(json);
+        (function getGrayList() {
+          fetch('https://api3blockserver.herokuapp.com/user/gray/system/3block/getAll', {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+          })
+            .then((response) => {
+              // throw 'Err';
+              return response.json();
+            })
+            .then((json) => {
+              localStorage.setItem('grayList', JSON.stringify(json));
+              setGray(json);
+              enqueueSnackbar('Update Gray Lists Successfully!', { variant: 'success' });
+            })
+            .catch((err) => {
+              // console.log(err);
+              enqueueSnackbar('Update Gray Lists Failure!', { variant: 'error' });
+            });
+        })();
+        enqueueSnackbar('Submit Gray Lists Successfully!', { variant: 'success' });
+        // console.log(json);
+      })
+      .catch((err) => {
+        if (err.message === 'failURL') {
+          enqueueSnackbar('Your submit was in Our Lists!', { variant: 'error' });
+        } else {
+          enqueueSnackbar('Submit Gray Lists Failure!', { variant: 'error' });
+        }
       });
   }
 

@@ -1,10 +1,6 @@
-import PropTypes from 'prop-types';
 // @mui
-import { Box, Grid, Card, Paper, Typography, CardHeader, CardContent } from '@mui/material';
-// utils
-import { fShortenNumber } from '../../../../utils/formatNumber';
-// _mock_
-import { _analyticTraffic } from '../../../../_mock';
+import { Box, Card, CardContent, CardHeader, Grid, Paper, Typography } from '@mui/material';
+import PropTypes from 'prop-types';
 
 // ----------------------------------------------------------------------
 

@@ -1,19 +1,18 @@
 // @mui
-import { Grid, Container, Stack } from '@mui/material';
-// hooks
-import useSettings from '../../hooks/useSettings';
+import { Container, Grid, Stack } from '@mui/material';
 // components
 import Page from '../../components/Page';
+// hooks
+import useSettings from '../../hooks/useSettings';
 // sections
 import {
-  BankingContacts,
-  BankingWidgetSummary,
+  BankingBalanceStatistics,
+  BankingCurrentBalance,
+  BankingExpensesCategories,
   BankingInviteFriends,
   BankingQuickTransfer,
-  BankingCurrentBalance,
-  BankingBalanceStatistics,
   BankingRecentTransitions,
-  BankingExpensesCategories,
+  BankingWidgetSummary,
 } from '../../sections/@dashboard/general/banking';
 
 // ----------------------------------------------------------------------

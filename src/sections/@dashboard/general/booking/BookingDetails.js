@@ -1,33 +1,28 @@
-import { useState } from 'react';
-import { format } from 'date-fns';
-import { sentenceCase } from 'change-case';
-// @mui
-import { useTheme } from '@mui/material/styles';
 import {
+  Avatar,
   Box,
+  Button,
   Card,
+  CardHeader,
+  Divider,
   Stack,
   Table,
-  Avatar,
-  Button,
-  Divider,
-  MenuItem,
-  TableRow,
   TableBody,
   TableCell,
-  IconButton,
-  TableHead,
-  CardHeader,
-  Typography,
   TableContainer,
+  TableHead,
+  TableRow,
+  Typography
 } from '@mui/material';
-// _mock_
-import { _bookings } from '../../../../_mock';
+// @mui
+import { useTheme } from '@mui/material/styles';
+import { sentenceCase } from 'change-case';
+import { format } from 'date-fns';
+import { useState } from 'react';
+import Iconify from '../../../../components/Iconify';
 //
 import Label from '../../../../components/Label';
-import Iconify from '../../../../components/Iconify';
 import Scrollbar from '../../../../components/Scrollbar';
-import MenuPopover from '../../../../components/MenuPopover';
 
 // ----------------------------------------------------------------------
 
@@ -91,12 +86,13 @@ export default function BookingDetails({ grayList }) {
                   <TableRow key={row._id}>
                     <TableCell>
                       <Stack direction="row" alignItems="center" spacing={2}>
-                        <a href={row.url} target="_blank">
+                        <a href={row.url} target="_blank" rel="noreferrer">
                           <Avatar alt={row.url} src={'https://api.faviconkit.com/' + validURL(row.url) + '/144'} />
                         </a>
                         <a
                           href={'/dashboard/analytics'}
                           target="_blank"
+                          rel="noreferrer"
                           onClick={() => {
                             localStorage.setItem('virusTotal', JSON.stringify(row));
                           }}
@@ -109,7 +105,7 @@ export default function BookingDetails({ grayList }) {
                     <TableCell>{format(new Date(row.createdAt), 'dd MMM yyyy')}</TableCell>
                     <TableCell>
                       {(() => {
-                        if (row.isCheck != 'none')
+                        if (row.isCheck !== 'none')
                           // const a = format(new Date(row.createdAt), 'dd MMM yyyy'),
                           //   b = format(new Date(row.updatedAt), 'dd MMM yyyy');
                           // if (a != b)
@@ -121,18 +117,18 @@ export default function BookingDetails({ grayList }) {
                       <Label
                         variant={isLight ? 'ghost' : 'filled'}
                         color={
-                          (row.isCheck === 'false' && 'warning') || (row.isCheck === 'true' && 'primary') || 'info'
+                          (row.isCheck === 'false' && 'warning') || (row.isCheck === 'true' && 'success') || 'info'
                         }
                       >
                         {sentenceCase(
                           (() => {
-                            if (row.isCheck == 'true') {
+                            if (row.isCheck === 'true') {
                               return 'Verification';
                             }
-                            if (row.isCheck == 'false') {
+                            if (row.isCheck === 'false') {
                               return 'Reject';
                             }
-                            if (row.isCheck == 'none') {
+                            if (row.isCheck === 'none') {
                               return 'None';
                             }
                           })()
@@ -174,6 +170,7 @@ export default function BookingDetails({ grayList }) {
 }
 function validURL(url) {
   var match;
+  // eslint-disable-next-line
   if ((match = url.match(/^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:\/\n\?\=]+)/im))) {
     return match[1];
   }

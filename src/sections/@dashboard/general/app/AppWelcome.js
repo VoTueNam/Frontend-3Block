@@ -1,10 +1,7 @@
-import PropTypes from 'prop-types';
-import { Link as RouterLink } from 'react-router-dom';
+import { Button, Card, CardContent, Typography } from '@mui/material';
 // @mui
 import { styled } from '@mui/material/styles';
-import { Typography, Button, Card, CardContent } from '@mui/material';
-import { SeoIllustration } from '../../../../assets';
-import Image from '../../../../components/Image';
+import PropTypes from 'prop-types';
 
 // ----------------------------------------------------------------------
 
@@ -42,17 +39,17 @@ export default function AppWelcome({ domain, url, screenshot, report }) {
           Domain:
           <br /> {!domain ? '...' : domain}
         </Typography>
-        <a href={url} target="_blank">
+        <a href={url} target="_blank" rel="noreferrer">
           <Typography variant="body2" sx={{ pb: { xs: 3, xl: 5 }, maxWidth: 480, mx: 'auto' }}>
             {`URL: ${url}`}
           </Typography>
         </a>
-        <a href={report} target="_blank">
+        <a href={report} target="_blank" rel="noreferrer">
           <Button variant="contained" color="error" sx={{ mr: 1, fontWeight: 'fontWeightBold' }}>
             More Report
           </Button>
         </a>
-        <a href={screenshot} target="_blank">
+        <a href={screenshot} target="_blank" rel="noreferrer">
           <Button variant="contained" sx={{ mr: 1, fontWeight: 'fontWeightBold' }}>
             See Full Screenshot
           </Button>
@@ -66,8 +63,8 @@ export default function AppWelcome({ domain, url, screenshot, report }) {
           margin: { xs: 'auto', md: 'inherit' },
         }}
       /> */}
-      <a href={screenshot} target="_blank">
-        <img src={screenshot} p={3} width={330} />
+      <a href={screenshot} target="_blank" rel="noreferrer">
+        <img src={screenshot} p={3} width={330} alt={'screenshot of this URL'} />
       </a>
     </RootStyle>
   );

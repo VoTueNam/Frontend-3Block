@@ -1,46 +1,39 @@
-import { sentenceCase } from 'change-case';
-import { useState, useEffect } from 'react';
-// @mui
-import { useTheme } from '@mui/material/styles';
 import {
   Box,
+  Button,
   Card,
+  Container,
   Table,
-  TableRow,
-  Checkbox,
   TableBody,
   TableCell,
-  Container,
-  Typography,
   TableContainer,
   TablePagination,
-  Button,
+  TableRow,
+  Typography,
 } from '@mui/material';
-// redux
-import { useDispatch, useSelector } from '../../redux/store';
-import { getProducts } from '../../redux/slices/product';
-// utils
-import { fDate } from '../../utils/formatTime';
-import { fCurrency } from '../../utils/formatNumber';
-// routes
-import { PATH_DASHBOARD } from '../../routes/paths';
-// hooks
-import useSettings from '../../hooks/useSettings';
+// @mui
+import { useTheme } from '@mui/material/styles';
+import { sentenceCase } from 'change-case';
+import { useEffect, useState } from 'react';
+import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
+import Iconify from '../../components/Iconify';
+import Image from '../../components/Image';
+import Label from '../../components/Label';
 // components
 import Page from '../../components/Page';
-import Label from '../../components/Label';
-import Image from '../../components/Image';
 import Scrollbar from '../../components/Scrollbar';
 import SearchNotFound from '../../components/SearchNotFound';
-import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
+// hooks
+import useSettings from '../../hooks/useSettings';
+import { getProducts } from '../../redux/slices/product';
+// redux
+import { useDispatch, useSelector } from '../../redux/store';
+// routes
+import { PATH_DASHBOARD } from '../../routes/paths';
 // sections
-import {
-  ProductMoreMenu,
-  ProductListHead,
-  ProductListToolbar,
-} from '../../sections/@dashboard/e-commerce/product-list';
-import Iconify from '../../components/Iconify';
-import { useSnackbar } from 'notistack';
+import { ProductListHead, ProductListToolbar } from '../../sections/@dashboard/e-commerce/product-list';
+// utils
+import { fDate } from '../../utils/formatTime';
 
 // ----------------------------------------------------------------------
 
@@ -67,13 +60,15 @@ export default function EcommerceProductList() {
 
   const { products } = useSelector((state) => state.product);
 
+  // eslint-disable-next-line
   const [productList, setProductList] = useState([]);
   const [page, setPage] = useState(0);
-  const [order, setOrder] = useState('asc');
-  const [selected, setSelected] = useState([]);
+  // const [order, setOrder] = useState('asc');
+
+  // const [selected, setSelected] = useState([]);
   const [filterName, setFilterName] = useState('');
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const [orderBy, setOrderBy] = useState('createdAt');
+  // const [orderBy, setOrderBy] = useState('createdAt');
 
   useEffect(() => {
     dispatch(getProducts());
@@ -83,6 +78,7 @@ export default function EcommerceProductList() {
     if (whites.length) {
       setProductList(products);
     }
+    // eslint-disable-next-line
   }, [products]);
 
   // const handleRequestSort = (property) => {
@@ -195,7 +191,7 @@ export default function EcommerceProductList() {
                     const { _id, url, updatedAt } = row;
                     const inventoryType = 'Clean';
                     const cover = 'https://api.faviconkit.com/' + validURL(url) + '/144';
-                    const isItemSelected = selected.indexOf(url) !== -1;
+                    // const isItemSelected = selected.indexOf(url) !== -1;
 
                     return (
                       <TableRow
@@ -309,6 +305,7 @@ function getWhiteList() {
 }
 function validURL(url) {
   var match;
+  // eslint-disable-next-line
   if ((match = url.match(/^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:\/\n\?\=]+)/im))) {
     return match[1];
   }

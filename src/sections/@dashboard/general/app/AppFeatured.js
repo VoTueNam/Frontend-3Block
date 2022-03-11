@@ -1,17 +1,14 @@
-import PropTypes from 'prop-types';
-import Slider from 'react-slick';
-import { m } from 'framer-motion';
-import { useState, useRef } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+import { Box, Card, CardContent, Typography } from '@mui/material';
 // @mui
-import { alpha, useTheme, styled } from '@mui/material/styles';
-import { CardContent, Box, Card, Typography, Link } from '@mui/material';
-// _mock_
-import { _appFeatured } from '../../../../_mock';
+import { alpha, styled, useTheme } from '@mui/material/styles';
+import { m } from 'framer-motion';
+import PropTypes from 'prop-types';
+import { useRef, useState } from 'react';
+import Slider from 'react-slick';
+import { MotionContainer, varFade } from '../../../../components/animate';
+import { CarouselArrows, CarouselDots } from '../../../../components/carousel';
 // components
 import Image from '../../../../components/Image';
-import { MotionContainer, varFade } from '../../../../components/animate';
-import { CarouselDots, CarouselArrows } from '../../../../components/carousel';
 
 // ----------------------------------------------------------------------
 

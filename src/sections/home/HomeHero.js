@@ -1,16 +1,13 @@
-import { m } from 'framer-motion';
-import { Link as RouterLink } from 'react-router-dom';
+import { Box, Button, Container, InputAdornment, Stack, Typography } from '@mui/material';
 // @mui
 import { styled } from '@mui/material/styles';
-import { Button, Box, Link, Container, Typography, Stack, InputAdornment } from '@mui/material';
+import { m } from 'framer-motion';
+import { Link as RouterLink } from 'react-router-dom';
+import { MotionContainer, varFade } from '../../components/animate';
+import Iconify from '../../components/Iconify';
+import InputStyle from '../../components/InputStyle';
 // routes
 import { PATH_DASHBOARD } from '../../routes/paths';
-// components
-import Image from '../../components/Image';
-import Iconify from '../../components/Iconify';
-import TextIconLabel from '../../components/TextIconLabel';
-import { MotionContainer, varFade } from '../../components/animate';
-import InputStyle from '../../components/InputStyle';
 
 // ----------------------------------------------------------------------
 

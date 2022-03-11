@@ -1,12 +1,10 @@
-import { Link as RouterLink } from 'react-router-dom';
+import { Box, Button, Container, Grid, Typography } from '@mui/material';
 // @mui
-import { alpha, useTheme, styled } from '@mui/material/styles';
-import { Box, Grid, Button, Container, Typography } from '@mui/material';
-// routes
-import { PATH_PAGE } from '../../routes/paths';
+import { alpha, styled, useTheme } from '@mui/material/styles';
+import { Link as RouterLink } from 'react-router-dom';
+import { MotionInView, varFade } from '../../components/animate';
 // components
 import Image from '../../components/Image';
-import { MotionInView, varFade } from '../../components/animate';
 
 // ----------------------------------------------------------------------
 
@@ -162,12 +160,12 @@ export default function HomeHugePackElements() {
                   <Image
                     disabledEffect
                     alt={`screen ${index + 1}`}
-                    // src={`https://votuenam.github.io/image-hosting/INTERFACE_MAIN_FEATURE/Long${index + 1}${
-                    //   isLight ? 'light' : 'dark'
-                    // }.png`}
-                    src={`https://votuenam.github.io/image-hosting/INTERFACE_MAIN_FEATURE/malwareWebsite_${
+                    src={`https://votuenam.github.io/image-hosting/INTERFACE_MAIN_FEATURE/Long${index + 1}${
                       isLight ? 'light' : 'dark'
-                    }_${index + 1}.png`}
+                    }.png`}
+                    // src={`https://votuenam.github.io/image-hosting/INTERFACE_MAIN_FEATURE/malwareWebsite_${
+                    //   isLight ? 'light' : 'dark'
+                    // }_${index + 1}.png`}
                   />
                 </ScreenStyle>
               ))}

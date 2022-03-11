@@ -1,14 +1,11 @@
+import { Box, Button, Card, CardContent, Typography } from '@mui/material';
+// @mui
+import { alpha, styled, useTheme } from '@mui/material/styles';
 import PropTypes from 'prop-types';
 import Slider from 'react-slick';
-import { Link as RouterLink } from 'react-router-dom';
-// @mui
-import { alpha, useTheme, styled } from '@mui/material/styles';
-import { Box, Card, Button, CardContent, Typography } from '@mui/material';
-// _mock_
-import { _ecommerceNewProducts } from '../../../../_mock';
+import { CarouselDots } from '../../../../components/carousel';
 // components
 import Image from '../../../../components/Image';
-import { CarouselDots } from '../../../../components/carousel';
 
 // ----------------------------------------------------------------------
 
@@ -87,7 +84,7 @@ function CarouselItem({ item }) {
         <Typography noWrap variant="h5" sx={{ mt: 1, mb: 3 }}>
           {name}
         </Typography>
-        <a href={'https://en.wikipedia.org/wiki/.' + name.toLowerCase()} target="_blank">
+        <a href={'https://en.wikipedia.org/wiki/.' + name.toLowerCase()} target="_blank" rel="noreferrer">
           <Button variant="contained">More Info</Button>
         </a>
       </CardContent>

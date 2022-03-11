@@ -1,19 +1,11 @@
-import PropTypes from 'prop-types';
-import { paramCase } from 'change-case';
-import { Link as RouterLink } from 'react-router-dom';
 // @mui
-import { Box, Card, Link, Typography, Stack } from '@mui/material';
-// routes
-import { PATH_DASHBOARD } from '../../../../routes/paths';
-// utils
-import { fCurrency } from '../../../../utils/formatNumber';
+import { Box, Card, Stack, Typography } from '@mui/material';
+import { format } from 'date-fns';
+import PropTypes from 'prop-types';
+import { ColorPreview } from '../../../../components/color-utils';
 // components
 import Label from '../../../../components/Label';
-import Image from '../../../../components/Image';
-import { ColorPreview } from '../../../../components/color-utils';
-import { format } from 'date-fns';
 import { BookingRoomAvailable } from '../../general/booking';
-import { EcommerceSaleByGender } from '../../general/e-commerce';
 
 // ----------------------------------------------------------------------
 
@@ -31,7 +23,7 @@ export default function ShopProductCard({ product }) {
     colors.push('#' + randomColor);
   }
 
-  const linkTo = `/dashboard/analytics`;
+  // const linkTo = `/dashboard/analytics`;
   const status = product.level;
 
   return (
@@ -73,6 +65,7 @@ export default function ShopProductCard({ product }) {
         <a
           href={'/dashboard/analytics'}
           target="_blank"
+          rel="noreferrer"
           onClick={() => {
             localStorage.setItem('virusTotal', JSON.stringify(product));
           }}
@@ -102,6 +95,7 @@ export default function ShopProductCard({ product }) {
 }
 function validURL(url) {
   var match;
+  // eslint-disable-next-line
   if ((match = url.match(/^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:\/\n\?\=]+)/im))) {
     return match[1];
   }

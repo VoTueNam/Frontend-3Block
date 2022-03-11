@@ -52,7 +52,7 @@ export default function BookingWidgetSummary({ title, total, icon, setGray }) {
         </Typography>
       </div>
       <Button
-        color="error"
+        color="primary"
         variant="contained"
         onClick={() => {
           // console.log('Reset Data');

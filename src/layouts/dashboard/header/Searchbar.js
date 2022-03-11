@@ -1,13 +1,13 @@
-import { useState } from 'react';
+import { Button, ClickAwayListener, Input, InputAdornment, Slide } from '@mui/material';
 // @mui
 import { styled } from '@mui/material/styles';
-import { Input, Slide, Button, InputAdornment, ClickAwayListener } from '@mui/material';
-// utils
-import cssStyles from '../../../utils/cssStyles';
+import { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { IconButtonAnimate } from '../../../components/animate';
 // components
 import Iconify from '../../../components/Iconify';
-import { IconButtonAnimate } from '../../../components/animate';
-import { useNavigate, useLocation } from 'react-router-dom';
+// utils
+import cssStyles from '../../../utils/cssStyles';
 
 // ----------------------------------------------------------------------
 
@@ -69,7 +69,7 @@ export default function Searchbar() {
               resetURL(true);
             } else {
               console.log(result);
-              if (location.pathname == '/dashboard/analytics') {
+              if (location.pathname === '/dashboard/analytics') {
                 window.location.reload();
               } else {
                 navigate('/dashboard/analytics');
@@ -108,7 +108,7 @@ export default function Searchbar() {
               resetScan(true);
             } else {
               console.log(results);
-              if (location.pathname == '/dashboard/app') {
+              if (location.pathname === '/dashboard/app') {
                 window.location.reload();
               } else {
                 navigate('/dashboard/app');

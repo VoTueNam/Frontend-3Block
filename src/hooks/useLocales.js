@@ -1,6 +1,6 @@
-import { useTranslation } from 'react-i18next';
 // '@mui
-import { enUS, deDE, frFR, viVN } from '@mui/material/locale';
+import { enUS } from '@mui/material/locale';
+import { useTranslation } from 'react-i18next';
 
 // ----------------------------------------------------------------------
 

@@ -1,26 +1,13 @@
 // @mui
+import { Container, Grid } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import { Container, Grid, Stack } from '@mui/material';
-// hooks
-import useAuth from '../../hooks/useAuth';
-import useSettings from '../../hooks/useSettings';
 // components
 import Page from '../../components/Page';
+import useSettings from '../../hooks/useSettings';
 // sections
-import {
-  AppWidget,
-  AppWelcome,
-  AppFeatured,
-  AppNewInvoice,
-  AppTopAuthors,
-  AppTopRelated,
-  AppAreaInstalled,
-  AppWidgetSummary,
-  AppCurrentDownload,
-  AppTopInstalledCountries,
-} from '../../sections/@dashboard/general/app';
+import { AppFeatured, AppTopAuthors, AppWelcome, AppWidgetSummary } from '../../sections/@dashboard/general/app';
+import { BankingContacts } from '../../sections/@dashboard/general/banking';
 import { EcommerceNewProducts } from '../../sections/@dashboard/general/e-commerce';
-import { BankingContacts, BankingInviteFriends, BankingQuickTransfer } from '../../sections/@dashboard/general/banking';
 
 // ----------------------------------------------------------------------
 var URLVar = JSON.parse(localStorage.getItem('URLScan'));
@@ -31,7 +18,7 @@ export default function GeneralApp() {
     URLVar = google;
   }
 
-  const { user } = useAuth();
+  // const { user } = useAuth();
   const theme = useTheme();
   const { themeStretch } = useSettings();
   console.log(URLVar);
@@ -137,7 +124,7 @@ export default function GeneralApp() {
   );
 }
 function convertUndefined(a) {
-  if (a == undefined) return '🤔?';
+  if (a === undefined) return '🤔?';
   return a;
 }
 var google = {

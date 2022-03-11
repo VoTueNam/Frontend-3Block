@@ -1,34 +1,20 @@
-import { useState } from 'react';
-import { paramCase } from 'change-case';
-import parse from 'autosuggest-highlight/parse';
+import { Autocomplete, Button, InputAdornment, Link, Typography } from '@mui/material';
 import match from 'autosuggest-highlight/match';
-import { useNavigate } from 'react-router-dom';
-// @mui
-import { styled } from '@mui/material/styles';
-import { Link, Typography, Autocomplete, InputAdornment, Popper, Button } from '@mui/material';
-// hooks
-import useIsMountedRef from '../../../../hooks/useIsMountedRef';
-// utils
-import axios from '../../../../utils/axios';
-// routes
-import { PATH_DASHBOARD } from '../../../../routes/paths';
-// components
-import Image from '../../../../components/Image';
+import parse from 'autosuggest-highlight/parse';
+import { useSnackbar } from 'notistack';
+import { useState } from 'react';
 import Iconify from '../../../../components/Iconify';
 import InputStyle from '../../../../components/InputStyle';
-import SearchNotFound from '../../../../components/SearchNotFound';
-import { MotionInView, varFade } from '../../../../components/animate';
-import { useSnackbar } from 'notistack';
 
 // ----------------------------------------------------------------------
 
-const PopperStyle = styled((props) => <Popper placement="bottom-start" {...props} />)({
-  width: '280px !important',
-});
+// const PopperStyle = styled((props) => <Popper placement="bottom-start" {...props} />)({
+//   width: '280px !important',
+// });
 
 // ----------------------------------------------------------------------
 
-export default function ShopProductSearch({ black, setBlack, setPage }) {
+export default function ShopProductSearch({ black, setBlack, setPage, gender }) {
   const { enqueueSnackbar } = useSnackbar();
   function getBlackList() {
     fetch('https://api3blockserver.herokuapp.com/db/api/system/3block/getAllBlackPublic', {
@@ -50,19 +36,32 @@ export default function ShopProductSearch({ black, setBlack, setPage }) {
       });
   }
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  const isMountedRef = useIsMountedRef();
+  // const isMountedRef = useIsMountedRef();
 
   const [searchQuery, setSearchQuery] = useState('');
 
+  // eslint-disable-next-line
   const [searchResults, setSearchResults] = useState([]);
 
   const handleChangeSearch = async (value) => {
     const dateBlack = JSON.parse(localStorage.getItem('blackList'));
-    const blackSearchResult = dateBlack.filter((da) => {
-      return da.url.includes(value);
-    });
+    // const dateBlack = black;
+    var blackSearchResult;
+    if (gender.length === 0) {
+      blackSearchResult = dateBlack.filter((da) => {
+        return da.url.includes(value);
+      });
+    } else {
+      blackSearchResult = dateBlack.filter((da) => {
+        if (gender.includes(da.level.charAt(0).toUpperCase() + da.level.slice(1))) {
+          return da.url.includes(value);
+        }
+        return false;
+      });
+    }
+
     setSearchQuery(value);
     setBlack(blackSearchResult);
     setPage(0);
@@ -126,7 +125,10 @@ export default function ShopProductSearch({ black, setBlack, setPage }) {
           />
         )}
         renderOption={(props, product, { inputValue }) => {
-          const { name, cover } = product;
+          const {
+            name,
+            // cover
+          } = product;
           const matches = match(name, inputValue);
           const parts = parse(name, matches);
 
@@ -149,7 +151,7 @@ export default function ShopProductSearch({ black, setBlack, setPage }) {
           );
         }}
       />
-      <Button color="error" variant="contained" onClick={getBlackList}>
+      <Button color="primary" variant="contained" onClick={getBlackList}>
         Update Data
       </Button>
     </>

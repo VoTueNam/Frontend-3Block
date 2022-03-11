@@ -1,6 +1,6 @@
-import PropTypes from 'prop-types';
 // @mui
-import { Box, Checkbox, TableRow, TableCell, TableHead, TableSortLabel } from '@mui/material';
+import { Box, TableCell, TableHead, TableRow, TableSortLabel } from '@mui/material';
+import PropTypes from 'prop-types';
 
 // ----------------------------------------------------------------------
 
@@ -35,9 +35,9 @@ export default function ProductListHead({
   onRequestSort,
   onSelectAllClick,
 }) {
-  const createSortHandler = (property) => (event) => {
-    onRequestSort(event, property);
-  };
+  // const createSortHandler = (property) => (event) => {
+  //   onRequestSort(event, property);
+  // };
 
   return (
     <TableHead>

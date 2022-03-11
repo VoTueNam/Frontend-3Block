@@ -1,23 +1,20 @@
-import { capitalCase } from 'change-case';
-import { useNavigate, Link as RouterLink, useLocation } from 'react-router-dom';
+import { Box, Card, Container, Link, Stack, Tooltip, Typography } from '@mui/material';
 // @mui
 import { styled } from '@mui/material/styles';
-import { Box, Card, Stack, Link, Alert, Tooltip, Container, Typography } from '@mui/material';
-// routes
-import { PATH_AUTH } from '../../routes/paths';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { FacebookLoginButton, GithubLoginButton, GoogleLoginButton } from 'react-social-login-buttons';
+import Image from '../../components/Image';
+import Logo from '../../components/Logo';
+// components
+import Page from '../../components/Page';
+import { useAuth } from '../../firebaseLogin/contexts/AuthContext';
 // hooks
 // import useAuth from '../../hooks/useAuth';
 import useResponsive from '../../hooks/useResponsive';
-// components
-import Page from '../../components/Page';
-import Logo from '../../components/Logo';
-import Image from '../../components/Image';
+// routes
+import { PATH_AUTH } from '../../routes/paths';
 // sections
 import { LoginForm } from '../../sections/auth/login';
-import { GoogleLoginButton, FacebookLoginButton, GithubLoginButton } from 'react-social-login-buttons';
-import { useAuth } from '../../firebaseLogin/contexts/AuthContext';
-import useMounted from '../../firebaseLogin/hooks/useMounted';
-import { useState } from 'react';
 
 // ----------------------------------------------------------------------
 
@@ -69,13 +66,13 @@ export default function Login() {
   //! ################
 
   const navigate = useNavigate();
-  const { signInWithGoogle, signInWithGithub, signInWithFacebook, login, currentUser } = useAuth();
+  const { signInWithGoogle, signInWithGithub, signInWithFacebook } = useAuth();
   // console.log('login', currentUser?.email);
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  // const [email, setEmail] = useState('');
+  // const [password, setPassword] = useState('');
 
-  const location = useLocation();
+  // const location = useLocation();
 
   //todo #############
 

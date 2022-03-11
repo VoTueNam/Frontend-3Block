@@ -1,5 +1,6 @@
 // @mui
 import { Container, Grid, Typography } from '@mui/material';
+import Iconify from '../../components/Iconify';
 // components
 import Page from '../../components/Page';
 // hooks
@@ -8,9 +9,7 @@ import useSettings from '../../hooks/useSettings';
 import { AnalyticsCurrentVisits, AnalyticsTrafficBySite } from '../../sections/@dashboard/general/analytics';
 import { AppTopRelated, AppWidget } from '../../sections/@dashboard/general/app';
 import { BankingInviteFriends } from '../../sections/@dashboard/general/banking';
-import Iconify from '../../components/Iconify';
 import { typeOfCategories } from './getTypeOfCategories/types';
-import { func } from 'prop-types';
 
 // ----------------------------------------------------------------------
 
@@ -61,7 +60,7 @@ const props = {
 
 switch (result.level) {
   case 'none':
-    colorLevel = 'primary';
+    colorLevel = 'success';
     break;
   case 'low':
     colorLevel = 'info';
@@ -96,6 +95,9 @@ try {
   });
 } catch (error) {}
 
+console.log(typeCategory.length);
+console.log(propsDetails.length);
+
 export default function GeneralAnalytics() {
   const { themeStretch } = useSettings();
   return (
@@ -117,7 +119,7 @@ export default function GeneralAnalytics() {
           </Grid>
 
           <Grid item xs={12} md={6} lg={4}>
-            {/* Logo */}
+            {/* Level */}
             <AppWidget
               title="Level"
               total={result.level.charAt(0).toUpperCase() + result.level.slice(1)}
@@ -127,13 +129,15 @@ export default function GeneralAnalytics() {
             />
             <br />
             {/* Detail */}
-            <AppTopRelated props={propsDetails} />
+            {propsDetails.length !== 0 && <AppTopRelated props={propsDetails} />}
           </Grid>
 
           {/* categories */}
-          <Grid item xs={12} md={6} lg={12}>
-            <AnalyticsTrafficBySite props={typeCategory} />
-          </Grid>
+          {typeCategory.length !== 0 && (
+            <Grid item xs={12} md={6} lg={12}>
+              <AnalyticsTrafficBySite props={typeCategory} />
+            </Grid>
+          )}
         </Grid>
       </Container>
     </Page>

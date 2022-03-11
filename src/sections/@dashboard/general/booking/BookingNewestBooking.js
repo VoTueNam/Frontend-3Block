@@ -1,18 +1,12 @@
-import PropTypes from 'prop-types';
-import Slider from 'react-slick';
-import { useRef } from 'react';
+import { Avatar, Box, CardHeader, Paper, Stack, Typography } from '@mui/material';
 // @mui
 import { useTheme } from '@mui/material/styles';
-import { Box, Stack, Avatar, Typography, Paper, CardHeader } from '@mui/material';
-// utils
-import { fDateTime } from '../../../../utils/formatTime';
-// _mock_
-import { _bookingNew } from '../../../../_mock';
+import PropTypes from 'prop-types';
+import { useRef } from 'react';
+import Slider from 'react-slick';
+import { CarouselArrows } from '../../../../components/carousel';
 // components
 import Label from '../../../../components/Label';
-import Image from '../../../../components/Image';
-import Iconify from '../../../../components/Iconify';
-import { CarouselArrows } from '../../../../components/carousel';
 import { AppCurrentDownload } from '../app';
 
 // ----------------------------------------------------------------------
@@ -146,7 +140,7 @@ BookingItem.propTypes = {
 };
 
 function BookingItem({ item }) {
-  const { avatar, name, bookdAt, cover, roomType, data } = item;
+  const { avatar, name, bookdAt, roomType, data } = item;
 
   return (
     <Paper sx={{ mx: 1.5, borderRadius: 2, bgcolor: 'background.neutral' }}>
@@ -187,13 +181,13 @@ function BookingItem({ item }) {
           }}
         >
           {(() => {
-            if (roomType == 'info') {
+            if (roomType === 'info') {
               return 'None';
             }
-            if (roomType == 'success') {
+            if (roomType === 'success') {
               return 'Verification';
             }
-            if (roomType == 'warning') {
+            if (roomType === 'warning') {
               return 'Reject';
             }
             return roomType;

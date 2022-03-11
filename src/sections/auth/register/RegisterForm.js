@@ -1,22 +1,20 @@
-import * as Yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { LoadingButton } from '@mui/lab';
+// @mui
+import { Alert, IconButton, InputAdornment, Stack } from '@mui/material';
+import axios from 'axios';
+import { useSnackbar } from 'notistack';
 import { useState } from 'react';
 // form
 import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-// @mui
-import { Stack, IconButton, InputAdornment, Alert } from '@mui/material';
-import { LoadingButton } from '@mui/lab';
+import { useNavigate } from 'react-router-dom';
+import * as Yup from 'yup';
+import { FormProvider, RHFTextField } from '../../../components/hook-form';
+// components
+import Iconify from '../../../components/Iconify';
 // hooks
 // import useAuth from '../../../hooks/useAuth';
 import { useAuth } from '../../../firebaseLogin/contexts/AuthContext';
-
-import useIsMountedRef from '../../../hooks/useIsMountedRef';
-// components
-import Iconify from '../../../components/Iconify';
-import { FormProvider, RHFTextField } from '../../../components/hook-form';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import { useSnackbar } from 'notistack';
 
 // ----------------------------------------------------------------------
 
@@ -29,7 +27,7 @@ export default function RegisterForm() {
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
 
-  const isMountedRef = useIsMountedRef();
+  // const isMountedRef = useIsMountedRef();
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -55,9 +53,9 @@ export default function RegisterForm() {
   const {
     reset,
 
-    setError,
+    // setError,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    // formState: { errors, isSubmitting },
   } = methods;
 
   const onSubmit = (data) => {
@@ -66,7 +64,7 @@ export default function RegisterForm() {
     axios
       .get('https://emailvalidation.abstractapi.com/v1/?api_key=c8fb3d51ced64b25ad35773d2558a754&email=' + data.email)
       .then(async function (response) {
-        if (response.data.deliverability == 'DELIVERABLE') {
+        if (response.data.deliverability === 'DELIVERABLE') {
           try {
             await register(data.email, data.password, data.firstName, data.lastName).then((res) => {
               res.user.displayName = data.firstName + ' ' + data.lastName;
@@ -86,16 +84,16 @@ export default function RegisterForm() {
             setIsSubmittings(false);
             setShowError(false);
             reset();
-            if (error.message == 'Firebase: Error (auth/email-already-in-use).') {
+            if (error.message === 'Firebase: Error (auth/email-already-in-use).') {
               setErrorsNe('Email Already In Use!');
-            } else if (error.message == 'Firebase: Password should be at least 6 characters (auth/weak-password).') {
+            } else if (error.message === 'Firebase: Password should be at least 6 characters (auth/weak-password).') {
               setErrorsNe('Password should be at least 6 characters');
             } else {
               setErrorsNe(error.message);
             }
           }
         } else {
-          throw 'Wrong Email';
+          throw new Error('Wrong Email');
         }
       })
       .catch((err) => {

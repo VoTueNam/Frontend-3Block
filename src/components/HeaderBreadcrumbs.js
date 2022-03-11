@@ -1,9 +1,7 @@
+// @mui
+import { Box, Link, Typography } from '@mui/material';
 import isString from 'lodash/isString';
 import PropTypes from 'prop-types';
-// @mui
-import { Box, Typography, Link } from '@mui/material';
-//
-import Breadcrumbs from './Breadcrumbs';
 
 // ----------------------------------------------------------------------
 

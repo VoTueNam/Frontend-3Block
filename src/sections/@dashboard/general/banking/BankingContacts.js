@@ -1,15 +1,14 @@
 // @mui
-import { Box, Card, Stack, Button, Avatar, Tooltip, Typography, CardHeader, IconButton } from '@mui/material';
-// _mock_
-import { _bankingContacts } from '../../../../_mock';
+import { Avatar, Box, Button, Card, CardHeader, IconButton, Stack, Tooltip, Typography } from '@mui/material';
+import { useState } from 'react';
 // components
 import Iconify from '../../../../components/Iconify';
-import { useState } from 'react';
 
 // ----------------------------------------------------------------------
 export default function BankingContacts({ links }) {
   const [sizeLink, setSizeLink] = useState(3);
 
+  // eslint-disable-next-line
   links.map((oneLink) => {
     oneLink.avatar = 'https://api.faviconkit.com/' + validURL(oneLink.href) + '/144';
   });
@@ -73,7 +72,7 @@ export default function BankingContacts({ links }) {
                 {oneLink.href}
               </Typography>
             </Box>
-            <a href={oneLink.href} target="_blank">
+            <a href={oneLink.href} target="_blank" rel="noreferrer">
               <Tooltip title="Access This Link">
                 <IconButton size="small">
                   <Iconify icon={'eva:flash-fill'} width={22} height={22} />
@@ -89,6 +88,7 @@ export default function BankingContacts({ links }) {
 }
 function validURL(url) {
   var match;
+  // eslint-disable-next-line
   if ((match = url.match(/^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:\/\n\?\=]+)/im))) {
     return match[1];
   }

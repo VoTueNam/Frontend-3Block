@@ -1,21 +1,20 @@
 // @mui
-import { useTheme } from '@mui/material/styles';
 import { Container, Grid } from '@mui/material';
-// hooks
-import useSettings from '../../hooks/useSettings';
+import { useTheme } from '@mui/material/styles';
 // components
 import Page from '../../components/Page';
+// hooks
+import useSettings from '../../hooks/useSettings';
 // sections
 import {
-  EcommerceWelcome,
-  EcommerceNewProducts,
-  EcommerceYearlySales,
   EcommerceBestSalesman,
-  EcommerceSaleByGender,
-  EcommerceWidgetSummary,
-  EcommerceSalesOverview,
-  EcommerceLatestProducts,
   EcommerceCurrentBalance,
+  EcommerceLatestProducts,
+  EcommerceSaleByGender,
+  EcommerceSalesOverview,
+  EcommerceWelcome,
+  EcommerceWidgetSummary,
+  EcommerceYearlySales,
 } from '../../sections/@dashboard/general/e-commerce';
 
 // ----------------------------------------------------------------------

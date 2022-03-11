@@ -216,74 +216,83 @@ const typeAll = {
 export function typeOfCategories(categories) {
   if (
     typeAll.adultContent.find((element) => {
-      if (element == categories) {
+      if (element === categories) {
         return ' ';
       }
-    }) != undefined
+      return undefined;
+    }) !== undefined
   ) {
     return { name: 'adultContent', icon: 'uil:18-plus' };
   } else if (
     typeAll.Business.find((element) => {
-      if (element == categories) {
+      if (element === categories) {
         return ' ';
       }
-    }) != undefined
+      return undefined;
+    }) !== undefined
   ) {
     return { name: 'Business', icon: 'flat-color-icons:businessman' };
   } else if (
     typeAll.socialMedia.find((element) => {
-      if (element == categories) {
+      if (element === categories) {
         return ' ';
       }
-    }) != undefined
+      return undefined;
+    }) !== undefined
   ) {
     return { name: 'socialMedia', icon: 'flat-ui:camera' };
   } else if (
     typeAll.Advertisement.find((element) => {
-      if (element == categories) {
+      if (element === categories) {
         return ' ';
       }
-    }) != undefined
+      return undefined;
+    }) !== undefined
   ) {
     return { name: 'Advertisement', icon: 'flat-color-icons:advertising' };
   } else if (
     typeAll.misc.find((element) => {
-      if (element == categories) {
+      if (element === categories) {
         return ' ';
       }
-    }) != undefined
+      return undefined;
+    }) !== undefined
   ) {
     return { name: 'misc', icon: 'twemoji:sunflower' };
   } else if (
     typeAll.Technology.find((element) => {
-      if (element == categories) {
+      if (element === categories) {
         return ' ';
       }
-    }) != undefined
+      return undefined;
+    }) !== undefined
   ) {
     return { name: 'Technology', icon: 'logos:stackoverflow-icon' };
   } else if (
     typeAll.Malicious.find((element) => {
-      if (element == categories) {
+      if (element === categories) {
         return ' ';
       }
-    }) != undefined
+      return undefined;
+    }) !== undefined
   ) {
     return { name: 'Malicious', icon: 'openmoji:hacker-cat' };
   } else if (
     typeAll.Phishing.find((element) => {
-      if (element == categories) {
+      if (element === categories) {
         return ' ';
       }
-    }) != undefined
+      return undefined;
+    }) !== undefined
   ) {
     return { name: 'Phishing', icon: 'vscode-icons:folder-type-hook-opened' };
   } else if (
     typeAll.Education.find((element) => {
-      if (element == categories) {
+      if (element === categories) {
         return ' ';
       }
-    }) != undefined
+      return undefined;
+    }) !== undefined
   ) {
     return { name: 'Education', icon: 'openmoji:incredulous-face' };
   } else {

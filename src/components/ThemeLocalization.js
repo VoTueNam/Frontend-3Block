@@ -1,8 +1,6 @@
-import PropTypes from 'prop-types';
 // @mui
-import { ThemeProvider, createTheme, useTheme } from '@mui/material/styles';
-// hooks
-import useLocales from '../hooks/useLocales';
+import { createTheme, ThemeProvider, useTheme } from '@mui/material/styles';
+import PropTypes from 'prop-types';
 
 // ----------------------------------------------------------------------
 
@@ -12,7 +10,7 @@ ThemeLocalization.propTypes = {
 
 export default function ThemeLocalization({ children }) {
   const defaultTheme = useTheme();
-  const { currentLang } = useLocales();
+  // const { currentLang } = useLocales();
 
   const theme = createTheme(defaultTheme, 'enUS');
 

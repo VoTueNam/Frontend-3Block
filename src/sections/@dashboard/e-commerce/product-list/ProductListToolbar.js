@@ -1,11 +1,11 @@
-import PropTypes from 'prop-types';
+import { Button, InputAdornment, Toolbar, Typography } from '@mui/material';
 // @mui
-import { useTheme, styled } from '@mui/material/styles';
-import { Toolbar, Tooltip, IconButton, Typography, InputAdornment, Button } from '@mui/material';
+import { styled, useTheme } from '@mui/material/styles';
+import { useSnackbar } from 'notistack';
+import PropTypes from 'prop-types';
 // components
 import Iconify from '../../../../components/Iconify';
 import InputStyle from '../../../../components/InputStyle';
-import { useSnackbar } from 'notistack';
 
 // ----------------------------------------------------------------------
 
@@ -91,7 +91,7 @@ export default function ProductListToolbar({ numSelected, filterName, onFilterNa
           </IconButton>
         </Tooltip>
       )} */}
-      <Button color="error" variant="contained" onClick={getWhiteList}>
+      <Button color="primary" variant="contained" onClick={getWhiteList}>
         Update Data
       </Button>
     </RootStyle>

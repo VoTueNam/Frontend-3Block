@@ -1,27 +1,12 @@
-import PropTypes from 'prop-types';
-// form
-import { Controller, useFormContext } from 'react-hook-form';
 // @mui
-import {
-  Box,
-  Radio,
-  Stack,
-  Button,
-  Drawer,
-  Rating,
-  Divider,
-  IconButton,
-  Typography,
-  RadioGroup,
-  FormControlLabel,
-} from '@mui/material';
-// @types
-import { NAVBAR } from '../../../../config';
+import { Box, Button, Divider, Drawer, IconButton, Stack, Typography } from '@mui/material';
+import PropTypes from 'prop-types';
+import { RHFMultiCheckbox } from '../../../../components/hook-form';
 // components
 import Iconify from '../../../../components/Iconify';
 import Scrollbar from '../../../../components/Scrollbar';
-import { ColorManyPicker } from '../../../../components/color-utils';
-import { RHFMultiCheckbox, RHFRadioGroup } from '../../../../components/hook-form';
+// @types
+import { NAVBAR } from '../../../../config';
 
 // ----------------------------------------------------------------------
 
@@ -57,8 +42,8 @@ export const FILTER_COLOR_OPTIONS = [
 
 // ----------------------------------------------------------------------
 
-const onSelected = (selected, item) =>
-  selected.includes(item) ? selected.filter((value) => value !== item) : [...selected, item];
+// const onSelected = (selected, item) =>
+//   selected.includes(item) ? selected.filter((value) => value !== item) : [...selected, item];
 
 ShopFilterSidebar.propTypes = {
   isOpen: PropTypes.bool,
@@ -68,7 +53,7 @@ ShopFilterSidebar.propTypes = {
 };
 
 export default function ShopFilterSidebar({ isOpen, onResetAll, onOpen, onClose }) {
-  const { control } = useFormContext();
+  // const { control } = useFormContext();
 
   return (
     <>

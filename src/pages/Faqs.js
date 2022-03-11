@@ -1,9 +1,9 @@
 // @mui
+import { Container, Grid, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { Grid, Container, Typography } from '@mui/material';
 // components
 import Page from '../components/Page';
-import { FaqsHero, FaqsCategory, FaqsList, FaqsForm } from '../sections/faqs';
+import { FaqsCategory, FaqsHero, FaqsList } from '../sections/faqs';
 
 // ----------------------------------------------------------------------
 

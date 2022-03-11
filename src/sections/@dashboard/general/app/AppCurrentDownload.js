@@ -1,12 +1,12 @@
+import { Card } from '@mui/material';
+// @mui
+import { styled, useTheme } from '@mui/material/styles';
 import merge from 'lodash/merge';
 import ReactApexChart from 'react-apexcharts';
-// @mui
-import { useTheme, styled } from '@mui/material/styles';
-import { Card, CardHeader } from '@mui/material';
-// utils
-import { fNumber } from '../../../../utils/formatNumber';
 //
 import { BaseOptionChart } from '../../../../components/chart';
+// utils
+import { fNumber } from '../../../../utils/formatNumber';
 
 // ----------------------------------------------------------------------
 
@@ -38,10 +38,10 @@ export default function AppCurrentDownload({ data }) {
   CHART_DATA = data;
   const chartOptions = merge(BaseOptionChart(), {
     colors: [
-      theme.palette.primary.main,
+      theme.palette.success.main,
       theme.palette.warning.light,
       theme.palette.info.lighter,
-      theme.palette.primary.dark,
+      theme.palette.success.dark,
     ],
     labels: ['Verification', 'Reject', 'None'],
     stroke: { colors: [theme.palette.background.paper] },

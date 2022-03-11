@@ -1,37 +1,36 @@
-import { useSnackbar } from 'notistack';
-import { useState } from 'react';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { Box, Divider, MenuItem, Typography } from '@mui/material';
 // @mui
 import { alpha } from '@mui/material/styles';
-import { Box, Divider, Typography, Stack, MenuItem } from '@mui/material';
-// routes
-import { PATH_DASHBOARD, PATH_AUTH } from '../../../routes/paths';
+import { useSnackbar } from 'notistack';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { IconButtonAnimate } from '../../../components/animate';
+import MenuPopover from '../../../components/MenuPopover';
+// components
+import MyAvatar from '../../../components/MyAvatar';
 // hooks
 // import useAuth from '../../../hooks/useAuth';
 import { useAuth } from '../../../firebaseLogin/contexts/AuthContext';
-
 import useIsMountedRef from '../../../hooks/useIsMountedRef';
-// components
-import MyAvatar from '../../../components/MyAvatar';
-import MenuPopover from '../../../components/MenuPopover';
-import { IconButtonAnimate } from '../../../components/animate';
+// routes
+import { PATH_AUTH } from '../../../routes/paths';
 
 // ----------------------------------------------------------------------
 
-const MENU_OPTIONS = [
-  {
-    label: 'Home',
-    linkTo: '/',
-  },
-  {
-    label: 'Profile',
-    linkTo: PATH_DASHBOARD.user.profile,
-  },
-  {
-    label: 'Settings',
-    linkTo: PATH_DASHBOARD.user.account,
-  },
-];
+// const MENU_OPTIONS = [
+//   {
+//     label: 'Home',
+//     linkTo: '/',
+//   },
+//   {
+//     label: 'Profile',
+//     linkTo: PATH_DASHBOARD.user.profile,
+//   },
+//   {
+//     label: 'Settings',
+//     linkTo: PATH_DASHBOARD.user.account,
+//   },
+// ];
 
 // ----------------------------------------------------------------------
 

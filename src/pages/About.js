@@ -1,9 +1,9 @@
 // @mui
-import { styled } from '@mui/material/styles';
 import { Divider } from '@mui/material';
+import { styled } from '@mui/material/styles';
 // components
 import Page from '../components/Page';
-import { AboutHero, AboutWhat, AboutTeam, AboutVision, AboutTestimonials } from '../sections/about';
+import { AboutHero, AboutTeam, AboutTestimonials, AboutWhat } from '../sections/about';
 
 // ----------------------------------------------------------------------
 

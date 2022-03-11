@@ -1,21 +1,20 @@
-import { useLocation } from 'react-router-dom';
+import { AppBar, Box, Container, Toolbar } from '@mui/material';
 // @mui
 import { styled, useTheme } from '@mui/material/styles';
-import { Box, Button, AppBar, Toolbar, Container } from '@mui/material';
+import { useLocation } from 'react-router-dom';
+// components
+import Logo from '../../components/Logo';
+// config
+import { HEADER } from '../../config';
 // hooks
 import useOffSetTop from '../../hooks/useOffSetTop';
 import useResponsive from '../../hooks/useResponsive';
 // utils
 import cssStyles from '../../utils/cssStyles';
-// config
-import { HEADER } from '../../config';
-// components
-import Logo from '../../components/Logo';
-import Label from '../../components/Label';
+import navConfig from './MenuConfig';
 //
 import MenuDesktop from './MenuDesktop';
 import MenuMobile from './MenuMobile';
-import navConfig from './MenuConfig';
 
 // ----------------------------------------------------------------------
 
