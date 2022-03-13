@@ -95,8 +95,8 @@ try {
   });
 } catch (error) {}
 
-console.log(typeCategory.length);
-console.log(propsDetails.length);
+// console.log(typeCategory.length);
+// console.log(propsDetails.length);
 
 export default function GeneralAnalytics() {
   const { themeStretch } = useSettings();

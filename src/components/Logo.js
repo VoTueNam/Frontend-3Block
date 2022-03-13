@@ -2,6 +2,8 @@ import { Box } from '@mui/material';
 import PropTypes from 'prop-types';
 import { Link as RouterLink } from 'react-router-dom';
 import { ReactComponent as LogoSvg } from '../public_Logo/Three_Blocksystem.svg';
+// import { ReactComponent as IconLogoSvg } from '../public_Logo/LogoLoading.svg';
+import { ReactComponent as NavbarLogo } from '../public_Logo/NavbarVertical.svg';
 
 // ----------------------------------------------------------------------
 
@@ -10,7 +12,7 @@ Logo.propTypes = {
   sx: PropTypes.object,
 };
 
-export default function Logo({ disabledLink = false, sx }) {
+export default function Logo({ disabledLink = false, sx, isLoaing = true, isNavbar = false }) {
   // const theme = useTheme();
   // const PRIMARY_LIGHT = theme.palette.primary.light;
   // const PRIMARY_MAIN = theme.palette.primary.main;
@@ -18,7 +20,9 @@ export default function Logo({ disabledLink = false, sx }) {
 
   const logo = (
     <Box sx={{ width: 40, height: 40, ...sx }}>
-      <LogoSvg />
+      {isLoaing && <LogoSvg />}
+      {!isLoaing && <NavbarLogo />}
+      {/* {isNavbar && <NavbarLogo />} */}
     </Box>
   );
 

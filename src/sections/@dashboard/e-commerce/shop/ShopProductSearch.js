@@ -45,10 +45,11 @@ export default function ShopProductSearch({ black, setBlack, setPage, gender }) 
   // eslint-disable-next-line
   const [searchResults, setSearchResults] = useState([]);
 
-  const handleChangeSearch = async (value) => {
+  const handleChangeSearch = async (values) => {
     const dateBlack = JSON.parse(localStorage.getItem('blackList'));
     // const dateBlack = black;
     var blackSearchResult;
+    const value = values.toLowerCase().trim();
     if (gender.length === 0) {
       blackSearchResult = dateBlack.filter((da) => {
         return da.url.includes(value);

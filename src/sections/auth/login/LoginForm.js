@@ -2,6 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { LoadingButton } from '@mui/lab';
 // @mui
 import { Alert, IconButton, InputAdornment, Link, Stack } from '@mui/material';
+import { useSnackbar } from 'notistack';
 import { useState } from 'react';
 // form
 import { useForm } from 'react-hook-form';
@@ -20,6 +21,7 @@ import { PATH_AUTH } from '../../../routes/paths';
 
 export default function LoginForm() {
   const { login } = useAuth();
+  const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
   const [isSubmittings, setIsSubmittings] = useState(false);
 
@@ -60,7 +62,21 @@ export default function LoginForm() {
         // console.log(res);
         localStorage.setItem('user', JSON.stringify(res.user));
         setIsSubmittings(false);
-        navigate('/dashboard/analytics');
+        fetch('https://api3blockserver.herokuapp.com/user/gray/system/3block/getName', {
+          method: 'GET',
+          headers: { 'Content-Type': 'application/json' },
+        })
+          .then((resp) => {
+            return resp.json();
+          })
+          .then((resp) => {
+            // console.log(resp);
+            localStorage.setItem('displayName', JSON.stringify(resp));
+            navigate('/dashboard/analytics');
+          })
+          .catch((err) => {
+            enqueueSnackbar(err.message, { variant: 'error' });
+          });
 
         // handleRedirectToOrBack();
       })

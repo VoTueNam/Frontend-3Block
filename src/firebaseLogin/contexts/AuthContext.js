@@ -1,17 +1,17 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
-import { auth } from '../utils/init-firebase';
 import {
+  confirmPasswordReset,
   createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  sendPasswordResetEmail,
-  onAuthStateChanged,
-  signInWithPopup,
-  GoogleAuthProvider,
   FacebookAuthProvider,
   GithubAuthProvider,
+  GoogleAuthProvider,
+  onAuthStateChanged,
+  sendPasswordResetEmail,
+  signInWithEmailAndPassword,
+  signInWithPopup,
   signOut,
-  confirmPasswordReset,
 } from 'firebase/auth';
+import React, { createContext, useContext, useEffect, useState } from 'react';
+import { auth } from '../utils/init-firebase';
 
 const AuthContext = createContext({
   currentUser: null,
@@ -40,9 +40,9 @@ export default function AuthContextProvider({ children }) {
   }, []);
 
   useEffect(() => {
-    const listDisplay = JSON.parse(localStorage.getItem('displayName'));
-    console.log(listDisplay);
-    console.log('Cần kiếm tra lại chỗ hiển thị tên user ở chỗ này');
+    // console.log('Cần kiếm tra lại chỗ hiển thị tên user ở chỗ này');
+    // const listDisplay = JSON.parse(localStorage.getItem('displayName'));
+    // console.log(listDisplay);
     // if (currentUser != null && currentUser?.email) {
     //   for (let i of listDisplay) {
     //     if (i[currentUser?.email]) {

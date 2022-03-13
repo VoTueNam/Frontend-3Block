@@ -1,4 +1,11 @@
-import { Avatar, Box, CardHeader, Paper, Stack, Typography } from '@mui/material';
+import {
+  // Avatar,
+  Box,
+  CardHeader,
+  Paper,
+  Stack,
+  Typography,
+} from '@mui/material';
 // @mui
 import { useTheme } from '@mui/material/styles';
 import PropTypes from 'prop-types';
@@ -8,59 +15,49 @@ import { CarouselArrows } from '../../../../components/carousel';
 // components
 import Label from '../../../../components/Label';
 import { AppCurrentDownload } from '../app';
+import MyAvatar from '../../../../components/MyAvatar';
 
 // ----------------------------------------------------------------------
-const MostUsers = [
-  {
-    avatar: 'https://votuenam.github.io/image-hosting/AvatarMember/Avatar1.jpg',
-    bookdAt: 'namvtce140557@fpt.edu.vn',
-    cover:
-      'https://shot.screenshotapi.net/screenshot?&url=https%3A%2F%2Ffacebook.com&output=image&file_type=png&wait_for_event=load',
-    name: 'Võ Tuệ Nam',
-    roomType: 'success',
-    data: [50, 12, 3],
-  },
-  {
-    avatar: 'https://votuenam.github.io/image-hosting/AvatarMember/Avatar2.jpg',
-    bookdAt: 'longnmce140603@fpt.edu.vn',
-    cover:
-      'https://shot.screenshotapi.net/screenshot?&url=https%3A%2F%2Ffacebook.com&output=image&file_type=png&wait_for_event=load',
-    name: 'Nguyễn Minh Long',
-    roomType: 'info',
-    data: [20, 13, 90],
-  },
-  {
-    avatar: 'https://votuenam.github.io/image-hosting/AvatarMember/Avatar3.jpg',
-    bookdAt: 'vuntce140419@fpt.edu.vn',
-    cover:
-      'https://shot.screenshotapi.net/screenshot?&url=https%3A%2F%2Ffacebook.com&output=image&file_type=png&wait_for_event=load',
-    name: 'Nguyễn Tấn Vũ',
-    roomType: 'warning',
-    data: [10, 100, 23],
-  },
-  {
-    avatar: 'https://votuenam.github.io/image-hosting/AvatarMember/Avatar4.jpg',
-    bookdAt: 'thailqce140217@fpt.edu.vn',
-    cover:
-      'https://shot.screenshotapi.net/screenshot?&url=https%3A%2F%2Ffacebook.com&output=image&file_type=png&wait_for_event=load',
-    name: 'Lê Quốc Thái',
-    roomType: 'info',
-    data: [12, 23, 33],
-  },
-  {
-    avatar: 'https://votuenam.github.io/image-hosting/AvatarMember/Avatar5.jpg',
-    bookdAt: 'phucnpdce140024@fpt.edu.vn',
-    name: 'Nguyễn Phạm Đình Phúc',
-    roomType: 'warning',
-    cover: `https://shot.screenshotapi.net/screenshot?&url=https%3A%2F%2Fgoogle.com&output=image&file_type=png&wait_for_event=load`,
-    data: [33, 55, 1],
-  },
-];
+// var MostUsers = [
+//   {
+//     // avatar: 'https://votuenam.github.io/image-hosting/AvatarMember/Avatar1.jpg',
+//     name: 'Võ Tuệ Nam',
+//     roomType: 'success',
+//     data: [50, 12, 3],
+//   },
+//   {
+//     avatar: 'https://votuenam.github.io/image-hosting/AvatarMember/Avatar2.jpg',
+//     name: 'Nguyễn Minh Long',
+//     roomType: 'info',
+//     data: [20, 13, 90],
+//   },
+//   {
+//     avatar: 'https://votuenam.github.io/image-hosting/AvatarMember/Avatar3.jpg',
+//     name: 'Nguyễn Tấn Vũ',
+//     roomType: 'warning',
+//     data: [10, 100, 23],
+//   },
+//   {
+//     avatar: 'https://votuenam.github.io/image-hosting/AvatarMember/Avatar4.jpg',
+//     name: 'Lê Quốc Thái',
+//     roomType: 'info',
+//     data: [12, 23, 33],
+//   },
+//   {
+//     avatar: 'https://votuenam.github.io/image-hosting/AvatarMember/Avatar5.jpg',
+//     name: 'Nguyễn Phạm Đình Phúc',
+//     roomType: 'warning',
+//     data: [33, 55, 1],
+//   },
+// ];
 
 export default function BookingNewestBooking({ grayList }) {
   const theme = useTheme();
   const carouselRef = useRef(null);
-
+  var MostUsers = calculateUser(grayList);
+  if (MostUsers.length > 10) {
+    MostUsers.slice(0, 10);
+  }
   const settings = {
     dots: false,
     arrows: false,
@@ -101,7 +98,7 @@ export default function BookingNewestBooking({ grayList }) {
     <Box sx={{ py: 2 }}>
       <CardHeader
         title="Most Contributing Users"
-        subheader="5 Users"
+        subheader={MostUsers.length + ' Users'}
         action={
           <CarouselArrows
             customIcon={'ic:round-keyboard-arrow-right'}
@@ -131,8 +128,6 @@ export default function BookingNewestBooking({ grayList }) {
 BookingItem.propTypes = {
   item: PropTypes.shape({
     avatar: PropTypes.string,
-    bookdAt: PropTypes.string,
-    cover: PropTypes.string,
     name: PropTypes.string,
     roomType: PropTypes.string,
     data: PropTypes.array,
@@ -140,18 +135,19 @@ BookingItem.propTypes = {
 };
 
 function BookingItem({ item }) {
-  const { avatar, name, bookdAt, roomType, data } = item;
+  const { avatar, name, roomType, data } = item;
 
   return (
     <Paper sx={{ mx: 1.5, borderRadius: 2, bgcolor: 'background.neutral' }}>
       <Stack spacing={2.5} sx={{ p: 3, pb: 2.5 }}>
         <Stack direction="row" alignItems="center" spacing={2}>
-          <Avatar alt={name} src={avatar} />
+          {/* <Avatar alt={name} src={avatar} /> */}
+          <MyAvatar gray={true} alt={name} src={avatar} />
           <div>
             <Typography variant="subtitle2">{name}</Typography>
-            <Typography variant="caption" sx={{ color: 'text.disabled', mt: 0.5, display: 'block' }}>
+            {/* <Typography variant="caption" sx={{ color: 'text.disabled', mt: 0.5, display: 'block' }}>
               {bookdAt}
-            </Typography>
+            </Typography> */}
           </div>
         </Stack>
 
@@ -198,4 +194,46 @@ function BookingItem({ item }) {
       </Box>
     </Paper>
   );
+}
+function calculateUser(grayOfList) {
+  //todo Get Name + Image --> new List Obj
+  const setNameImage = new Set();
+  // eslint-disable-next-line
+  grayOfList.map((nameImage) => {
+    setNameImage.add(
+      JSON.stringify({
+        name: nameImage.user,
+        avatar: nameImage.image,
+      })
+    );
+  });
+  // console.log(setNameImage);
+  const listNameImage = [...setNameImage];
+  for (let i in listNameImage) {
+    listNameImage[i] = JSON.parse(listNameImage[i]);
+    listNameImage[i].true = 0;
+    listNameImage[i].false = 0;
+    listNameImage[i].none = 0;
+  }
+  // eslint-disable-next-line
+  grayOfList.map((dataIsCheck) => {
+    // eslint-disable-next-line
+    listNameImage.map((listIsCheck) => {
+      if (dataIsCheck.user === listIsCheck.name && dataIsCheck.image === listIsCheck.avatar) {
+        listIsCheck[dataIsCheck.isCheck]++;
+      }
+    });
+  });
+  for (let i in listNameImage) {
+    listNameImage[i].data = [listNameImage[i].true, listNameImage[i].false, listNameImage[i].none];
+    const maxArray = Math.max(...listNameImage[i].data);
+    if (listNameImage[i].true === maxArray) {
+      listNameImage[i].roomType = 'success';
+    } else if (listNameImage[i].false === maxArray) {
+      listNameImage[i].roomType = 'warning';
+    } else if (listNameImage[i].none === maxArray) {
+      listNameImage[i].roomType = 'info';
+    }
+  }
+  return listNameImage;
 }

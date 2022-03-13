@@ -49,10 +49,12 @@ const TABLE_HEAD = [
 var white;
 if (!localStorage.getItem('whiteList')) {
   getWhiteList();
+  alert('Wait Updating WhiteList!');
 } else {
   white = JSON.parse(localStorage.getItem('whiteList'));
   // console.log(white);
 }
+
 export default function EcommerceProductList() {
   const { themeStretch } = useSettings();
   const theme = useTheme();
@@ -118,14 +120,15 @@ export default function EcommerceProductList() {
     setPage(0);
   };
 
-  const handleFilterByName = (filterName) => {
+  const handleFilterByName = (filterNames) => {
+    const filterName = filterNames.toLowerCase().trim();
     setFilterName(filterName);
-    console.log(filterName);
+    // console.log(filterName);
     const dateWhite = JSON.parse(localStorage.getItem('whiteList'));
     const whiteSearchResult = dateWhite.filter((da) => {
       return da.url.includes(filterName);
     });
-    console.log(whiteSearchResult);
+    // console.log(whiteSearchResult);
     setWhite(whiteSearchResult);
     // setBlack(blackSearchResult);
     setPage(0);

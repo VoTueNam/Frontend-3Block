@@ -2,7 +2,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { LoadingButton } from '@mui/lab';
 // @mui
 import { Alert, IconButton, InputAdornment, Stack } from '@mui/material';
-import axios from 'axios';
 import { useSnackbar } from 'notistack';
 import { useState } from 'react';
 // form
@@ -61,45 +60,67 @@ export default function RegisterForm() {
   const onSubmit = (data) => {
     setIsSubmittings(true);
 
-    axios
-      .get('https://emailvalidation.abstractapi.com/v1/?api_key=c8fb3d51ced64b25ad35773d2558a754&email=' + data.email)
-      .then(async function (response) {
-        if (response.data.deliverability === 'DELIVERABLE') {
-          try {
-            await register(data.email, data.password, data.firstName, data.lastName).then((res) => {
-              res.user.displayName = data.firstName + ' ' + data.lastName;
-              // console.log(res.user);
-              setIsSubmittings(false);
-              navigate('/auth/login');
-              enqueueSnackbar('Register Successfully', { variant: 'success' });
-              const oldDisplayName = JSON.parse(localStorage.getItem('displayName'));
-              if (!oldDisplayName) {
-                localStorage.setItem('displayName', JSON.stringify([{ [data.email]: res.user.displayName }]));
-              } else {
-                oldDisplayName.push({ [data.email]: res.user.displayName });
-                localStorage.setItem('displayName', JSON.stringify(oldDisplayName));
-              }
-            });
-          } catch (error) {
-            setIsSubmittings(false);
-            setShowError(false);
-            reset();
-            if (error.message === 'Firebase: Error (auth/email-already-in-use).') {
-              setErrorsNe('Email Already In Use!');
-            } else if (error.message === 'Firebase: Password should be at least 6 characters (auth/weak-password).') {
-              setErrorsNe('Password should be at least 6 characters');
-            } else {
-              setErrorsNe(error.message);
-            }
-          }
-        } else {
-          throw new Error('Wrong Email');
-        }
+    try {
+      register(data.email, data.password, data.firstName, data.lastName).then((res) => {
+        res.user.displayName = data.firstName + ' ' + data.lastName;
+        setIsSubmittings(false);
+        navigate('/auth/login');
+        enqueueSnackbar('Register Successfully', { variant: 'success' });
+        fetch('https://api3blockserver.herokuapp.com/user/gray/system/3block/postName', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email: data.email,
+            displayName: data.firstName + ' ' + data.lastName,
+          }),
+        })
+          .then((res) => {
+            // console.log(res);
+            enqueueSnackbar('Save Display Name Successfully!', { variant: 'success' });
+          })
+          .catch((err) => {
+            enqueueSnackbar(err.message, { variant: 'error' });
+          });
+        // const oldDisplayName = JSON.parse(localStorage.getItem('displayName'));
+        // if (!oldDisplayName) {
+        //   localStorage.setItem('displayName', JSON.stringify([{ [data.email]: res.user.displayName }]));
+        // } else {
+        //   oldDisplayName.push({ [data.email]: res.user.displayName });
+        //   localStorage.setItem('displayName', JSON.stringify(oldDisplayName));
+        // }
+      });
+    } catch (error) {
+      setIsSubmittings(false);
+      setShowError(false);
+      reset();
+      if (error.message === 'Firebase: Error (auth/email-already-in-use).') {
+        setErrorsNe('Email Already In Use!');
+      } else if (error.message === 'Firebase: Password should be at least 6 characters (auth/weak-password).') {
+        setErrorsNe('Password should be at least 6 characters');
+      } else {
+        setErrorsNe(error.message);
+      }
+    }
+
+    // setShowError(false);
+    // setIsSubmittings(false);
+    // setErrorsNe(err);
+
+    fetch('https://api3blockserver.herokuapp.com/user/gray/system/3block/postName', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: data.email,
+        displayName: data.firstName + ' ' + data.lastName,
+      }),
+    })
+      .then((res) => {
+        // console.log(res);
+        enqueueSnackbar('Save Display Name Successfully!', { variant: 'success' });
+        //
       })
       .catch((err) => {
-        setShowError(false);
-        setIsSubmittings(false);
-        setErrorsNe(err);
+        enqueueSnackbar(err.message, { variant: 'error' });
       });
   };
 

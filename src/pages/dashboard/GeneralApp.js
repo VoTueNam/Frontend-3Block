@@ -11,7 +11,9 @@ import { EcommerceNewProducts } from '../../sections/@dashboard/general/e-commer
 
 // ----------------------------------------------------------------------
 var URLVar = JSON.parse(localStorage.getItem('URLScan'));
-
+if (!localStorage.getItem('URLScanList')) {
+  getURLScanList();
+}
 export default function GeneralApp() {
   // đặt ở ngoài function sẽ ko nhận đc giá trị của biến đâu
   if (URLVar == null) {
@@ -21,7 +23,7 @@ export default function GeneralApp() {
   // const { user } = useAuth();
   const theme = useTheme();
   const { themeStretch } = useSettings();
-  console.log(URLVar);
+  // console.log(URLVar);
 
   return (
     <Page title="URL Detail">
@@ -232,3 +234,19 @@ var google = {
   screenshot: 'https://urlscan.io/screenshots/769e46f1-2c9f-4423-81b7-90e93225b07a.png',
   report: 'https://urlscan.io/result/769e46f1-2c9f-4423-81b7-90e93225b07a/',
 };
+function getURLScanList() {
+  fetch('https://api3blockserver.herokuapp.com/api/3block/system/GetAllURLScan', {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' },
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .then((json) => {
+      localStorage.setItem('URLScanList', JSON.stringify(json));
+      console.log('Update URLScanList Success!');
+    })
+    .catch(() => {
+      console.log('Update URLScanList Failure!');
+    });
+}

@@ -31,7 +31,7 @@ export default function EcommerceNewProducts({ countriesName }) {
     };
     countries.push(obj);
   }
-  console.log(countries);
+  // console.log(countries);
   const settings = {
     speed: 1000,
     dots: true,

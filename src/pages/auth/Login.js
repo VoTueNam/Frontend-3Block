@@ -62,10 +62,10 @@ const ContentStyle = styled('div')(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 export default function Login() {
+  const navigate = useNavigate();
   // const { method } = useAuth();
   //! ################
 
-  const navigate = useNavigate();
   const { signInWithGoogle, signInWithGithub, signInWithFacebook } = useAuth();
   // console.log('login', currentUser?.email);
 
@@ -87,8 +87,8 @@ export default function Login() {
           <Logo />
           {smUp && (
             <Typography variant="body2" sx={{ mt: { md: -2 } }}>
-              Don’t have an account? {''}
-              <Link variant="subtitle2" component={RouterLink} to={PATH_AUTH.register}>
+              Have you logged in yet? {''}
+              <Link variant="subtitle2" component={RouterLink} to={'/dashboard/analytics'}>
                 Get started
               </Link>
             </Typography>
@@ -171,14 +171,14 @@ export default function Login() {
                 }
               />
             </Stack>
-            {/* {smUp && (
+            {smUp && (
               <Typography variant="body2" align="center" sx={{ mt: 3 }}>
                 Don’t have an account?{' '}
                 <Link variant="subtitle2" component={RouterLink} to={PATH_AUTH.register}>
                   Get started
                 </Link>
               </Typography>
-            )} */}
+            )}
           </ContentStyle>
         </Container>
       </RootStyle>

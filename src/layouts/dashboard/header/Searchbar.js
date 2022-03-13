@@ -1,11 +1,13 @@
 import { Button, ClickAwayListener, Input, InputAdornment, Slide } from '@mui/material';
 // @mui
 import { styled } from '@mui/material/styles';
+import { useSnackbar } from 'notistack';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { IconButtonAnimate } from '../../../components/animate';
 // components
 import Iconify from '../../../components/Iconify';
+import LoadingScreen from '../../../components/LoadingScreen';
 // utils
 import cssStyles from '../../../utils/cssStyles';
 
@@ -35,8 +37,10 @@ const SearchbarStyle = styled('div')(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 export default function Searchbar() {
+  const { enqueueSnackbar } = useSnackbar();
   const [isOpen, setOpen] = useState(false);
-  const [url, setURL] = useState('3block.systems');
+  const [isLoading, setIsLoading] = useState(false);
+  const [url, setURL] = useState(' ');
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -48,8 +52,10 @@ export default function Searchbar() {
   };
 
   const handleAPI = () => {
+    setIsLoading(true);
     setOpen(false);
     if (!validURL(url)) {
+      setIsLoading(false);
       resetURL(true);
       return;
     } else {
@@ -57,7 +63,7 @@ export default function Searchbar() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          url: localStorage.getItem('URL'),
+          url: url,
         }),
       })
         .then((response) => response.json())
@@ -66,59 +72,92 @@ export default function Searchbar() {
           try {
             var result = JSON.parse(localStorage.getItem('virusTotal'));
             if (result?.error || result == null) {
+              setIsLoading(false);
               resetURL(true);
             } else {
-              console.log(result);
+              // console.log(result);
               if (location.pathname === '/dashboard/analytics') {
+                setIsLoading(false);
                 window.location.reload();
               } else {
+                setIsLoading(false);
                 navigate('/dashboard/analytics');
               }
             }
           } catch {
+            setIsLoading(false);
             resetURL(true);
           }
         })
-        .catch(() => resetURL(true));
+        .catch(() => {
+          setIsLoading(false);
+          resetURL(true);
+        });
     }
   };
 
   const handleScan = () => {
+    setIsLoading(true);
     setOpen(false);
     if (!validURL(url)) {
-      resetURL(true);
+      setIsLoading(false);
+      resetScan(true);
       return;
     } else {
+      const URLScanList = JSON.parse(localStorage.getItem('URLScanList'));
+      // console.log(URLScanList);
+      const dataA = URLScanList.filter((da) => {
+        return da.url === url;
+      });
+      // console.log(dataA[0]);
+      if (dataA.length !== 0) {
+        // console.log('OLD Data');
+        localStorage.setItem('URLScan', JSON.stringify(dataA[0]));
+        if (location.pathname === '/dashboard/app') {
+          window.location.reload();
+        } else {
+          navigate('/dashboard/app');
+          window.location.reload();
+        }
+        return;
+      }
+
+      // console.log('Call API get newest Data');
       fetch('https://api3blockserver.herokuapp.com/api/3block/system/urlscan/v100', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          url: localStorage.getItem('URL'),
+          url: url,
         }),
       })
         .then((response) => response.json())
         .then((json) => {
-          console.log(JSON.stringify(json));
+          // console.log(JSON.stringify(json));
           localStorage.setItem('URLScan', JSON.stringify(json));
-          console.log('done!');
+          // console.log('done!');
           try {
             var results = JSON.parse(localStorage.getItem('URLScan'));
-            console.log(typeof results);
+            getURLScanList();
+            // console.log(typeof results);
             if (results?.error || results == null) {
+              setIsLoading(false);
               resetScan(true);
             } else {
-              console.log(results);
+              // console.log(results);
               if (location.pathname === '/dashboard/app') {
                 window.location.reload();
               } else {
                 navigate('/dashboard/app');
+                window.location.reload();
               }
             }
           } catch {
+            setIsLoading(false);
             resetScan(true);
           }
         })
         .catch(() => {
+          setIsLoading(false);
           resetScan(true);
         });
     }
@@ -235,7 +274,8 @@ export default function Searchbar() {
     };
     localStorage.setItem('URLScan', JSON.stringify(google));
     if (checked) {
-      navigate('/404');
+      enqueueSnackbar('Error, Please try again or other URL!', { variant: 'error', delay: 3000 });
+      // navigate('/404');
     } else {
       window.location.reload();
     }
@@ -270,7 +310,8 @@ export default function Searchbar() {
     };
     localStorage.setItem('virusTotal', JSON.stringify(result));
     if (checked) {
-      navigate('/404');
+      enqueueSnackbar('Error, Please try again or other URL!', { variant: 'error', delay: 5000 });
+      // navigate('/404');
     } else {
       window.location.reload();
     }
@@ -279,6 +320,7 @@ export default function Searchbar() {
   return (
     <ClickAwayListener onClickAway={handleClose}>
       <div>
+        {isLoading && <LoadingScreen />}
         {!isOpen && (
           <IconButtonAnimate onClick={handleOpen}>
             <Iconify icon={'eva:search-fill'} width={20} height={20} />
@@ -304,8 +346,11 @@ export default function Searchbar() {
                 }
               }}
               onChange={(e) => {
-                setURL(e.target.value);
-                localStorage.setItem('URL', e.target.value);
+                const searchURL = e.target.value.toLowerCase().trim();
+
+                setURL(searchURL);
+
+                // localStorage.setItem('URL', e.target.value);
               }}
             />
 
@@ -336,7 +381,22 @@ export default function Searchbar() {
     </ClickAwayListener>
   );
 }
-
+function getURLScanList() {
+  fetch('https://api3blockserver.herokuapp.com/api/3block/system/GetAllURLScan', {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' },
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .then((json) => {
+      localStorage.setItem('URLScanList', JSON.stringify(json));
+      console.log('Update URLScanList Success!');
+    })
+    .catch(() => {
+      console.log('Update URLScanList Failure!');
+    });
+}
 function validURL(str) {
   var pattern = new RegExp(
     '^(https?:\\/\\/)?' + // protocol

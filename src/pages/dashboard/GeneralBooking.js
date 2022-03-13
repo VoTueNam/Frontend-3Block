@@ -20,6 +20,7 @@ import {
 var grays;
 if (!localStorage.getItem('grayList')) {
   getGrayLists();
+  alert('Wait Updating GrayList!');
 } else {
   grays = JSON.parse(localStorage.getItem('grayList'));
   // console.log(gray);

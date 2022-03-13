@@ -17,18 +17,18 @@ import {
   ShopFilterSidebar,
   ShopProductList,
   ShopProductSearch,
-  ShopTagFiltered
+  ShopTagFiltered,
 } from '../../sections/@dashboard/e-commerce/shop';
 
 // ----------------------------------------------------------------------
 var blacks;
 if (!localStorage.getItem('blackList')) {
   getBlackList();
+  alert('Wait Updating BlackList!');
 } else {
   blacks = JSON.parse(localStorage.getItem('blackList'));
   // console.log(black);
 }
-
 export default function EcommerceShop() {
   var {
     products,
@@ -42,7 +42,6 @@ export default function EcommerceShop() {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(12);
   const [black, setBlack] = useState(blacks);
-
   const dispatch = useDispatch();
 
   const [openFilter, setOpenFilter] = useState(false);
