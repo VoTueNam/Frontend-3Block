@@ -3,6 +3,7 @@ import { Container, Grid } from '@mui/material';
 import { useState } from 'react';
 // assets
 import { BookingIllustration } from '../../assets';
+import LoadingScreen from '../../components/LoadingScreen';
 // components
 import Page from '../../components/Page';
 // hooks
@@ -18,21 +19,20 @@ import {
 
 // ----------------------------------------------------------------------
 var grays;
+var isChecked = 0;
+var notChecked = 0;
 if (!localStorage.getItem('grayList')) {
   getGrayLists();
-  alert('Wait Updating GrayList!');
+  // alert('Wait Updating GrayList!');
 } else {
   grays = JSON.parse(localStorage.getItem('grayList'));
   // console.log(gray);
-}
-var isChecked = 0;
-var notChecked = 0;
-
-for (var url of grays) {
-  if (url.isCheck === 'false') {
-    notChecked++;
-  } else if (url.isCheck === 'true') {
-    isChecked++;
+  for (var url of grays) {
+    if (url.isCheck === 'false') {
+      notChecked++;
+    } else if (url.isCheck === 'true') {
+      isChecked++;
+    }
   }
 }
 
@@ -41,6 +41,8 @@ export default function GeneralBooking() {
 
   const [gray, setGray] = useState(grays);
 
+  //! If Grays NULL
+  if (grays == null) return <LoadingScreen />;
   return (
     <Page title="Gray Lists">
       <Container maxWidth={themeStretch ? false : 'xl'}>

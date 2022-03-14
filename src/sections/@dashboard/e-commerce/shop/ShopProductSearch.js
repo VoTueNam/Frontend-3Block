@@ -5,6 +5,7 @@ import { useSnackbar } from 'notistack';
 import { useState } from 'react';
 import Iconify from '../../../../components/Iconify';
 import InputStyle from '../../../../components/InputStyle';
+import { m } from 'framer-motion';
 
 // ----------------------------------------------------------------------
 
@@ -16,7 +17,9 @@ import InputStyle from '../../../../components/InputStyle';
 
 export default function ShopProductSearch({ black, setBlack, setPage, gender }) {
   const { enqueueSnackbar } = useSnackbar();
+  const [isLoading, setIsLoading] = useState(false);
   function getBlackList() {
+    setIsLoading(true);
     fetch('https://api3blockserver.herokuapp.com/db/api/system/3block/getAllBlackPublic', {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
@@ -29,9 +32,11 @@ export default function ShopProductSearch({ black, setBlack, setPage, gender }) 
         localStorage.setItem('blackList', JSON.stringify(json));
         setBlack(json);
         setPage(0);
+        setIsLoading(false);
         enqueueSnackbar('Update Black Lists Successfully!', { variant: 'success' });
       })
       .catch((err) => {
+        setIsLoading(false);
         enqueueSnackbar('Update Black Lists Failure!', { variant: 'error' });
       });
   }
@@ -152,9 +157,28 @@ export default function ShopProductSearch({ black, setBlack, setPage, gender }) 
           );
         }}
       />
-      <Button color="primary" variant="contained" onClick={getBlackList}>
-        Update Data
-      </Button>
+      {isLoading && (
+        <m.div
+          initial={{ rotateY: 0 }}
+          animate={{ rotateY: 360 }}
+          transition={{
+            duration: 2,
+            ease: 'easeInOut',
+            repeatDelay: 1,
+            repeat: Infinity,
+          }}
+        >
+          <Button color="primary" variant="contained" onClick={getBlackList}>
+            Update Data
+          </Button>
+        </m.div>
+      )}
+
+      {!isLoading && (
+        <Button color="primary" variant="contained" onClick={getBlackList}>
+          Update Data
+        </Button>
+      )}
     </>
   );
 }

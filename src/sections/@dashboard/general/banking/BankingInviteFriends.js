@@ -1,11 +1,18 @@
 // @mui
-import { Button, Card, OutlinedInput, Stack, Typography } from '@mui/material';
+import {
+  // Button,
+  Card,
+  OutlinedInput,
+  Stack,
+  Typography,
+} from '@mui/material';
 import { alpha, styled } from '@mui/material/styles';
 import { useSnackbar } from 'notistack';
 import { useState } from 'react';
 // components
 import Image from '../../../../components/Image';
-
+import { LoadingButton } from '@mui/lab';
+import SendIcon from '@mui/icons-material/Send';
 // ----------------------------------------------------------------------
 
 const ContentStyle = styled(Card)(({ theme }) => ({
@@ -22,12 +29,22 @@ const ContentStyle = styled(Card)(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 export default function BankingInviteFriends({ url = 'example.com', title = 'None', virusTotal = true, setGray }) {
+  const [isLoading, setIsLoading] = useState(false);
+
   const { enqueueSnackbar } = useSnackbar();
+
   const currentUser = JSON.parse(localStorage.getItem('user'));
   if (url !== 'Enter your suggestion') url = url.slice(7, -1);
   // console.log('image = ' + currentUser?.photoURL);
+
   const [submitValue, setSubmitValue] = useState('');
+
   function onSubmit() {
+    if (!validURL(submitValue)) {
+      enqueueSnackbar('Please Enter Valid URL!', { variant: 'error' });
+      return;
+    }
+    setIsLoading(true);
     // console.log('submit ' + submitValue);
     // console.log(currentUser.displayName);
     fetch('https://api3blockserver.herokuapp.com/user/gray/system/3block/createNew', {
@@ -59,17 +76,21 @@ export default function BankingInviteFriends({ url = 'example.com', title = 'Non
             .then((json) => {
               localStorage.setItem('grayList', JSON.stringify(json));
               setGray(json);
+              setIsLoading(false);
               enqueueSnackbar('Update Gray Lists Successfully!', { variant: 'success' });
             })
             .catch((err) => {
               // console.log(err);
+              setIsLoading(false);
               enqueueSnackbar('Update Gray Lists Failure!', { variant: 'error' });
             });
         })();
+        setIsLoading(false);
         enqueueSnackbar('Submit Gray Lists Successfully!', { variant: 'success' });
         // console.log(json);
       })
       .catch((err) => {
+        setIsLoading(false);
         if (err.message === 'failURL') {
           enqueueSnackbar('Your submit was in Our Lists!', { variant: 'error' });
         } else {
@@ -111,7 +132,7 @@ export default function BankingInviteFriends({ url = 'example.com', title = 'Non
               placeholder="..."
               value={submitValue}
               onChange={(e) => {
-                setSubmitValue(e.target.value);
+                setSubmitValue(e.target.value.toLowerCase().trim());
               }}
               sx={{
                 width: 1,
@@ -124,12 +145,35 @@ export default function BankingInviteFriends({ url = 'example.com', title = 'Non
                 '& fieldset': { display: 'none' },
               }}
             />
-            <Button color="warning" variant="contained" onClick={onSubmit}>
+            {/* <Button color="warning" variant="contained" onClick={onSubmit}>
               Submit
-            </Button>
+            </Button> */}
+            <LoadingButton
+              color="warning"
+              loading={isLoading}
+              loadingPosition="start"
+              startIcon={<SendIcon />}
+              variant="contained"
+              sx={{ fontWeight: 'fontWeightBold' }}
+              onClick={onSubmit}
+            >
+              Update
+            </LoadingButton>
           </Stack>
         )}
       </ContentStyle>
     </div>
   );
+}
+function validURL(str) {
+  var pattern = new RegExp(
+    '^(https?:\\/\\/)?' + // protocol
+      '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
+      '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+      '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+      '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+      '(\\#[-a-z\\d_]*)?$',
+    'i'
+  ); // fragment locator
+  return !!pattern.test(str);
 }

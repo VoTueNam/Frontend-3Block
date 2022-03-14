@@ -3,7 +3,11 @@ import { Button, Card, CardContent, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import PropTypes from 'prop-types';
 import AutorenewIcon from '@mui/icons-material/Autorenew';
+// import SaveIcon from '@mui/icons-material/Save';
+
 import { useSnackbar } from 'notistack';
+import { LoadingButton } from '@mui/lab';
+import { useState } from 'react';
 
 // ----------------------------------------------------------------------
 
@@ -29,6 +33,7 @@ AppWelcome.propTypes = {
 
 export default function AppWelcome({ domain, url, screenshot, report }) {
   const { enqueueSnackbar } = useSnackbar();
+  const [isLoading, setIsLoading] = useState(false);
   return (
     <RootStyle>
       <CardContent
@@ -40,15 +45,18 @@ export default function AppWelcome({ domain, url, screenshot, report }) {
       >
         <Typography gutterBottom variant="h4">
           Domain:
-          <Button
+          <span>&nbsp;&nbsp;</span>
+          <LoadingButton
             color="primary"
-            variant="text"
-            onClick={getURLList}
-            sx={{ fontWeight: 'fontWeightBold' }}
+            loading={isLoading}
+            loadingPosition="start"
             startIcon={<AutorenewIcon />}
+            variant="outlined"
+            sx={{ fontWeight: 'fontWeightBold' }}
+            onClick={getURLList}
           >
-            Update Data
-          </Button>
+            Update
+          </LoadingButton>
           <br /> {!domain ? '...' : domain}
         </Typography>
         <a href={url} target="_blank" rel="noreferrer">
@@ -81,6 +89,7 @@ export default function AppWelcome({ domain, url, screenshot, report }) {
     </RootStyle>
   );
   function getURLList() {
+    setIsLoading(true);
     const urlForScan = url;
     console.log('zo');
     fetch('https://api3blockserver.herokuapp.com/api/3block/system/urlscan/v100', {
@@ -101,13 +110,16 @@ export default function AppWelcome({ domain, url, screenshot, report }) {
           if (results?.error || results == null) {
             // resetScan(true);
             enqueueSnackbar('Error, Update URL Scan!', { variant: 'error', delay: 3000 });
+            setIsLoading(false);
           } else {
             localStorage.setItem('URLScan', JSON.stringify(json));
+            setIsLoading(false);
             window.location.reload();
           }
         } catch {
           // resetScan(true);
           enqueueSnackbar('Error, Update URL Scan!', { variant: 'error', delay: 3000 });
+          setIsLoading(false);
         }
       })
       .catch(() => {

@@ -6,6 +6,8 @@ import PropTypes from 'prop-types';
 // components
 import Iconify from '../../../../components/Iconify';
 import InputStyle from '../../../../components/InputStyle';
+import { m } from 'framer-motion';
+import { useState } from 'react';
 
 // ----------------------------------------------------------------------
 
@@ -27,7 +29,9 @@ ProductListToolbar.propTypes = {
 
 export default function ProductListToolbar({ numSelected, filterName, onFilterName, onDeleteProducts, setWhite }) {
   const { enqueueSnackbar } = useSnackbar();
+  const [isLoading, setIsLoading] = useState(false);
   function getWhiteList() {
+    setIsLoading(true);
     fetch('https://api3blockserver.herokuapp.com/db/api/system/3block/getAllWhitePublic', {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
@@ -39,9 +43,11 @@ export default function ProductListToolbar({ numSelected, filterName, onFilterNa
       .then((json) => {
         localStorage.setItem('whiteList', JSON.stringify(json));
         setWhite(json);
+        setIsLoading(false);
         enqueueSnackbar('Update White Lists Successfully!', { variant: 'success' });
       })
       .catch((err) => {
+        setIsLoading(false);
         enqueueSnackbar('Update White Lists Failure!', { variant: 'error' });
       });
   }
@@ -91,9 +97,28 @@ export default function ProductListToolbar({ numSelected, filterName, onFilterNa
           </IconButton>
         </Tooltip>
       )} */}
-      <Button color="primary" variant="contained" onClick={getWhiteList}>
-        Update Data
-      </Button>
+      {isLoading && (
+        <m.div
+          initial={{ rotateY: 0 }}
+          animate={{ rotateY: 360 }}
+          transition={{
+            duration: 2,
+            ease: 'easeInOut',
+            repeatDelay: 1,
+            repeat: Infinity,
+          }}
+        >
+          <Button color="primary" variant="contained" onClick={getWhiteList}>
+            Update Data
+          </Button>
+        </m.div>
+      )}
+
+      {!isLoading && (
+        <Button color="primary" variant="contained" onClick={getWhiteList}>
+          Update Data
+        </Button>
+      )}
     </RootStyle>
   );
 }

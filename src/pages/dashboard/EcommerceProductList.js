@@ -19,6 +19,7 @@ import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 import Iconify from '../../components/Iconify';
 import Image from '../../components/Image';
 import Label from '../../components/Label';
+import LoadingScreen from '../../components/LoadingScreen';
 // components
 import Page from '../../components/Page';
 import Scrollbar from '../../components/Scrollbar';
@@ -49,7 +50,7 @@ const TABLE_HEAD = [
 var white;
 if (!localStorage.getItem('whiteList')) {
   getWhiteList();
-  alert('Wait Updating WhiteList!');
+  // alert('Wait Updating WhiteList!');
 } else {
   white = JSON.parse(localStorage.getItem('whiteList'));
   // console.log(white);
@@ -59,7 +60,7 @@ export default function EcommerceProductList() {
   const { themeStretch } = useSettings();
   const theme = useTheme();
   const dispatch = useDispatch();
-
+  const [whites, setWhite] = useState(white);
   const { products } = useSelector((state) => state.product);
 
   // eslint-disable-next-line
@@ -77,12 +78,14 @@ export default function EcommerceProductList() {
   }, [dispatch]);
 
   useEffect(() => {
-    if (whites.length) {
+    if (whites?.length) {
       setProductList(products);
     }
     // eslint-disable-next-line
   }, [products]);
 
+  //! If White NULL
+  if (white == null) return <LoadingScreen />;
   // const handleRequestSort = (property) => {
   //   const isAsc = orderBy === property && order === 'asc';
   //   setOrder(isAsc ? 'desc' : 'asc');
@@ -97,8 +100,6 @@ export default function EcommerceProductList() {
   //   }
   //   setSelected([]);
   // };
-
-  const [whites, setWhite] = useState(white);
 
   // const handleClick = (name) => {
   //   const selectedIndex = selected.indexOf(name);

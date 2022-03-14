@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 import { FormProvider } from '../../components/hook-form';
+import LoadingScreen from '../../components/LoadingScreen';
 // components
 import Page from '../../components/Page';
 // hooks
@@ -24,7 +25,7 @@ import {
 var blacks;
 if (!localStorage.getItem('blackList')) {
   getBlackList();
-  alert('Wait Updating BlackList!');
+  // alert('Wait Updating BlackList!');
 } else {
   blacks = JSON.parse(localStorage.getItem('blackList'));
   // console.log(black);
@@ -87,6 +88,11 @@ export default function EcommerceShop() {
     dispatch(filterProducts(values));
   }, [dispatch, values]);
 
+  //! If Black NULL
+  if (blacks == null) {
+    return <LoadingScreen />;
+  }
+
   const handleOpenFilter = () => {
     setOpenFilter(true);
   };
@@ -128,6 +134,7 @@ export default function EcommerceShop() {
     setRowsPerPage(parseInt(event.target.value, 12));
     setPage(0);
   };
+
   return (
     <Page title="Black Lists Public">
       <Container maxWidth={themeStretch ? false : 'lg'}>
