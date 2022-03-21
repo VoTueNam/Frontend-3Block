@@ -17,6 +17,16 @@ import { MailList, MailDetails, MailSidebar, MailCompose } from '../../sections/
 // ----------------------------------------------------------------------
 
 export default function Mail() {
+  const [mail3Block, setMail3Block] = useState(JSON.parse(localStorage.getItem('messageList')));
+
+  // console.log(mail3Block);
+  // if (mail3Block == null) {
+  //   setTimeout(() => {
+  //     window.location.reload();
+  //   }, 3000);
+  // }
+  // console.log(listMail3Block);
+  // setMail3Block(listMail3Block);
   const { themeStretch } = useSettings();
   const dispatch = useDispatch();
   const { mailId } = useParams();
@@ -27,11 +37,19 @@ export default function Mail() {
     dispatch(getLabels());
   }, [dispatch]);
 
+  useEffect(() => {
+    getMail();
+    if (mail3Block == null) {
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
+    }
+  }, []);
   return (
-    <Page title="Mail">
+    <Page title="Message | 3Block">
       <Container maxWidth={themeStretch ? false : 'xl'}>
         <HeaderBreadcrumbs
-          heading="Mail"
+          heading="Message - Admin"
           links={[
             {
               name: 'Dashboard',
@@ -46,10 +64,35 @@ export default function Mail() {
             onCloseSidebar={() => setOpenSidebar(false)}
             onOpenCompose={() => setOpenCompose(true)}
           />
-          {mailId ? <MailDetails /> : <MailList onOpenSidebar={() => setOpenSidebar(true)} />}
-          <MailCompose isOpenCompose={openCompose} onCloseCompose={() => setOpenCompose(false)} />
+          {mailId ? <MailDetails /> : <MailList mail3Block={mail3Block} onOpenSidebar={() => setOpenSidebar(true)} />}
+          {/* Nút soạn mail */}
+          <MailCompose getMail={getMail} isOpenCompose={openCompose} onCloseCompose={() => setOpenCompose(false)} />
         </Card>
       </Container>
     </Page>
   );
+  function getMail() {
+    fetch('https://api3blockserver.herokuapp.com/api/3block/system/getMessage', {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((json) => {
+        console.log('Call API');
+        const userLocal = JSON.parse(localStorage.getItem('user'));
+        const checkDisplayName = userLocal?.displayName;
+        const checkEmail = userLocal?.email;
+        const listMail3Block = json.filter((dataMail) => {
+          return dataMail.username == checkDisplayName || dataMail.username == checkEmail;
+          // return true
+        });
+        localStorage.setItem('messageList', JSON.stringify(listMail3Block));
+        setMail3Block(JSON.parse(localStorage.getItem('messageList')));
+      })
+      .catch((err) => {
+        console.log('fail');
+      });
+  }
 }

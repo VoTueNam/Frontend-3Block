@@ -8,6 +8,7 @@ import useResponsive from '../../../hooks/useResponsive';
 // components
 import Iconify from '../../../components/Iconify';
 import Editor from '../../../components/editor';
+import { m } from 'framer-motion';
 
 // ----------------------------------------------------------------------
 
@@ -39,10 +40,10 @@ MailCompose.propTypes = {
   onCloseCompose: PropTypes.func,
 };
 
-export default function MailCompose({ isOpenCompose, onCloseCompose }) {
+export default function MailCompose({ isOpenCompose, onCloseCompose, getMail }) {
   const [fullScreen, setFullScreen] = useState(false);
   const [message, setMessage] = useState('');
-
+  const [isLoading, setIsLoading] = useState(false);
   const isDesktop = useResponsive('up', 'sm');
 
   const handleChangeMessage = (value) => {
@@ -65,6 +66,29 @@ export default function MailCompose({ isOpenCompose, onCloseCompose }) {
   if (!isOpenCompose) {
     return null;
   }
+
+  const handOnSubmit = () => {
+    setIsLoading(true);
+    var nameUser = JSON.parse(localStorage.getItem('user'));
+    nameUser = nameUser?.displayName || nameUser?.email;
+    fetch('https://api3blockserver.herokuapp.com/api/3block/system/postMessage', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        username: nameUser,
+        content: message,
+      }),
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then(async (json) => {
+        console.log(json);
+        console.log('thành công');
+        await getMail();
+        setIsLoading(false);
+      });
+  };
 
   return (
     <Portal>
@@ -96,7 +120,7 @@ export default function MailCompose({ isOpenCompose, onCloseCompose }) {
             alignItems: 'center',
           }}
         >
-          <Typography variant="h6">New Message</Typography>
+          <Typography variant="h6">Send message to Admin 3Block</Typography>
           <Box sx={{ flexGrow: 1 }} />
 
           <IconButton onClick={fullScreen ? handleExitFullScreen : handleEnterFullScreen}>
@@ -110,9 +134,9 @@ export default function MailCompose({ isOpenCompose, onCloseCompose }) {
 
         <Divider />
 
-        <InputStyle disableUnderline placeholder="To" />
+        {/* <InputStyle disableUnderline placeholder="To" />
 
-        <InputStyle disableUnderline placeholder="Subject" />
+        <InputStyle disableUnderline placeholder="Subject" /> */}
 
         <Editor
           simple
@@ -129,15 +153,36 @@ export default function MailCompose({ isOpenCompose, onCloseCompose }) {
         <Divider />
 
         <Box sx={{ py: 2, px: 3, display: 'flex', alignItems: 'center' }}>
-          <Button variant="contained">Send</Button>
+          {isLoading && (
+            <m.div
+              initial={{ rotateY: 0 }}
+              animate={{ rotateY: 360 }}
+              transition={{
+                duration: 2,
+                ease: 'easeInOut',
+                repeatDelay: 1,
+                repeat: Infinity,
+              }}
+            >
+              <Button variant="contained" onClick={handOnSubmit}>
+                Send
+              </Button>
+            </m.div>
+          )}
 
-          <IconButton size="small" sx={{ ml: 2, mr: 1 }}>
+          {!isLoading && (
+            <Button variant="contained" onClick={handOnSubmit}>
+              Send
+            </Button>
+          )}
+
+          {/* <IconButton size="small" sx={{ ml: 2, mr: 1 }}>
             <Iconify icon={'ic:round-add-photo-alternate'} width={24} height={24} />
           </IconButton>
 
           <IconButton size="small">
             <Iconify icon={'eva:attach-2-fill'} width={24} height={24} />
-          </IconButton>
+          </IconButton> */}
         </Box>
       </RootStyle>
     </Portal>

@@ -19,7 +19,16 @@ var TOTAL_CHECK_OUT = 18472;
 var CHART_DATA_CHECK_IN = [0];
 var CHART_DATA_CHECK_OUT = [64];
 
-export default function BookingCheckInWidgets({ isChecked, notChecked, size }) {
+export default function BookingCheckInWidgets({ size, gray }) {
+  var isChecked = 0;
+  var notChecked = 0;
+  for (var url of gray) {
+    if (url.isCheck === 'false') {
+      notChecked++;
+    } else if (url.isCheck === 'true') {
+      isChecked++;
+    }
+  }
   TOTAL_CHECK_IN = isChecked;
   TOTAL_CHECK_OUT = notChecked;
   CHART_DATA_CHECK_IN = [Number(((isChecked * 100) / size).toFixed(2))];

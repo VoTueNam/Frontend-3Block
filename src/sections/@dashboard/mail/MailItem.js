@@ -60,28 +60,46 @@ const linkTo = (params, mailId) => {
 };
 
 MailItem.propTypes = {
-  mail: PropTypes.object.isRequired,
+  // mail: PropTypes.object.isRequired,
   isDense: PropTypes.bool,
   isSelected: PropTypes.bool.isRequired,
   onDeselect: PropTypes.func,
   onSelect: PropTypes.func,
 };
 
-export default function MailItem({ mail, isDense, isSelected, onSelect, onDeselect, ...other }) {
+export default function MailItem({
+  isCheck,
+  content,
+  username,
+  createdAt,
+  mail,
+  keys,
+  isDense,
+  isSelected,
+  onSelect,
+  onDeselect,
+  ...other
+}) {
   const params = useParams();
 
-  const { labels } = useSelector((state) => state.mail);
+  // const { labels } = useSelector((state) => state.mail);
 
-  const isDesktop = useResponsive('up', 'md');
+  // const isDesktop = useResponsive('up', 'md');
 
-  const isAttached = mail.files.length > 0;
+  // const isAttached = mail?.files.length > 0;
 
-  const handleChangeCheckbox = (checked) => (checked ? onSelect() : onDeselect());
+  // const handleChangeCheckbox = (checked) => (checked ? onSelect() : onDeselect());
 
+  // console.log(JSON.parse(localStorage.getItem('user')).photoURL);
+  if (isCheck == 'true') {
+    isCheck = true;
+  } else {
+    isCheck = false;
+  }
   return (
     <RootStyle
       sx={{
-        ...(!mail.isUnread && {
+        ...(!isCheck && {
           color: 'text.primary',
           backgroundColor: 'background.paper',
         }),
@@ -89,7 +107,7 @@ export default function MailItem({ mail, isDense, isSelected, onSelect, onDesele
       }}
       {...other}
     >
-      {isDesktop && (
+      {/* {isDesktop && (
         <Box sx={{ mr: 2, display: 'flex' }}>
           <Checkbox checked={isSelected} onChange={(event) => handleChangeCheckbox(event.target.checked)} />
           <Tooltip title="Starred">
@@ -109,22 +127,22 @@ export default function MailItem({ mail, isDense, isSelected, onSelect, onDesele
             />
           </Tooltip>
         </Box>
-      )}
+      )} */}
 
       <WrapStyle
         color="inherit"
         underline="none"
-        component={RouterLink}
-        to={linkTo(params, mail.id)}
+        // component={RouterLink}
+        // to={linkTo(params, keys)}
         sx={{ ...(isDense && { py: 1 }) }}
       >
         <Avatar
-          alt={mail.from.name}
-          src={mail.from.avatar || ''}
-          color={createAvatar(mail.from.name).color}
+          alt={username}
+          color={createAvatar(username).color}
           sx={{ width: 32, height: 32 }}
+          src={JSON.parse(localStorage.getItem('user'))?.photoURL}
         >
-          {createAvatar(mail.from.name).name}
+          {createAvatar(username).name}
         </Avatar>
 
         <Box
@@ -139,13 +157,56 @@ export default function MailItem({ mail, isDense, isSelected, onSelect, onDesele
             variant="body2"
             noWrap
             sx={{
-              pr: 2,
+              // pr: 2,
               minWidth: 200,
-              ...(!mail.isUnread && { fontWeight: 'fontWeightBold' }),
+              ...(!isCheck && { fontWeight: 'fontWeightBold' }),
             }}
           >
-            {mail.from.name}
+            {fDate(createdAt)}
           </Typography>
+          {/* <Typography
+            variant="caption"
+            sx={{
+              flexShrink: 0,
+              minWidth: 120,
+              textAlign: 'right',
+              ...(!isCheck && { fontWeight: 'fontWeightBold' }),
+            }}
+          >
+            {fDate(createdAt)}
+          </Typography> */}
+
+          <Box sx={{ display: 'flex' }}>
+            {
+              <Label
+                key={keys}
+                color={(function () {
+                  if (isCheck) {
+                    return 'primary';
+                  } else {
+                    return 'info';
+                  }
+                })()}
+                sx={{
+                  mx: 0.5,
+                  textTransform: 'capitalize',
+                  // color: 'primary',
+                  // color: (theme) => theme.palette.getContrastText('green'),
+                }}
+              >
+                {
+                  // label.name
+                  (function () {
+                    if (isCheck) {
+                      return 'Seen';
+                    } else {
+                      return 'Unseen';
+                    }
+                  })()
+                }
+              </Label>
+            }
+          </Box>
 
           <Typography
             noWrap
@@ -154,71 +215,23 @@ export default function MailItem({ mail, isDense, isSelected, onSelect, onDesele
               pr: 2,
             }}
           >
-            <Box component="span" sx={{ ...(!mail.isUnread && { fontWeight: 'fontWeightBold' }) }}>
-              {mail.subject}
-            </Box>
-            &nbsp;-&nbsp;
+            {/* <Box component="span" sx={{ ...(!isCheck && { fontWeight: 'fontWeightBold' }) }}>
+              {'Send Admin - 3Block'}
+            </Box> */}
+
             <Box
               component="span"
               sx={{
-                ...(!mail.isUnread && { color: 'text.secondary' }),
+                ...(!isCheck && { color: 'text.secondary' }),
               }}
             >
-              {mail.message}
+              {content}
             </Box>
-          </Typography>
-
-          {isDesktop && (
-            <>
-              <Box sx={{ display: 'flex' }}>
-                {mail.labelIds.map((labelId) => {
-                  const label = labels.find((_label) => _label.id === labelId);
-                  if (!label) return null;
-                  return (
-                    <Label
-                      key={label.id}
-                      sx={{
-                        mx: 0.5,
-                        textTransform: 'capitalize',
-                        bgcolor: label.color,
-                        color: (theme) => theme.palette.getContrastText(label.color || ''),
-                      }}
-                    >
-                      {label.name}
-                    </Label>
-                  );
-                })}
-              </Box>
-
-              {isAttached && (
-                <Iconify
-                  icon={'eva:link-fill'}
-                  sx={{
-                    mx: 2,
-                    width: 20,
-                    height: 20,
-                    flexShrink: 0,
-                  }}
-                />
-              )}
-            </>
-          )}
-
-          <Typography
-            variant="caption"
-            sx={{
-              flexShrink: 0,
-              minWidth: 120,
-              textAlign: 'right',
-              ...(!mail.isUnread && { fontWeight: 'fontWeightBold' }),
-            }}
-          >
-            {fDate(mail.createdAt)}
           </Typography>
         </Box>
       </WrapStyle>
 
-      <MailItemAction className="showActions" />
+      {/* <MailItemAction className="showActions" /> */}
     </RootStyle>
   );
 }

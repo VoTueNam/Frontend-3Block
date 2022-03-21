@@ -25,6 +25,9 @@ export default function EcommerceNewProducts({ countriesName }) {
   const theme = useTheme();
   const countries = [];
   for (var i of countriesName) {
+    if (i == null) {
+      continue;
+    }
     var obj = {
       name: i,
       image: 'https://countryflagsapi.com/png/' + i,

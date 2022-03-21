@@ -28,7 +28,7 @@ MailList.propTypes = {
   onOpenSidebar: PropTypes.func,
 };
 
-export default function MailList({ onOpenSidebar }) {
+export default function MailList({ onOpenSidebar, mail3Block }) {
   const params = useParams();
 
   const dispatch = useDispatch();
@@ -69,31 +69,37 @@ export default function MailList({ onOpenSidebar }) {
   const handleDeselectOneMail = (mailId) => {
     setSelectedMails((prevSelectedMails) => prevSelectedMails.filter((id) => id !== mailId));
   };
+  console.log(mails);
 
   return (
     <RootStyle>
-      <MailToolbar
+      {/* <MailToolbar
         mails={mails.allIds.length}
         selectedMails={selectedMails.length}
         onSelectAll={handleSelectAllMails}
         onOpenSidebar={onOpenSidebar}
         onDeselectAll={handleDeselectAllMails}
         onToggleDense={handleToggleDense}
-      />
+      /> */}
 
       <Divider />
 
       {!isEmpty ? (
         <Scrollbar>
           <Box sx={{ minWidth: { md: 800 } }}>
-            {mails.allIds.map((mailId) => (
+            {mail3Block.map((mailInfo) => (
               <MailItem
-                key={mailId}
+                isCheck={mailInfo.isCheck}
+                content={mailInfo.content}
+                username={mailInfo.username}
+                createdAt={mailInfo.createdAt}
+                keys={mailInfo._id + 'asd'}
+                key={mailInfo._id}
                 isDense={dense}
-                mail={mails.byId[mailId]}
-                isSelected={selectedMails.includes(mailId)}
-                onSelect={() => handleSelectOneMail(mailId)}
-                onDeselect={() => handleDeselectOneMail(mailId)}
+                // mail={mails.byId[mailInfo._id]}
+                isSelected={selectedMails.includes(mailInfo._id)}
+                onSelect={() => handleSelectOneMail(mailInfo._id)}
+                onDeselect={() => handleDeselectOneMail(mailInfo._id)}
               />
             ))}
           </Box>

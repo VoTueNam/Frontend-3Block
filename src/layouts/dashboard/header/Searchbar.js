@@ -96,7 +96,7 @@ export default function Searchbar() {
     }
   };
 
-  const handleScan = () => {
+  const handleScan = async () => {
     setIsLoading(true);
     setOpen(false);
     if (!validURL(url)) {

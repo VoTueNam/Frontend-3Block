@@ -61,10 +61,33 @@ export default function NavbarAccount({ isCollapse }) {
           }}
         >
           <Typography variant="subtitle2" noWrap>
-            {user?.displayName || user?.email}
+            {(() => {
+              if (user?.displayName) {
+                if (user?.displayName?.length >= 20) {
+                  return user?.displayName.slice(0, 17).concat('...');
+                } else {
+                  return user?.displayName;
+                }
+              } else {
+                if (user?.email?.length >= 20) {
+                  return user?.email.slice(0, 17).concat('...');
+                } else {
+                  return user?.email;
+                }
+              }
+            })()}
           </Typography>
           <Typography variant="body2" noWrap sx={{ color: 'text.secondary' }}>
-            {user?.email}
+            {(function () {
+              if (user?.email) {
+                if (user?.email?.length >= 20) {
+                  return user?.email.slice(0, 17).concat('...');
+                } else {
+                  return user?.email;
+                }
+              }
+              return undefined;
+            })()}
           </Typography>
         </Box>
       </RootStyle>

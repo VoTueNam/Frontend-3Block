@@ -19,21 +19,13 @@ import {
 
 // ----------------------------------------------------------------------
 var grays;
-var isChecked = 0;
-var notChecked = 0;
+
 if (!localStorage.getItem('grayList')) {
   getGrayLists();
   // alert('Wait Updating GrayList!');
 } else {
   grays = JSON.parse(localStorage.getItem('grayList'));
   // console.log(gray);
-  for (var url of grays) {
-    if (url.isCheck === 'false') {
-      notChecked++;
-    } else if (url.isCheck === 'true') {
-      isChecked++;
-    }
-  }
 }
 
 export default function GeneralBooking() {
@@ -67,7 +59,7 @@ export default function GeneralBooking() {
             />
             {/* <Grid item xs={12} md={4}> */}
             <br />
-            <BookingCheckInWidgets isChecked={isChecked} notChecked={notChecked} size={gray.length} />
+            <BookingCheckInWidgets gray={gray} size={gray.length} />
             {/* </Grid> */}
           </Grid>
 

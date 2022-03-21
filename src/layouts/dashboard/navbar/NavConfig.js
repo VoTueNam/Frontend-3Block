@@ -1,4 +1,5 @@
 // routes
+import Label from '../../../components/Label';
 import SvgIconStyle from '../../../components/SvgIconStyle';
 import { PATH_DASHBOARD } from '../../../routes/paths';
 
@@ -95,28 +96,28 @@ const navConfig = [
 
   //   // APP
   //   // ----------------------------------------------------------------------
-  //   {
-  //     subheader: 'app',
-  //     items: [
-  //       {
-  //         title: 'mail',
-  //         path: PATH_DASHBOARD.mail.root,
-  //         icon: ICONS.mail,
-  //         info: (
-  //           <Label variant="outlined" color="error">
-  //             +32
-  //           </Label>
-  //         ),
-  //       },
-  //       { title: 'chat', path: PATH_DASHBOARD.chat.root, icon: ICONS.chat },
-  //       { title: 'calendar', path: PATH_DASHBOARD.calendar, icon: ICONS.calendar },
-  //       {
-  //         title: 'kanban',
-  //         path: PATH_DASHBOARD.kanban,
-  //         icon: ICONS.kanban,
-  //       },
-  //     ],
-  //   },
+  {
+    subheader: 'Contract',
+    items: [
+      {
+        title: 'mail',
+        path: PATH_DASHBOARD.mail.root,
+        icon: ICONS.mail,
+        info: (
+          <Label variant="outlined" color="error">
+            +32
+          </Label>
+        ),
+      },
+      // { title: 'chat', path: PATH_DASHBOARD.chat.root, icon: ICONS.chat },
+      // { title: 'calendar', path: PATH_DASHBOARD.calendar, icon: ICONS.calendar },
+      // {
+      //   title: 'kanban',
+      //   path: PATH_DASHBOARD.kanban,
+      //   icon: ICONS.kanban,
+      // },
+    ],
+  },
 ];
 
 export default navConfig;

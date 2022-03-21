@@ -108,15 +108,15 @@ export default function EditorToolbar({ id, isSimple, ...other }) {
             <option value="">Normal</option>
           </select>
         </div>
-
+        {/* 
         <div className="ql-formats">
           <button type="button" className="ql-bold" />
           <button type="button" className="ql-italic" />
           <button type="button" className="ql-underline" />
           <button type="button" className="ql-strike" />
-        </div>
+        </div> */}
 
-        {!isSimple && (
+        {/* {!isSimple && (
           <div className="ql-formats">
             <select className="ql-color" />
             <select className="ql-background" />
@@ -147,9 +147,9 @@ export default function EditorToolbar({ id, isSimple, ...other }) {
         <div className="ql-formats">
           <button type="button" className="ql-direction" value="rtl" />
           <select className="ql-align" />
-        </div>
+        </div> */}
 
-        <div className="ql-formats">
+        {/* <div className="ql-formats">
           <button type="button" className="ql-link" />
           <button type="button" className="ql-image" />
           <button type="button" className="ql-video" />
@@ -158,9 +158,9 @@ export default function EditorToolbar({ id, isSimple, ...other }) {
         <div className="ql-formats">
           {!isSimple && <button type="button" className="ql-formula" />}
           <button type="button" className="ql-clean" />
-        </div>
+        </div> */}
 
-        {!isSimple && (
+        {/* {!isSimple && (
           <div className="ql-formats">
             <button type="button" className="ql-undo">
               <Iconify icon={'ic:round-undo'} width={18} height={18} />
@@ -169,7 +169,7 @@ export default function EditorToolbar({ id, isSimple, ...other }) {
               <Iconify icon={'ic:round-redo'} width={18} height={18} />
             </button>
           </div>
-        )}
+        )} */}
       </div>
     </EditorToolbarStyle>
   );

@@ -27,11 +27,17 @@ MailSidebar.propTypes = {
 export default function MailSidebar({ isOpenSidebar, onOpenCompose, onCloseSidebar }) {
   const { pathname } = useLocation();
 
-  const { labels } = useSelector((state) => state.mail);
-
+  var { labels } = useSelector((state) => state.mail);
+  // console.log(labels);
+  labels = [
+    { id: 'all', type: 'system', name: 'all message', unreadCount: 3 },
+    // { id: 'inbox', type: 'system', name: 'Unseen', unreadCount: 1 },
+    // { id: 'sent', type: 'system', name: 'Seen', unreadCount: 0 },
+  ];
   const isDesktop = useResponsive('up', 'md');
 
   const loading = !labels.length;
+  console.log(loading);
 
   useEffect(() => {
     if (isOpenSidebar) {
