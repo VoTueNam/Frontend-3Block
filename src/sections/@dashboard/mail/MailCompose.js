@@ -72,23 +72,23 @@ export default function MailCompose({ isOpenCompose, onCloseCompose, getMail }) 
 
   const handOnSubmit = () => {
     var messageAPI = message;
-    messageAPI = message
-      .replaceAll('</p><p>', '.')
-      .replaceAll('</p>', ' ')
-      .replaceAll('<p>', ' ')
-      .replaceAll('<h1>', ' ')
-      .replaceAll('</h1>', ' ')
-      .replaceAll('<h2>', ' ')
-      .replaceAll('</h2>', ' ')
-      .replaceAll('<h3>', ' ')
-      .replaceAll('</h3>', ' ')
-      .replaceAll('<h4>', ' ')
-      .replaceAll('</h4>', ' ')
-      .replaceAll('<h5>', ' ')
-      .replaceAll('</h5>', ' ')
-      .replaceAll('<h6>', ' ')
-      .replaceAll('</h6>', ' ')
-      .replaceAll('<br>', ' ');
+    // messageAPI = message
+    //   .replaceAll('</p><p>', '.')
+    //   .replaceAll('</p>', ' ')
+    //   .replaceAll('<p>', ' ')
+    //   .replaceAll('<h1>', ' ')
+    //   .replaceAll('</h1>', ' ')
+    //   .replaceAll('<h2>', ' ')
+    //   .replaceAll('</h2>', ' ')
+    //   .replaceAll('<h3>', ' ')
+    //   .replaceAll('</h3>', ' ')
+    //   .replaceAll('<h4>', ' ')
+    //   .replaceAll('</h4>', ' ')
+    //   .replaceAll('<h5>', ' ')
+    //   .replaceAll('</h5>', ' ')
+    //   .replaceAll('<h6>', ' ')
+    //   .replaceAll('</h6>', ' ')
+    //   .replaceAll('<br>', ' ');
     setIsLoading(true);
     var nameUser = JSON.parse(localStorage.getItem('user'));
     const listDisplay = JSON.parse(localStorage.getItem('displayName'));

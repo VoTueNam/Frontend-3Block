@@ -80,6 +80,23 @@ export default function MailItem({
   onDeselect,
   ...other
 }) {
+  content = content
+    .replaceAll('</p><p>', '.')
+    .replaceAll('</p>', ' ')
+    .replaceAll('<p>', ' ')
+    .replaceAll('<h1>', ' ')
+    .replaceAll('</h1>', ' ')
+    .replaceAll('<h2>', ' ')
+    .replaceAll('</h2>', ' ')
+    .replaceAll('<h3>', ' ')
+    .replaceAll('</h3>', ' ')
+    .replaceAll('<h4>', ' ')
+    .replaceAll('</h4>', ' ')
+    .replaceAll('<h5>', ' ')
+    .replaceAll('</h5>', ' ')
+    .replaceAll('<h6>', ' ')
+    .replaceAll('</h6>', ' ')
+    .replaceAll('<br>', ' ');
   const params = useParams();
 
   // const { labels } = useSelector((state) => state.mail);
