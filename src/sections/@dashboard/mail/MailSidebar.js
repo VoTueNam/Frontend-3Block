@@ -24,13 +24,13 @@ MailSidebar.propTypes = {
   onCloseSidebar: PropTypes.func,
 };
 
-export default function MailSidebar({ isOpenSidebar, onOpenCompose, onCloseSidebar }) {
+export default function MailSidebar({ isOpenSidebar, onOpenCompose, onCloseSidebar, sizeMail }) {
   const { pathname } = useLocation();
 
   var { labels } = useSelector((state) => state.mail);
   // console.log(labels);
   labels = [
-    { id: 'all', type: 'system', name: 'all message', unreadCount: 3 },
+    { id: 'all', type: 'system', name: 'all message', unreadCount: sizeMail },
     // { id: 'inbox', type: 'system', name: 'Unseen', unreadCount: 1 },
     // { id: 'sent', type: 'system', name: 'Seen', unreadCount: 0 },
   ];

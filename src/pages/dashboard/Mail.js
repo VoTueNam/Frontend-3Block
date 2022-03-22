@@ -46,10 +46,10 @@ export default function Mail() {
     }
   }, []);
   return (
-    <Page title="Message | 3Block">
+    <Page title="Message">
       <Container maxWidth={themeStretch ? false : 'xl'}>
         <HeaderBreadcrumbs
-          heading="Message - Admin"
+          heading="Send messages to Admin"
           links={[
             {
               name: 'Dashboard',
@@ -60,6 +60,7 @@ export default function Mail() {
         />
         <Card sx={{ height: { md: '72vh' }, display: { md: 'flex' } }}>
           <MailSidebar
+            sizeMail={mail3Block.length}
             isOpenSidebar={openSidebar}
             onCloseSidebar={() => setOpenSidebar(false)}
             onOpenCompose={() => setOpenCompose(true)}
@@ -82,6 +83,14 @@ export default function Mail() {
       .then((json) => {
         console.log('Call API');
         const userLocal = JSON.parse(localStorage.getItem('user'));
+        const listDisplay = JSON.parse(localStorage.getItem('displayName'));
+        if (userLocal != null && userLocal?.email) {
+          for (let i of listDisplay) {
+            if (i.email === userLocal.email) {
+              userLocal.displayName = i.displayName;
+            }
+          }
+        }
         const checkDisplayName = userLocal?.displayName;
         const checkEmail = userLocal?.email;
         const listMail3Block = json.filter((dataMail) => {

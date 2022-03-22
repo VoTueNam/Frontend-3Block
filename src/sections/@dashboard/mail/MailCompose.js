@@ -9,6 +9,7 @@ import useResponsive from '../../../hooks/useResponsive';
 import Iconify from '../../../components/Iconify';
 import Editor from '../../../components/editor';
 import { m } from 'framer-motion';
+import { useSnackbar } from 'notistack';
 
 // ----------------------------------------------------------------------
 
@@ -41,6 +42,8 @@ MailCompose.propTypes = {
 };
 
 export default function MailCompose({ isOpenCompose, onCloseCompose, getMail }) {
+  const { enqueueSnackbar } = useSnackbar();
+
   const [fullScreen, setFullScreen] = useState(false);
   const [message, setMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -68,15 +71,43 @@ export default function MailCompose({ isOpenCompose, onCloseCompose, getMail }) 
   }
 
   const handOnSubmit = () => {
+    var messageAPI = message;
+    messageAPI = message
+      .replaceAll('</p><p>', '.')
+      .replaceAll('</p>', ' ')
+      .replaceAll('<p>', ' ')
+      .replaceAll('<h1>', ' ')
+      .replaceAll('</h1>', ' ')
+      .replaceAll('<h2>', ' ')
+      .replaceAll('</h2>', ' ')
+      .replaceAll('<h3>', ' ')
+      .replaceAll('</h3>', ' ')
+      .replaceAll('<h4>', ' ')
+      .replaceAll('</h4>', ' ')
+      .replaceAll('<h5>', ' ')
+      .replaceAll('</h5>', ' ')
+      .replaceAll('<h6>', ' ')
+      .replaceAll('</h6>', ' ')
+      .replaceAll('<br>', ' ');
     setIsLoading(true);
     var nameUser = JSON.parse(localStorage.getItem('user'));
+    const listDisplay = JSON.parse(localStorage.getItem('displayName'));
+    // console.log(listDisplay);
+    if (nameUser != null && nameUser?.email) {
+      for (let i of listDisplay) {
+        if (i.email === nameUser.email) {
+          nameUser.displayName = i.displayName;
+        }
+      }
+    }
+    console.log(nameUser);
     nameUser = nameUser?.displayName || nameUser?.email;
     fetch('https://api3blockserver.herokuapp.com/api/3block/system/postMessage', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         username: nameUser,
-        content: message,
+        content: messageAPI,
       }),
     })
       .then((response) => {
@@ -87,6 +118,11 @@ export default function MailCompose({ isOpenCompose, onCloseCompose, getMail }) 
         console.log('thành công');
         await getMail();
         setIsLoading(false);
+        enqueueSnackbar('Send Message Successfully!', { variant: 'success' });
+      })
+      .catch(() => {
+        setIsLoading(false);
+        enqueueSnackbar('Error to Send Message. Try again!', { variant: 'error' });
       });
   };
 
@@ -106,7 +142,7 @@ export default function MailCompose({ isOpenCompose, onCloseCompose, getMail }) 
             },
             height: {
               xs: `calc(100% - 24px)`,
-              md: `calc(100% - 80px)`,
+              md: `calc(7% - 80px)`,
             },
           }),
         }}

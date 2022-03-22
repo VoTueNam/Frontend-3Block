@@ -100,14 +100,14 @@ const navConfig = [
     subheader: 'Contract',
     items: [
       {
-        title: 'mail',
+        title: 'messages',
         path: PATH_DASHBOARD.mail.root,
         icon: ICONS.mail,
-        info: (
-          <Label variant="outlined" color="error">
-            +32
-          </Label>
-        ),
+        // info: (
+        //   <Label variant="outlined" color="error">
+        //     +32
+        //   </Label>
+        // ),
       },
       // { title: 'chat', path: PATH_DASHBOARD.chat.root, icon: ICONS.chat },
       // { title: 'calendar', path: PATH_DASHBOARD.calendar, icon: ICONS.calendar },
