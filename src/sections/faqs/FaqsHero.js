@@ -48,7 +48,9 @@ export default function FaqsHero() {
           </div>
 
           <m.div variants={varFade().inUp}>
-            <InputStyle
+            <br />
+            <br />
+            {/* <InputStyle
               stretchStart={280}
               placeholder="Search support"
               InputProps={{
@@ -63,7 +65,7 @@ export default function FaqsHero() {
                   color: 'common.white',
                 },
               }}
-            />
+            /> */}
           </m.div>
         </ContentStyle>
       </Container>

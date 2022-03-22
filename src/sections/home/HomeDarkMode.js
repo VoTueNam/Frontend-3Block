@@ -56,7 +56,7 @@ export default function HomeDarkMode() {
             <ContentStyle>
               <MotionInView variants={varFade().inUp}>
                 <Typography component="div" variant="overline" sx={{ mb: 2, color: 'text.disabled' }}>
-                  Easy switch between public and custom list.
+                  Protect your browsing safety in every moment
                 </Typography>
               </MotionInView>
 
@@ -68,7 +68,11 @@ export default function HomeDarkMode() {
 
               <MotionInView variants={varFade().inUp}>
                 <Typography sx={{ color: 'common.white', mb: 5 }}>
-                  Block any blacklisted websites and analytics URLs when the pop-up extension appears!
+                  Protect user with Black & White list, blocking malicious URL.
+                  <br />
+                  Children Protection: prevent access 18+ content on web browser.
+                  <br />
+                  Detect Iframes on web pages and remove them
                 </Typography>
               </MotionInView>
             </ContentStyle>
@@ -79,15 +83,14 @@ export default function HomeDarkMode() {
               <Image
                 disabledEffect
                 alt="light mode"
-                src="https://minimal-assets-api.vercel.app/assets/images/home/lightmode.png"
+                src="https://votuenam.github.io/image-hosting/background/darkMode3Block3.png"
               />
             </MotionInView>
-
             <MotionInView threshold={0.5} variants={varFade().inDown} sx={{ top: 0, left: 0, position: 'absolute' }}>
               <Image
                 disabledEffect
                 alt="dark mode"
-                src="https://minimal-assets-api.vercel.app/assets/images/home/darkmode.png"
+                src="https://votuenam.github.io/image-hosting/background/lightMode3Block3.png"
               />
             </MotionInView>
           </Grid>

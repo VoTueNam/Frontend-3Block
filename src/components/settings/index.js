@@ -100,9 +100,9 @@ export default function Settings() {
       <AnimatePresence>
         {open && (
           <>
-            <RootStyle {...varSidebar}>
+            <RootStyle {...varSidebar} sx={{ height: '78%' }}>
               <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ py: 2, pr: 1, pl: 2.5 }}>
-                <Typography variant="subtitle1">Settings</Typography>
+                <Typography variant="subtitle1">Settings | 3Block</Typography>
                 <div>
                   <IconButtonAnimate onClick={onResetSetting}>
                     <Iconify icon={'ic:round-refresh'} width={20} height={20} />
@@ -122,10 +122,10 @@ export default function Settings() {
                     <SettingMode />
                   </Stack>
 
-                  <Stack spacing={1.5}>
+                  {/* <Stack spacing={1.5}>
                     <Typography variant="subtitle2">Direction</Typography>
                     <SettingDirection />
-                  </Stack>
+                  </Stack> */}
 
                   <Stack spacing={1.5}>
                     <Typography variant="subtitle2">Layout</Typography>
@@ -137,10 +137,10 @@ export default function Settings() {
                     <SettingColorPresets />
                   </Stack>
 
-                  <Stack spacing={1.5}>
+                  {/* <Stack spacing={1.5}>
                     <Typography variant="subtitle2">Stretch</Typography>
                     <SettingStretch />
-                  </Stack>
+                  </Stack> */}
 
                   <SettingFullscreen />
                 </Stack>

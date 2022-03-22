@@ -37,13 +37,14 @@ export default function BankingInviteFriends({
   setIsLoading18,
 }) {
   var Update = 'Update';
-  if (url === 'Please enter the domain you suspect') Update = 'Check!';
+  if (url === 'Please enter domain you suspect has 18+ content') Update = 'Check!';
   const [isLoading, setIsLoading] = useState(false);
 
   const { enqueueSnackbar } = useSnackbar();
 
   const currentUser = JSON.parse(localStorage.getItem('user'));
-  if (url !== 'Enter your suggestion' && url !== 'Please enter the domain you suspect') url = url.slice(7, -1);
+  if (url !== 'Enter your suggestion' && url !== 'Please enter domain you suspect has 18+ content')
+    url = url.slice(7, -1);
   // console.log('image = ' + currentUser?.photoURL);
 
   const [submitValue, setSubmitValue] = useState('');
@@ -54,7 +55,7 @@ export default function BankingInviteFriends({
       return;
     }
     setIsLoading(true);
-    if (url === 'Please enter the domain you suspect') {
+    if (url === 'Please enter domain you suspect has 18+ content') {
       setIsLoading18(true);
       callAPICheck18(submitValue);
       return;
@@ -150,7 +151,7 @@ export default function BankingInviteFriends({
         visibleByDefault
         disabledEffect
         src={(function () {
-          if (url === 'Please enter the domain you suspect') {
+          if (url === 'Please enter domain you suspect has 18+ content') {
             return 'https://votuenam.github.io/image-hosting/BackGroud3block18.png';
           } else {
             return 'https://votuenam.github.io/image-hosting/BackGroud3Block' + virusTotal + '.png';

@@ -2,10 +2,10 @@
 
 export const role = [
   'Leader',
-  'Full Stack Designer',
-  'Front End Developer',
-  'Backend Developer',
-  'Backend Developer',
+  'Full Stack Developer',
+  'Designer',
+  'Extension Developer',
+  'Extension Developer',
   'Project Manager',
   'Leader',
   'Backend Developer',

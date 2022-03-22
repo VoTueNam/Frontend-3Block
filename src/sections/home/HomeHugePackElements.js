@@ -89,8 +89,8 @@ export default function HomeHugePackElements() {
 
               <MotionInView variants={varFade().inUp}>
                 <Typography variant="h2" sx={{ mb: 3 }}>
-                  Search or <br />
-                  Scan URL
+                  Scan and <br />
+                  Analytics URL
                 </Typography>
               </MotionInView>
 
@@ -103,7 +103,7 @@ export default function HomeHugePackElements() {
                 >
                   Evaluating a URL based on blacklist information and detailing that site's data on the user interface!
                   <br />
-                  Suggest URL to add to Blacklist and Whitelist
+                  URL testing and analysis based on API of Virustotal, Urlscan io, Computer Vision.
                 </Typography>
               </MotionInView>
 

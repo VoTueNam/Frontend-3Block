@@ -11,7 +11,7 @@ const RootStyle = styled('div')(({ theme }) => ({
   backgroundSize: 'cover',
   backgroundPosition: 'center',
   backgroundImage:
-    'url(https://votuenam.github.io/image-hosting/background/overlay.svg), url(https://votuenam.github.io/image-hosting/background/luyie.png)',
+    'url(https://votuenam.github.io/image-hosting/background/overlay.svg), url(https://votuenam.github.io/image-hosting/background/fptAboutUs.jpg)',
   padding: theme.spacing(10, 0),
   [theme.breakpoints.up('md')]: {
     height: 560,

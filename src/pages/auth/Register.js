@@ -84,12 +84,9 @@ export default function Register() {
         {mdUp && (
           <SectionStyle>
             <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>
-              Manage the job more effectively with Minimal
+              Scan anythings with 3Block
             </Typography>
-            <Image
-              alt="register"
-              src="https://minimal-assets-api.vercel.app/assets/illustrations/illustration_register.png"
-            />
+            <Image alt="register" src="https://votuenam.github.io/image-hosting/register.png" />
           </SectionStyle>
         )}
 
@@ -106,7 +103,7 @@ export default function Register() {
                 <>
                   <Image
                     disabledEffect
-                    src={`https://minimal-assets-api.vercel.app/assets/icons/auth/ic_${method}.png`}
+                    src={`https://votuenam.github.io/image-hosting/ic_jwt.png`}
                     sx={{ width: 32, height: 32 }}
                   />
                 </>

@@ -30,7 +30,7 @@ const ContentStyle = styled('div')(({ theme }) => ({
 
 export default function HomePage() {
   return (
-    <Page title="3Block | Home Page">
+    <Page title="Home Page">
       <RootStyle>
         <HomeHero />
         <ContentStyle>

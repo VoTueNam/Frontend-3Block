@@ -107,7 +107,7 @@ export default function MailList({ onOpenSidebar, mail3Block }) {
       ) : (
         <EmptyContent
           title="There is no conversation"
-          img="https://minimal-assets-api.vercel.app/assets/illustrations/illustration_empty_mail.svg"
+          img="https://votuenam.github.io/image-hosting/illustration_empty_mail.svg"
           sx={{ flexGrow: 1, height: 'auto' }}
         />
       )}

@@ -48,6 +48,36 @@ export default function AboutTeam() {
     carouselRef.current.slickNext();
   };
 
+  const linkSocial = [
+    {
+      facebook: 'https://www.facebook.com/namdo.eut/',
+      github: 'https://github.com/VoTueNam',
+      linkedin: 'https://www.linkedin.com/in/namdo-eut/',
+    },
+    {
+      facebook: 'https://www.facebook.com/LongNMCE/',
+      github: 'https://github.com/Nguyen-Minh-Long',
+    },
+    {
+      facebook: 'https://www.facebook.com/vunguyen260803.trying/',
+      github: 'https://github.com/NguyenVu1310',
+      linkedin: 'https://www.linkedin.com/in/nguyenvu2608/',
+    },
+    {
+      facebook: 'https://www.facebook.com/thaile2710/',
+      github: 'https://github.com/Thailee2710',
+      linkedin: 'https://www.linkedin.com/in/thaile2710/',
+    },
+    {
+      facebook: 'https://www.facebook.com/profile.php?id=100014552829644',
+    },
+  ];
+  for (let i in _carouselsMembers) {
+    _carouselsMembers[i].link = linkSocial[i];
+    console.log(_carouselsMembers[i]);
+  }
+  console.log(_carouselsMembers);
+
   return (
     <Container sx={{ pb: 10, textAlign: 'center' }}>
       <MotionInView variants={varFade().inDown}>
@@ -106,11 +136,12 @@ MemberCard.propTypes = {
     avatar: PropTypes.string,
     name: PropTypes.string,
     role: PropTypes.string,
+    link: PropTypes.object,
   }),
 };
 
 function MemberCard({ member }) {
-  const { name, role, avatar } = member;
+  const { name, role, avatar, link } = member;
 
   return (
     <Card key={name} sx={{ p: 1 }}>
@@ -122,7 +153,7 @@ function MemberCard({ member }) {
       </Typography>
       <Image src={avatar} ratio="1/1" sx={{ borderRadius: 1.5 }} />
       <Stack alignItems="center" sx={{ mt: 2, mb: 1 }}>
-        <SocialsButton sx={{ color: 'action.active' }} />
+        <SocialsButton sx={{ color: 'action.active' }} links={link} />
       </Stack>
     </Card>
   );

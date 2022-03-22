@@ -64,9 +64,9 @@ export default function HomeAdvertisement() {
             <Button
               size="large"
               variant="contained"
-              target="_blank"
+              // target="_blank"
               rel="noopener"
-              href="#"
+              href="/auth/login"
               sx={{
                 whiteSpace: 'nowrap',
                 boxShadow: (theme) => theme.customShadows.z8,

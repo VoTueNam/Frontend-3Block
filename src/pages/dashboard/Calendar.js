@@ -35,7 +35,7 @@ export default function GeneralBooking() {
           <Grid item xs={8} md={7}>
             <BankingInviteFriends
               virusTotal={true}
-              url={'Please enter the domain you suspect'}
+              url={'Please enter domain you suspect has 18+ content'}
               title={' URL here:'}
               setIs18Plus={setIs18Plus}
               setIsLoading18={setIsLoading}

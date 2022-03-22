@@ -12,7 +12,7 @@ const CARDS = [
     icon: 'https://votuenam.github.io/image-hosting/features/AnalysisIcon.svg',
     title: 'Analysis URL',
     description:
-      'Use blacklisting and whitelisting when evaluating websites. It helps you get a quick idea of how malicious a URL is and provides information about other components of websites easily.',
+      'We provide a solution that scans, analyzes the URL, and then returns results that include the malicious level, information of the website. Also check the URL is adult content or not.',
   },
   {
     icon: 'https://votuenam.github.io/image-hosting/features/CodeIcon.svg',
@@ -23,7 +23,8 @@ const CARDS = [
   {
     icon: 'https://votuenam.github.io/image-hosting/features/ChildrenIcon_to.svg',
     title: 'Children Protection',
-    description: 'Protect children from harmful and adult content on the web browsing environment.',
+    description:
+      'Protect children from harmful and adult content on the web browsing environment. And provide proactive management solutions for parents.',
   },
 ];
 

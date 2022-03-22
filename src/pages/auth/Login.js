@@ -89,7 +89,7 @@ export default function Login() {
             <Typography variant="body2" sx={{ mt: { md: -2 } }}>
               Have you logged in yet? {''}
               <Link variant="subtitle2" component={RouterLink} to={'/dashboard/analytics'}>
-                Get started
+                Let's GO!
               </Link>
             </Typography>
           )}
@@ -100,10 +100,7 @@ export default function Login() {
             <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>
               Hi, Welcome Back
             </Typography>
-            <Image
-              alt="login"
-              src="https://minimal-assets-api.vercel.app/assets/illustrations/illustration_login.png"
-            />
+            <Image alt="login" src="https://votuenam.github.io/image-hosting/login.png" />
           </SectionStyle>
         )}
 
@@ -112,7 +109,7 @@ export default function Login() {
             <Stack direction="row" alignItems="center" sx={{ mb: 5 }}>
               <Box sx={{ flexGrow: 1 }}>
                 <Typography variant="h4" gutterBottom>
-                  Sign in to Minimal
+                  Sign in to 3Block
                 </Typography>
                 <Typography sx={{ color: 'text.secondary' }}>Enter your details below.</Typography>
               </Box>
@@ -127,7 +124,7 @@ export default function Login() {
                 <>
                   <Image
                     disabledEffect
-                    src={`https://minimal-assets-api.vercel.app/assets/icons/auth/ic_jwt.png`}
+                    src={`https://votuenam.github.io/image-hosting/ic_jwt.png`}
                     sx={{ width: 32, height: 32 }}
                   />
                 </>
@@ -175,7 +172,7 @@ export default function Login() {
               <Typography variant="body2" align="center" sx={{ mt: 3 }}>
                 Don’t have an account?{' '}
                 <Link variant="subtitle2" component={RouterLink} to={PATH_AUTH.register}>
-                  Get started
+                  Register now
                 </Link>
               </Typography>
             )}

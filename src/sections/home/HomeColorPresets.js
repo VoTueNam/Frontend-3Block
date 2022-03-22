@@ -55,7 +55,7 @@ export default function HomeColorPresets() {
           >
             Use a password to turn the feature on and off.
             <br />
-            Browse the web in strict mode with a blacklist of 4 million URLs.
+            Browse the web in strict mode with a blacklist of 1.908.835 URLs.
             <br />
             Harmful and adult content will be kept to a minimum!
           </Typography>
@@ -144,7 +144,7 @@ export default function HomeColorPresets() {
               <Image
                 disabledEffect
                 alt="screen"
-                src={`https://minimal-assets-api.vercel.app/assets/images/home/theme-color/screen-${themeColorPresets}.png`}
+                src={`https://votuenam.github.io/image-hosting/theme-color/screen-default.png`}
               />
             </MotionInView>
           </Box>

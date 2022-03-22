@@ -23,10 +23,10 @@ export default function SocialsButton({ initialColor = false, simple = true, lin
       path: links.facebook || '/404',
     },
     {
-      name: 'Instagram',
-      icon: 'ant-design:instagram-filled',
+      name: 'Github',
+      icon: 'ant-design:github-filled',
       socialColor: '#E02D69',
-      path: links.instagram || '/404',
+      path: links.github || '/404',
     },
     {
       name: 'Linkedin',
@@ -34,12 +34,12 @@ export default function SocialsButton({ initialColor = false, simple = true, lin
       socialColor: '#007EBB',
       path: links.linkedin || '/404',
     },
-    {
-      name: 'Twitter',
-      icon: 'eva:twitter-fill',
-      socialColor: '#00AAEC',
-      path: links.twitter || '/404',
-    },
+    // {
+    //   name: 'Email',
+    //   icon: 'eva:email-fill',
+    //   socialColor: '#00AAEC',
+    //   path: links.email || '/404',
+    // },
   ];
 
   return (

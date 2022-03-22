@@ -76,7 +76,8 @@ export default function HomeHero() {
 
         <HeroImgStyle
           alt="hero"
-          src="https://minimal-assets-api.vercel.app/assets/images/home/hero.png"
+          src={'https://votuenam.github.io/image-hosting/background/testHero2.png'}
+          // src="https://minimal-assets-api.vercel.app/assets/images/home/hero.png"
           variants={varFade().inUp}
         />
 
@@ -145,7 +146,7 @@ export default function HomeHero() {
               </m.div> */}
             {/* </Stack> */}
 
-            <m.div variants={varFade().inUp}>
+            {/* <m.div variants={varFade().inUp}>
               <InputStyle
                 stretchStart={280}
                 placeholder="Search URL Now!"
@@ -162,7 +163,7 @@ export default function HomeHero() {
                   },
                 }}
               />
-            </m.div>
+            </m.div> */}
 
             <m.div variants={varFade().inRight}>
               <Button
@@ -189,9 +190,14 @@ export default function HomeHero() {
                   'ExpressNoBG',
                   'ReactNoBG',
                   'MongoDBNoBG',
+                  // 'github_noBG3',
                   'HerokuNoBG',
                   'FirebaseNoBG',
                   'MuiUINoBG',
+                  'URLScan_noBG2',
+                  'azure_noBG2',
+                  'chrome_noBG2',
+                  'virusTotal_noBG2',
                 ].map((resource) => (
                   <m.img
                     key={resource}
