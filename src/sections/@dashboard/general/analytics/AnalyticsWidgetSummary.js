@@ -4,6 +4,7 @@ import { alpha, styled } from '@mui/material/styles';
 import PropTypes from 'prop-types';
 // components
 import Iconify from '../../../../components/Iconify';
+import { m } from 'framer-motion';
 
 // ----------------------------------------------------------------------
 
@@ -33,7 +34,7 @@ AnalyticsWidgetSummary.propTypes = {
   total: PropTypes.string,
 };
 
-export default function AnalyticsWidgetSummary({ title, total, icon, color = 'primary' }) {
+export default function AnalyticsWidgetSummary({ title, total, icon, color = 'primary', isLoading }) {
   return (
     <RootStyle
       sx={{
@@ -51,7 +52,23 @@ export default function AnalyticsWidgetSummary({ title, total, icon, color = 'pr
             )} 100%)`,
         }}
       >
-        <Iconify icon={icon} width={24} height={24} />
+        {isLoading && (
+          <m.div
+            initial={{ rotateY: 0 }}
+            animate={{ rotateY: 360 }}
+            transition={{
+              duration: 2,
+              ease: 'easeInOut',
+              repeatDelay: 1,
+              repeat: Infinity,
+            }}
+          >
+            <Iconify icon={icon} width={24} height={24} />
+          </m.div>
+        )}
+
+        {!isLoading && <Iconify icon={icon} width={24} height={24} />}
+        {/* <Iconify icon={icon} width={24} height={24} /> */}
       </IconWrapperStyle>
       <Typography variant="h3">{total}</Typography>
       <Typography variant="subtitle2" sx={{ opacity: 0.72 }}>

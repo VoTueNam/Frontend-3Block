@@ -28,13 +28,22 @@ const ContentStyle = styled(Card)(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-export default function BankingInviteFriends({ url = 'example.com', title = 'None', virusTotal = true, setGray }) {
+export default function BankingInviteFriends({
+  url = 'example.com',
+  title = 'None',
+  virusTotal = true,
+  setGray,
+  setIs18Plus,
+  setIsLoading18,
+}) {
+  var Update = 'Update';
+  if (url === 'Please enter the domain you suspect') Update = 'Check!';
   const [isLoading, setIsLoading] = useState(false);
 
   const { enqueueSnackbar } = useSnackbar();
 
   const currentUser = JSON.parse(localStorage.getItem('user'));
-  if (url !== 'Enter your suggestion') url = url.slice(7, -1);
+  if (url !== 'Enter your suggestion' && url !== 'Please enter the domain you suspect') url = url.slice(7, -1);
   // console.log('image = ' + currentUser?.photoURL);
 
   const [submitValue, setSubmitValue] = useState('');
@@ -45,6 +54,12 @@ export default function BankingInviteFriends({ url = 'example.com', title = 'Non
       return;
     }
     setIsLoading(true);
+    if (url === 'Please enter the domain you suspect') {
+      setIsLoading18(true);
+      callAPICheck18(submitValue);
+      return;
+    }
+    console.log('mis');
     // console.log('submit ' + submitValue);
     // console.log(currentUser.displayName);
     fetch('https://api3blockserver.herokuapp.com/user/gray/system/3block/createNew', {
@@ -99,12 +114,48 @@ export default function BankingInviteFriends({ url = 'example.com', title = 'Non
       });
   }
 
+  function callAPICheck18(url) {
+    fetch('https://api3blockserver.herokuapp.com/api/3block/system/is18Plus', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        url: url,
+        isCheck: true,
+      }),
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        if (json.result == 'success') {
+          setIs18Plus(true);
+        } else {
+          setIs18Plus(false);
+        }
+        setIsLoading(false);
+        enqueueSnackbar('Check successfully!', { variant: 'success' });
+        setSubmitValue('');
+        setIsLoading18(false);
+        console.log(json);
+      })
+      .catch((err) => {
+        console.log(err);
+        setIs18Plus(false);
+        enqueueSnackbar('Check failure!', { variant: 'error' });
+        setIsLoading18(false);
+      });
+  }
+
   return (
     <div>
       <Image
         visibleByDefault
         disabledEffect
-        src={'https://votuenam.github.io/image-hosting/BackGroud3Block' + virusTotal + '.png'}
+        src={(function () {
+          if (url === 'Please enter the domain you suspect') {
+            return 'https://votuenam.github.io/image-hosting/BackGroud3block18.png';
+          } else {
+            return 'https://votuenam.github.io/image-hosting/BackGroud3Block' + virusTotal + '.png';
+          }
+        })()}
         // src="https://minimal-assets-api.vercel.app/assets/illustrations/illustration_invite.png"
         sx={{
           left: 45,
@@ -129,10 +180,16 @@ export default function BankingInviteFriends({ url = 'example.com', title = 'Non
           <Stack direction="row" spacing={1} alignItems="center" justifyContent="space-between">
             <OutlinedInput
               size="small"
-              placeholder="..."
+              placeholder="https://3block.systems/"
               value={submitValue}
               onChange={(e) => {
                 setSubmitValue(e.target.value.toLowerCase().trim());
+              }}
+              onKeyPress={(e) => {
+                console.log(e.key);
+                if (e.key === 'Enter') {
+                  onSubmit();
+                }
               }}
               sx={{
                 width: 1,
@@ -157,7 +214,7 @@ export default function BankingInviteFriends({ url = 'example.com', title = 'Non
               sx={{ fontWeight: 'fontWeightBold' }}
               onClick={onSubmit}
             >
-              Update
+              {Update}
             </LoadingButton>
           </Stack>
         )}

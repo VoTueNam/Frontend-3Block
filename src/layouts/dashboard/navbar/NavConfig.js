@@ -30,6 +30,7 @@ const navConfig = [
     items: [
       { title: 'Analytics URL', path: PATH_DASHBOARD.general.analytics, icon: ICONS.analytics },
       { title: 'URL detail', path: PATH_DASHBOARD.general.app, icon: ICONS.dashboard },
+      { title: 'Check URL 18+', path: PATH_DASHBOARD.calendar, icon: ICONS.calendar },
     ],
   },
   {
@@ -41,7 +42,14 @@ const navConfig = [
   },
   {
     subheader: 'Communication',
-    items: [{ title: 'Forum suggest URLs', path: PATH_DASHBOARD.general.booking, icon: ICONS.booking }],
+    items: [
+      { title: 'Forum suggest URLs', path: PATH_DASHBOARD.general.booking, icon: ICONS.booking },
+      {
+        title: 'messages',
+        path: PATH_DASHBOARD.mail.root,
+        icon: ICONS.mail,
+      },
+    ],
   },
 
   // MANAGEMENT
@@ -96,28 +104,28 @@ const navConfig = [
 
   //   // APP
   //   // ----------------------------------------------------------------------
-  {
-    subheader: 'Contract',
-    items: [
-      {
-        title: 'messages',
-        path: PATH_DASHBOARD.mail.root,
-        icon: ICONS.mail,
-        // info: (
-        //   <Label variant="outlined" color="error">
-        //     +32
-        //   </Label>
-        // ),
-      },
-      // { title: 'chat', path: PATH_DASHBOARD.chat.root, icon: ICONS.chat },
-      // { title: 'calendar', path: PATH_DASHBOARD.calendar, icon: ICONS.calendar },
-      // {
-      //   title: 'kanban',
-      //   path: PATH_DASHBOARD.kanban,
-      //   icon: ICONS.kanban,
-      // },
-    ],
-  },
+  // {
+  //   subheader: 'Contract',
+  //   items: [
+  //     {
+  //       title: 'messages',
+  //       path: PATH_DASHBOARD.mail.root,
+  //       icon: ICONS.mail,
+  //       // info: (
+  //       //   <Label variant="outlined" color="error">
+  //       //     +32
+  //       //   </Label>
+  //       // ),
+  //     },
+  //     // { title: 'chat', path: PATH_DASHBOARD.chat.root, icon: ICONS.chat },
+  //     // { title: 'calendar', path: PATH_DASHBOARD.calendar, icon: ICONS.calendar },
+  //     // {
+  //     //   title: 'kanban',
+  //     //   path: PATH_DASHBOARD.kanban,
+  //     //   icon: ICONS.kanban,
+  //     // },
+  //   ],
+  // },
 ];
 
 export default navConfig;
