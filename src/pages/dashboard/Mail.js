@@ -44,6 +44,7 @@ export default function Mail() {
         window.location.reload();
       }, 2000);
     }
+    // eslint-disable-next-line
   }, []);
   return (
     <Page title="Message">
@@ -81,7 +82,7 @@ export default function Mail() {
         return response.json();
       })
       .then((json) => {
-        console.log('Call API');
+        // console.log('Call API');
         const userLocal = JSON.parse(localStorage.getItem('user'));
         const listDisplay = JSON.parse(localStorage.getItem('displayName'));
         if (userLocal != null && userLocal?.email) {
@@ -94,7 +95,7 @@ export default function Mail() {
         const checkDisplayName = userLocal?.displayName;
         const checkEmail = userLocal?.email;
         const listMail3Block = json.filter((dataMail) => {
-          return dataMail.username == checkDisplayName || dataMail.username == checkEmail;
+          return dataMail.username === checkDisplayName || dataMail.username === checkEmail;
           // return true
         });
         localStorage.setItem('messageList', JSON.stringify(listMail3Block));

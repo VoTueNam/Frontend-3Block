@@ -1,23 +1,13 @@
-import PropTypes from 'prop-types';
-import { useParams, Link as RouterLink } from 'react-router-dom';
+import { Box, Link, Typography } from '@mui/material';
 // @mui
 import { styled } from '@mui/material/styles';
-import { Box, Link, Tooltip, Typography, Checkbox } from '@mui/material';
-// redux
-import { useSelector } from '../../../redux/store';
-// hooks
-import useResponsive from '../../../hooks/useResponsive';
-// utils
-import { fDate } from '../../../utils/formatTime';
-import createAvatar from '../../../utils/createAvatar';
-// routes
-import { PATH_DASHBOARD } from '../../../routes/paths';
+import PropTypes from 'prop-types';
+import Avatar from '../../../components/Avatar';
 // components
 import Label from '../../../components/Label';
-import Avatar from '../../../components/Avatar';
-import Iconify from '../../../components/Iconify';
-//
-import MailItemAction from './MailItemAction';
+import createAvatar from '../../../utils/createAvatar';
+// utils
+import { fDate } from '../../../utils/formatTime';
 
 // ----------------------------------------------------------------------
 
@@ -45,19 +35,19 @@ const WrapStyle = styled(Link)(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-const linkTo = (params, mailId) => {
-  const { systemLabel, customLabel } = params;
+// const linkTo = (params, mailId) => {
+//   const { systemLabel, customLabel } = params;
 
-  const baseUrl = PATH_DASHBOARD.mail.root;
+//   const baseUrl = PATH_DASHBOARD.mail.root;
 
-  if (systemLabel) {
-    return `${baseUrl}/${systemLabel}/${mailId}`;
-  }
-  if (customLabel) {
-    return `${baseUrl}/label/${customLabel}/${mailId}`;
-  }
-  return baseUrl;
-};
+//   if (systemLabel) {
+//     return `${baseUrl}/${systemLabel}/${mailId}`;
+//   }
+//   if (customLabel) {
+//     return `${baseUrl}/label/${customLabel}/${mailId}`;
+//   }
+//   return baseUrl;
+// };
 
 MailItem.propTypes = {
   // mail: PropTypes.object.isRequired,
@@ -97,7 +87,7 @@ export default function MailItem({
     .replaceAll('<h6>', ' ')
     .replaceAll('</h6>', ' ')
     .replaceAll('<br>', ' ');
-  const params = useParams();
+  // const params = useParams();
 
   // const { labels } = useSelector((state) => state.mail);
 
@@ -108,7 +98,7 @@ export default function MailItem({
   // const handleChangeCheckbox = (checked) => (checked ? onSelect() : onDeselect());
 
   // console.log(JSON.parse(localStorage.getItem('user')).photoURL);
-  if (isCheck == 'true') {
+  if (isCheck === 'true') {
     isCheck = true;
   } else {
     isCheck = false;

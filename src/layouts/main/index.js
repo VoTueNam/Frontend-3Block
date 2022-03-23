@@ -36,7 +36,7 @@ export default function MainLayout() {
 
             <Typography variant="caption" component="p">
               <br />© All rights reserved made by 3Block team
-              <Link href="https://3block.systems"> 3block.systems</Link>
+              <Link href="/"> 3block.systems</Link>
             </Typography>
           </Container>
         </Box>

@@ -39,19 +39,19 @@ export default function AuthContextProvider({ children }) {
     };
   }, []);
 
-  useEffect(() => {
-    // console.log('Cần kiếm tra lại chỗ hiển thị tên user ở chỗ này');
-    // const listDisplay = JSON.parse(localStorage.getItem('displayName'));
-    // console.log(listDisplay);
-    // if (currentUser != null && currentUser?.email) {
-    //   for (let i of listDisplay) {
-    //     if (i[currentUser?.email]) {
-    //       currentUser.displayName = i[currentUser?.email];
-    //     }
-    //   }
-    // }
-    console.log('The user is', currentUser);
-  }, [currentUser]);
+  // useEffect(() => {
+  //   // console.log('Cần kiếm tra lại chỗ hiển thị tên user ở chỗ này');
+  //   // const listDisplay = JSON.parse(localStorage.getItem('displayName'));
+  //   // console.log(listDisplay);
+  //   // if (currentUser != null && currentUser?.email) {
+  //   //   for (let i of listDisplay) {
+  //   //     if (i[currentUser?.email]) {
+  //   //       currentUser.displayName = i[currentUser?.email];
+  //   //     }
+  //   //   }
+  //   // }
+  //   // console.log('The user is', currentUser);
+  // }, [currentUser]);
 
   function login(email, password) {
     return signInWithEmailAndPassword(auth, email, password);

@@ -1,23 +1,12 @@
 // @mui
 import { Container, Grid } from '@mui/material';
 import { useState } from 'react';
-// assets
-import { BookingIllustration } from '../../assets';
-import LoadingScreen from '../../components/LoadingScreen';
 // components
 import Page from '../../components/Page';
 // hooks
 import useSettings from '../../hooks/useSettings';
 import AnalyticsWidgetSummary from '../../sections/@dashboard/general/analytics/AnalyticsWidgetSummary';
-import { AppWidget } from '../../sections/@dashboard/general/app';
 import { BankingInviteFriends } from '../../sections/@dashboard/general/banking';
-// sections
-import {
-  BookingCheckInWidgets,
-  BookingDetails,
-  BookingNewestBooking,
-  BookingWidgetSummary,
-} from '../../sections/@dashboard/general/booking';
 
 // ----------------------------------------------------------------------
 
@@ -26,7 +15,7 @@ export default function GeneralBooking() {
 
   const [is18Plus, setIs18Plus] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  console.log(is18Plus);
+  // console.log(is18Plus);
 
   return (
     <Page title="Check 18+ URL ">

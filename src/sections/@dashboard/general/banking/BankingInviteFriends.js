@@ -60,7 +60,6 @@ export default function BankingInviteFriends({
       callAPICheck18(submitValue);
       return;
     }
-    console.log('mis');
     // console.log('submit ' + submitValue);
     // console.log(currentUser.displayName);
     fetch('https://api3blockserver.herokuapp.com/user/gray/system/3block/createNew', {
@@ -126,7 +125,7 @@ export default function BankingInviteFriends({
     })
       .then((response) => response.json())
       .then((json) => {
-        if (json.result == 'success') {
+        if (json.result === 'success') {
           setIs18Plus(true);
         } else {
           setIs18Plus(false);
@@ -135,7 +134,7 @@ export default function BankingInviteFriends({
         enqueueSnackbar('Check successfully!', { variant: 'success' });
         setSubmitValue('');
         setIsLoading18(false);
-        console.log(json);
+        // console.log(json);
       })
       .catch((err) => {
         console.log(err);
@@ -187,7 +186,7 @@ export default function BankingInviteFriends({
                 setSubmitValue(e.target.value.toLowerCase().trim());
               }}
               onKeyPress={(e) => {
-                console.log(e.key);
+                // console.log(e.key);
                 if (e.key === 'Enter') {
                   onSubmit();
                 }

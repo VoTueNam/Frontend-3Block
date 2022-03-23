@@ -162,7 +162,7 @@ export default function HomeHugePackElements() {
                     alt={`screen ${index + 1}`}
                     src={`https://votuenam.github.io/image-hosting/INTERFACE_MAIN_FEATURE/Long${index + 1}${
                       isLight ? 'light' : 'dark'
-                    }.png`}
+                    }2.png`}
                     // src={`https://votuenam.github.io/image-hosting/INTERFACE_MAIN_FEATURE/malwareWebsite_${
                     //   isLight ? 'light' : 'dark'
                     // }_${index + 1}.png`}

@@ -79,18 +79,18 @@ export default function HomeDarkMode() {
           </Grid>
 
           <Grid item xs={12} md={7} sx={{ position: 'relative' }}>
-            <MotionInView threshold={0.5} variants={varFade().inUp}>
+            {/* <MotionInView threshold={0.5} variants={varFade().inUp}>
               <Image
                 disabledEffect
                 alt="light mode"
                 src="https://votuenam.github.io/image-hosting/background/darkMode3Block3.png"
               />
-            </MotionInView>
+            </MotionInView> */}
             <MotionInView threshold={0.5} variants={varFade().inDown} sx={{ top: 0, left: 0, position: 'absolute' }}>
               <Image
                 disabledEffect
                 alt="dark mode"
-                src="https://votuenam.github.io/image-hosting/background/lightMode3Block3.png"
+                src="https://votuenam.github.io/image-hosting/background/darkMode3Block4.png"
               />
             </MotionInView>
           </Grid>

@@ -37,7 +37,7 @@ export default function MailSidebar({ isOpenSidebar, onOpenCompose, onCloseSideb
   const isDesktop = useResponsive('up', 'md');
 
   const loading = !labels.length;
-  console.log(loading);
+  // console.log(loading);
 
   useEffect(() => {
     if (isOpenSidebar) {

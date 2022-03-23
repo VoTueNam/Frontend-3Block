@@ -60,7 +60,7 @@ export default function HomeLookingFor() {
               <Image
                 disabledEffect
                 alt="rocket"
-                src="https://votuenam.github.io/image-hosting/background/extensionBackgroud.png"
+                src="https://votuenam.github.io/image-hosting/background/extensionBackgroud5.png"
               />
             </MotionInView>
           </Grid>

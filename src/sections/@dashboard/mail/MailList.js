@@ -1,17 +1,16 @@
-import PropTypes from 'prop-types';
-import { useParams } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { Box, Divider } from '@mui/material';
 // @mui
 import { styled } from '@mui/material/styles';
-import { Divider, Box } from '@mui/material';
-// redux
-import { useDispatch, useSelector } from '../../../redux/store';
-import { getMails } from '../../../redux/slices/mail';
+import PropTypes from 'prop-types';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import EmptyContent from '../../../components/EmptyContent';
 //
 import Scrollbar from '../../../components/Scrollbar';
-import EmptyContent from '../../../components/EmptyContent';
+import { getMails } from '../../../redux/slices/mail';
+// redux
+import { useDispatch, useSelector } from '../../../redux/store';
 import MailItem from './MailItem';
-import MailToolbar from './MailToolbar';
 
 // ----------------------------------------------------------------------
 
@@ -37,6 +36,7 @@ export default function MailList({ onOpenSidebar, mail3Block }) {
 
   const [selectedMails, setSelectedMails] = useState([]);
 
+  // eslint-disable-next-line
   const [dense, setDense] = useState(false);
 
   const isEmpty = mails.allIds.length < 1;
@@ -45,17 +45,17 @@ export default function MailList({ onOpenSidebar, mail3Block }) {
     dispatch(getMails(params));
   }, [dispatch, params]);
 
-  const handleSelectAllMails = () => {
-    setSelectedMails(mails.allIds.map((mailId) => mailId));
-  };
+  // const handleSelectAllMails = () => {
+  //   setSelectedMails(mails.allIds.map((mailId) => mailId));
+  // };
 
-  const handleToggleDense = () => {
-    setDense((prev) => !prev);
-  };
+  // const handleToggleDense = () => {
+  //   setDense((prev) => !prev);
+  // };
 
-  const handleDeselectAllMails = () => {
-    setSelectedMails([]);
-  };
+  // const handleDeselectAllMails = () => {
+  //   setSelectedMails([]);
+  // };
 
   const handleSelectOneMail = (mailId) => {
     setSelectedMails((prevSelectedMails) => {
@@ -69,7 +69,7 @@ export default function MailList({ onOpenSidebar, mail3Block }) {
   const handleDeselectOneMail = (mailId) => {
     setSelectedMails((prevSelectedMails) => prevSelectedMails.filter((id) => id !== mailId));
   };
-  console.log(mails);
+  // console.log(mails);
 
   return (
     <RootStyle>

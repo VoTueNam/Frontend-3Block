@@ -1,11 +1,10 @@
-import { Box, Button, Container, InputAdornment, Stack, Typography } from '@mui/material';
+import { Box, Button, Container, Stack, Typography } from '@mui/material';
 // @mui
 import { styled } from '@mui/material/styles';
 import { m } from 'framer-motion';
 import { Link as RouterLink } from 'react-router-dom';
 import { MotionContainer, varFade } from '../../components/animate';
 import Iconify from '../../components/Iconify';
-import InputStyle from '../../components/InputStyle';
 // routes
 import { PATH_DASHBOARD } from '../../routes/paths';
 
@@ -76,7 +75,7 @@ export default function HomeHero() {
 
         <HeroImgStyle
           alt="hero"
-          src={'https://votuenam.github.io/image-hosting/background/testHero2.png'}
+          src={'https://votuenam.github.io/image-hosting/background/testHero5.png'}
           // src="https://minimal-assets-api.vercel.app/assets/images/home/hero.png"
           variants={varFade().inUp}
         />
@@ -198,6 +197,7 @@ export default function HomeHero() {
                   'azure_noBG2',
                   'chrome_noBG2',
                   'virusTotal_noBG2',
+                  'jwt_noBG3',
                 ].map((resource) => (
                   <m.img
                     key={resource}

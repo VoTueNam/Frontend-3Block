@@ -10,6 +10,13 @@ import { PATH_PAGE } from '../../routes/paths';
 // ----------------------------------------------------------------------
 
 const LINKS = [
+  // {
+  //   headline: 'Legal',
+  //   children: [
+  //     { name: 'Terms and Condition', href: '#' },
+  //     { name: 'Privacy Policy', href: '#' },
+  //   ],
+  // },
   {
     headline: 'Three Blocks',
     children: [
@@ -19,17 +26,10 @@ const LINKS = [
     ],
   },
   {
-    headline: 'Legal',
-    children: [
-      { name: 'Terms and Condition', href: '#' },
-      { name: 'Privacy Policy', href: '#' },
-    ],
-  },
-  {
     headline: 'Contact',
     children: [
       { name: '3Block.systems', href: '/' },
-      { name: 'FPT University Can Tho', href: '#' },
+      { name: 'FPT University Can Tho', href: 'https://cantho.fpt.edu.vn/' },
     ],
   },
 ];
@@ -59,6 +59,7 @@ export default function MainFooter() {
               The starting point for our chrome extension project with the 3-Block System, which integrates malicious
               site checking, friendly and easy to use
             </Typography>
+            <br />
 
             {/* <Stack
               direction="row"
@@ -69,7 +70,7 @@ export default function MainFooter() {
             </Stack> */}
           </Grid>
 
-          <Grid item xs={12} md={7}>
+          <Grid item xs={12} md={4}>
             <Stack spacing={5} direction={{ xs: 'column', md: 'row' }} justifyContent="space-between">
               {LINKS.map((list) => (
                 <Stack key={list.headline} spacing={2}>

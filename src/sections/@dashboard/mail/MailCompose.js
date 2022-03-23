@@ -1,15 +1,15 @@
-import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { Backdrop, Box, Button, Divider, IconButton, Portal, Typography } from '@mui/material';
 // @mui
 import { styled } from '@mui/material/styles';
-import { Box, Input, Portal, Button, Divider, Backdrop, IconButton, Typography } from '@mui/material';
-// hooks
-import useResponsive from '../../../hooks/useResponsive';
-// components
-import Iconify from '../../../components/Iconify';
-import Editor from '../../../components/editor';
 import { m } from 'framer-motion';
 import { useSnackbar } from 'notistack';
+import PropTypes from 'prop-types';
+import { useState } from 'react';
+import Editor from '../../../components/editor';
+// components
+import Iconify from '../../../components/Iconify';
+// hooks
+import useResponsive from '../../../hooks/useResponsive';
 
 // ----------------------------------------------------------------------
 
@@ -29,10 +29,10 @@ const RootStyle = styled('div')(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
 }));
 
-const InputStyle = styled(Input)(({ theme }) => ({
-  padding: theme.spacing(0.5, 3),
-  borderBottom: `solid 1px ${theme.palette.divider}`,
-}));
+// const InputStyle = styled(Input)(({ theme }) => ({
+//   padding: theme.spacing(0.5, 3),
+//   borderBottom: `solid 1px ${theme.palette.divider}`,
+// }));
 
 // ----------------------------------------------------------------------
 
@@ -100,7 +100,7 @@ export default function MailCompose({ isOpenCompose, onCloseCompose, getMail }) 
         }
       }
     }
-    console.log(nameUser);
+    // console.log(nameUser);
     nameUser = nameUser?.displayName || nameUser?.email;
     fetch('https://api3blockserver.herokuapp.com/api/3block/system/postMessage', {
       method: 'POST',
@@ -114,8 +114,8 @@ export default function MailCompose({ isOpenCompose, onCloseCompose, getMail }) 
         return response.json();
       })
       .then(async (json) => {
-        console.log(json);
-        console.log('thành công');
+        // console.log(json);
+        // console.log('thành công');
         await getMail();
         setIsLoading(false);
         enqueueSnackbar('Send Message Successfully!', { variant: 'success' });

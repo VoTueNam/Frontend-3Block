@@ -1,10 +1,7 @@
-import { m } from 'framer-motion';
+import { Box, Container, Stack } from '@mui/material';
 // @mui
 import { styled } from '@mui/material/styles';
-import { Box, Container, Stack, InputAdornment } from '@mui/material';
-// components
-import Iconify from '../../components/Iconify';
-import InputStyle from '../../components/InputStyle';
+import { m } from 'framer-motion';
 import { MotionContainer, TextAnimate, varFade } from '../../components/animate';
 
 // ----------------------------------------------------------------------
