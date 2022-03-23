@@ -43,7 +43,7 @@ export default function GeneralBooking() {
             <BankingInviteFriends
               virusTotal={true}
               url={'Enter your suggestion'}
-              title={' URL here:'}
+              title={'The URL you want to add to the blacklist is here:'}
               setGray={setGray}
             />
           </Grid>

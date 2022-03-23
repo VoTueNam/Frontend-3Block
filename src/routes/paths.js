@@ -82,4 +82,4 @@ export const PATH_DASHBOARD = {
   },
 };
 
-export const PATH_DOCS = 'https://www.facebook.com/nguyen.minhtriet.1';
+export const PATH_DOCS = 'https://nguyenminhtriet.edu.vn/';

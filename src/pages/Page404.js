@@ -1,13 +1,12 @@
-import { m } from 'framer-motion';
-import { Link as RouterLink } from 'react-router-dom';
+import { Box, Button, Container, Typography } from '@mui/material';
 // @mui
 import { styled } from '@mui/material/styles';
-import { Box, Button, Typography, Container } from '@mui/material';
+import { m } from 'framer-motion';
+import { Link as RouterLink } from 'react-router-dom';
+import { MotionContainer, varBounce } from '../components/animate';
+import Image from '../components/Image';
 // components
 import Page from '../components/Page';
-import { MotionContainer, varBounce } from '../components/animate';
-// assets
-import { PageNotFoundIllustration } from '../assets';
 
 // ----------------------------------------------------------------------
 
@@ -23,7 +22,7 @@ const RootStyle = styled('div')(({ theme }) => ({
 
 export default function Page404() {
   return (
-    <Page title="404 Page Not Found" sx={{ height: 1 }}>
+    <Page title="404 " sx={{ height: 1 }}>
       <RootStyle>
         <Container component={MotionContainer}>
           <Box sx={{ maxWidth: 480, margin: 'auto', textAlign: 'center' }}>
@@ -36,11 +35,17 @@ export default function Page404() {
               Sorry, we couldn’t find the page you’re looking for. Perhaps you’ve mistyped the URL? Be sure to check
               your spelling.
             </Typography>
-
+            <br />
             <m.div variants={varBounce().in}>
-              <PageNotFoundIllustration sx={{ height: 260, my: { xs: 5, sm: 10 } }} />
+              <Image
+                visibleByDefault
+                disabledEffect
+                alt="image shape"
+                src="https://votuenam.github.io/image-hosting/404.png"
+              />
+              {/* <PageNotFoundIllustration sx={{ height: 260, my: { xs: 5, sm: 10 } }} /> */}
             </m.div>
-
+            <br />
             <Button to="/" size="large" variant="contained" component={RouterLink}>
               Go to Home
             </Button>
