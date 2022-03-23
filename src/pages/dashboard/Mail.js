@@ -13,6 +13,7 @@ import useSettings from '../../hooks/useSettings';
 import Page from '../../components/Page';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 import { MailList, MailDetails, MailSidebar, MailCompose } from '../../sections/@dashboard/mail';
+import LoadingScreen from '../../components/LoadingScreen';
 
 // ----------------------------------------------------------------------
 
@@ -20,11 +21,7 @@ export default function Mail() {
   const [mail3Block, setMail3Block] = useState(JSON.parse(localStorage.getItem('messageList')));
 
   // console.log(mail3Block);
-  // if (mail3Block == null) {
-  //   setTimeout(() => {
-  //     window.location.reload();
-  //   }, 3000);
-  // }
+
   // console.log(listMail3Block);
   // setMail3Block(listMail3Block);
   const { themeStretch } = useSettings();
@@ -39,13 +36,16 @@ export default function Mail() {
 
   useEffect(() => {
     getMail();
-    if (mail3Block == null) {
-      setTimeout(() => {
-        window.location.reload();
-      }, 2000);
-    }
+    // if (mail3Block == null) {
+    //   setTimeout(() => {
+    //     window.location.reload();
+    //   }, 2000);
+    // }
     // eslint-disable-next-line
   }, []);
+  if (mail3Block == null) {
+    return <LoadingScreen />;
+  }
   return (
     <Page title="Message">
       <Container maxWidth={themeStretch ? false : 'xl'}>
