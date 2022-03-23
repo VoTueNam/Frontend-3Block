@@ -82,6 +82,7 @@ export default function Searchbar() {
               } else {
                 setIsLoading(false);
                 navigate('/dashboard/analytics');
+                window.location.reload();
               }
             }
           } catch {
