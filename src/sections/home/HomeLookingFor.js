@@ -42,7 +42,7 @@ export default function HomeLookingFor() {
                 variant="outlined"
                 target="_blank"
                 rel="noopener"
-                href="#"
+                href="https://chrome.google.com/webstore/detail/mmnfjnimmiohgienckdgpicbbafoeemd"
                 endIcon={<Iconify icon={'ic:round-arrow-right-alt'} />}
               >
                 Download Now

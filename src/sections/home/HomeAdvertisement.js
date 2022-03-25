@@ -66,7 +66,7 @@ export default function HomeAdvertisement() {
               variant="contained"
               // target="_blank"
               rel="noopener"
-              href="/auth/login"
+              href="/dashboard/is18"
               sx={{
                 whiteSpace: 'nowrap',
                 boxShadow: (theme) => theme.customShadows.z8,
